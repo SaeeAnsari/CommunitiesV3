@@ -1,0 +1,155 @@
+
+/*================================
+			Header
+================================*/
+
+
+
+
+header .container {
+    background: #07e5d8 none repeat scroll 0 0;
+    
+    
+}
+
+
+
+
+.headerText{
+    color: #fff;
+    display: block;
+    font-size: 25px;
+    padding: 20px;
+    text-align: left;
+    text-transform: capitalize;
+    position: relative;
+    font-family: 'Rajdhani', sans-serif;
+    -webkit-transition: .5s;
+    transition: .5s;   
+   
+}
+
+
+
+
+.nameIcon{
+    padding-left: 10px;
+}
+
+
+/*================================
+      My Communities
+================================*/
+.login_form {
+  padding-bottom: 100px;
+}
+
+
+.input_feild, .search_feild {
+    position: relative;
+}
+
+#communiti_list .login_form {
+  padding-bottom: 0;
+}
+
+
+.input_feild .form-control,
+.search_feild .form-control
+ {
+    border-radius: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    min-height: 60px;
+    padding-left: 60px;
+}
+
+.container{
+	max-width: 768px;
+	margin: auto;
+}
+
+.search_feild {
+  margin: 20px 0;
+}
+.search_feild button {
+  background: transparent none repeat scroll 0 0;
+  border: medium none;
+  color: #999999;
+  font-size: 30px;
+  right: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.search_feild .form-control{
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+#communiti_list .login_form {
+  padding-bottom: 0;
+}
+
+.single_item img {
+    border-radius: 50%;
+    float: left;
+    height: 50px;
+    margin-right: 11px;
+    width: 50px;
+}
+.memmber_group {
+  background: #fff none repeat scroll 0 0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 15px;
+  margin: 20px 0;
+}
+.content h3 {
+    font-size: 26px;
+    padding-top: 35px;
+}
+.content p {
+    color: #7e7e7e;
+    font-size: 26px;
+}
+.content h3 {
+    padding-top: 0;
+}
+.content {
+    padding: 5px 0;
+}
+
+.single_item {
+    position: relative;
+    top: 50%;
+}
+.single_item > a {
+    background: #dcdcdc none repeat scroll 0 0;
+    border-radius: 5px;
+    color: #000;
+    display: inline-block;
+    font-size: 30px;
+    padding: 7px 40px;
+    position: absolute;
+    right: 15px;
+    top: 43px;
+    transition: all 0.5s ease 0s;
+}
+.single_item > a:hover {
+    background: #FF931E;
+}
+
+.my-communities-AddIconRight{
+    float:right;
+    padding-right: 10px;
+    top: 43px;
+    
+    cursor: pointer; cursor: hand;
+
+}
+
+
+

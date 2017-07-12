@@ -1,0 +1,46 @@
+/*================================
+      User Search Item
+      
+================================*/
+.memmber_group {
+  background: #fff none repeat scroll 0 0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 5px;
+  margin: 10px 0;
+}
+
+.single_item {
+    position: relative;
+    top: 50%;
+}
+.single_item > div > button {
+    background: #dcdcdc none repeat scroll 0 0;
+    border-radius: 5px;
+    color: #000;
+    display: inline-block;
+    font-size: 12px;
+    padding: 7px 20px;
+    position: absolute;
+    right: 5px;
+    top: 13px;
+    transition: all 0.5s ease 0s;
+}
+.single_item >div> button:hover {
+    background: #FF931E;
+}
+
+
+.single_item img {
+    border-radius: 50%;
+    float: left;
+    height: 50px;
+    margin-right: 11px;
+    width: 50px;
+}
+
+.divUserName{
+    width: 70%;
+}

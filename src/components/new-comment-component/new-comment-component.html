@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-navbar>
+    <ul id="header">
+      <li>
+        <button ion-button (click)="closeModal()" icon-left>
+          <ion-icon name="return-left"></ion-icon>Back
+        </button>
+      </li>
+      <li>
+        <ion-title>New Comments</ion-title>
+      </li>
+    </ul>
+
+
+  </ion-navbar>
+</ion-header>
+
+
+
+
+<ion-content padding>
+
+  <div>
+    <section id="feed_post">
+      <div class="containerNewComment">
+        <div class="feed_post_area">
+          <div *ngIf="user" class="feed_post_header">
+            <app-user-tag ID="{{user.id}}" ImageURL="{{user.imageURL}}" Name="{{user.displayName}}"></app-user-tag>
+          </div>
+
+          <div class="post-or-event">
+
+            <ion-item no-lines>
+              <ion-label>New Event?</ion-label>
+              <ion-toggle [(ngModel)]="createNewEvent" checked="false"></ion-toggle>
+
+            </ion-item>
+          </div>
+
+          <div *ngIf="!createNewEvent">
+            <div class="form-group">
+
+              <ion-item>
+                <ion-label><i class="fa fa-users"></i> Communities</ion-label>
+                <ion-select [(ngModel)]="optionsModel" multiple="true">
+                  <ion-option *ngFor="let item of userCommunities" value="{{item.id}}" [selected]="item.id == activeCommunity">{{item.name}}</ion-option>
+                </ion-select>
+              </ion-item>
+
+            </div>
+
+            <div class="form-group">
+              <div *ngIf="graphFound == false">
+
+                <div *ngIf="uploaded">
+                  <uploaded-media-post PostMediaURL="{{uploadedMediaURL}}"></uploaded-media-post>
+                  <br>
+                </div>
+                <div *ngIf="!uploaded">
+
+                  <input type="file" name="photo"  />Uplaod <br>
+
+                  <button (click)="launchCamera()">launch camera</button>
+
+
+                  <div class="fileUpload btn btn-outline-info" *ngIf="!imageSelected">
+                    <span><i class="fa fa-video-camera fa-3x" aria-hidden="true"></i><i  class="fa fa-camera fa-3x user-right" aria-hidden="true"></i></span>
+                    <input type="file" class="upload" (change)="uploadMedia($event)" />
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="post-body">
+                <textarea [ngClass]="{textAreaSmall: graphFound == true}" rows="3" placeholder="Whats on your mind?" [(ngModel)]="postText"
+                  [formControl]="PostTextControl">
+            </textarea>
+
+                <div *ngIf="graphFound == true">
+                  <div class="newMedia">
+                    <img class="d-flex mr-3" src="{{graphImage}}" alt="Generic placeholder image">
+                  </div>
+                </div>
+              </div>
+
+              <div class="fileUpload  pull-right">
+                <button type="submit" class="btn btn-success Go-Button-New-Comp" [disabled]="isUploadingImage" (click)="post()">Go <i class="fa fa-check " aria-hidden="true"></i></button></div>
+            </div>
+            <div *ngIf="uploaded">Uploaded! ready to save</div>
+          </div>
+          <div *ngIf="createNewEvent">
+            <new-event></new-event>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <div *ngIf="isUploadingImage">
+    <div id="loadingOverlay" class="loader-overlay">
+      <div class="loader-content loader-center">
+        Uploading Please wait!..
+
+
+      </div>
+    </div>
+
+  </div>
+
+
+</ion-content>

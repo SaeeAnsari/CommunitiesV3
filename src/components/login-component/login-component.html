@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar >
+    <ul id="header">
+      <li>
+        <button ion-button (click)="closeModal()" icon-left>
+          <ion-icon name="return-left"></ion-icon>Back
+        </button>
+      </li>
+      <li>
+        <ion-title>Login</ion-title>
+      </li>
+    </ul>
+
+
+  </ion-navbar>
+
+ 
+</ion-header>
+<ion-content padding>
+
+  <div class="containerLogin text-center">
+    <a href="#"><img src="assets/images/login/logo.png" alt="logo"></a>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Email</ion-label>
+      <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Password</ion-label>
+      <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+
+    <div class="registerLink">
+      <a href="#" (click)="registerClicked()">Register with us</a>
+      <a href="#">Forgot Password?</a>
+    </div>
+
+
+
+    <button ion-button block class="btn-login" (click)="loginUser()">Login</button>
+
+  </div>
+
+</ion-content>

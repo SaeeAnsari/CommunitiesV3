@@ -1,0 +1,20 @@
+
+  <div class="memmber_group">
+    <div class="single_item">
+      <div><img src="{{Image}}"></div>
+      <div class="content">
+        <div class="divUserName">
+          {{Name}}
+        </div>
+      </div>
+
+
+      <div *ngIf="AlreadyMember == 'false'">
+        <button  type="button" (click)="addUserToCommunity()">Add</button>
+      </div>
+
+      <div *ngIf="AlreadyMember == 'true'">
+        <button  type="button" (click)="removeUserFromCommunity()">Remove</button>
+      </div>
+    </div>
+  </div>

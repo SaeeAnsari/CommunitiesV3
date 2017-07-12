@@ -1,0 +1,60 @@
+<ion-header>
+
+  <ion-navbar >
+    <ul id="header">
+      <li>
+        <button ion-button (click)="closeModal()" icon-left>
+          <ion-icon name="return-left"></ion-icon>Back
+        </button>
+      </li>
+      <li>
+        <ion-title>New Registeration</ion-title>
+      </li>
+    </ul>
+
+
+  </ion-navbar>
+  
+</ion-header>
+<ion-content padding>
+
+  <form [formGroup]="registerationForm" novalidate (ngSubmit)="saveUser(registerationForm.value, registerationForm.valid)">
+    <div class="containerRegister text-center">
+      <a href="#"><img src="../../assets/images/login/logo.png" alt="logo"></a>
+
+
+      <ion-item>
+        <ion-input placeholder="First name" formControlName="firstName" [ngClass]="{'has-error':!registerationForm.controls['firstName'].valid}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Last name" formControlName="lastName" [ngClass]="{'has-error':!registerationForm.controls['lastName'].valid}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="email" placeholder="Email" formControlName="email" [ngClass]="{'has-error':!registerationForm.controls['email'].valid}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Password" formControlName="password" [ngClass]="{'has-error':!registerationForm.controls['password'].valid}"></ion-input>
+
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Confirm password" formControlName="confirmPassword" [ngClass]="{'has-error':!registerationForm.controls['confirmPassword'].valid}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        
+        <div class="fileUpload btn btn-primary">
+          <span><i class="fa fa-camera" aria-hidden="true"></i></span>
+          <input type="file" class="upload" (change)="fileChange($event)" />
+        </div>
+        <span>{{uploadMessage}}</span><div *ngIf="isUploadingImage"><ion-spinner name="bubbles"></ion-spinner></div>
+        <div *ngIf="uploaded">Uploaded! ready to save</div> 
+      </ion-item>
+
+
+
+      <button ion-button block class="btn-login" [disabled]="!registerationForm.valid">Go!</button>
+
+    </div>
+  </form>
+
+</ion-content>

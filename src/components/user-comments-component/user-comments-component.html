@@ -1,0 +1,96 @@
+<ion-header>
+
+  <ion-navbar >
+    <ul id="header">
+      <li>
+        <button ion-button (click)="closeModal()" icon-left>
+          <ion-icon name="return-left"></ion-icon>Back
+        </button>
+      </li>
+      <li>
+        <ion-title>Comments</ion-title>
+      </li>
+    </ul>
+
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div class="comments">
+
+    <div class="col-lg-6">
+      <div class="input-group post-comment">
+        <ion-input type="text" value="" placeholder="Get in the Conversation..." [(ngModel)]="commentPost"></ion-input>
+        <span class="input-group-btn">
+        <button class="btn btn-primary" type="button" (click)="postComment()">Post</button>
+      </span>
+      </div>
+    </div>
+
+
+    <!-- Adding the section for image here -->
+
+    <div class="feed_post_content commentPostContainer">
+      <p>{{postMessage}}</p>
+      <div>
+        <img src="{{postMediaURL}}" (click)="launch()">
+      </div>
+    </div>
+
+    <!-- Adding END -->
+
+
+
+    <ul class="media-list">
+      <div *ngFor="let comment of comments">
+
+        <ion-card>
+
+          <ion-card-content>
+            <div class="cardContainer">
+              <img class="image-object" src="{{comment.user.imageURL}}" alt="...">
+              <div class="message-text text-botom">
+                <strong>{{comment.user.displayName}}</strong> {{comment.comment}}
+                <div class="">
+                  <ul class="comments_reply ">
+                    <li><button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)"> {{comment.actions.supportCount}} Like</button>
+
+
+                      <li>
+                        <div class="text-botom"><a href="#">{{comment.timestamp | date:'medium'}}</a></div>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+
+        <!--
+       
+        <div class="media-left">
+          <a href="#"><img class="media-object" src="{{comment.user.imageURL}}" alt="..."></a>
+        </div>
+        <div class="media-body">
+          <div class="text-font">
+            <strong>{{comment.user.displayName}}</strong> {{comment.comment}}
+          </div>
+          <ul class="comments_reply">
+            <li><button type="button" class="btn btn-link" (click)="setLike(comment.storyID, comment.id)"> {{comment.actions.supportCount}} Like</button>
+
+
+              <li><a href="#">{{comment.timestamp | date:'medium'}}</a></li>
+          </ul>
+         
+        </div>
+
+        -->
+
+      </div>
+    </ul>
+
+  </div>
+</ion-content>

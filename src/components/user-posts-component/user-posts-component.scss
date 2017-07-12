@@ -1,0 +1,35 @@
+/*================================
+      User Post Component
+================================*/
+
+
+.feed_post_content p {
+  color: #3b3b3b;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 28px;
+  padding: 0px 0;
+}
+.feed_post_content > img {
+    border: 5px solid #dcdcdc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.feed_post_content img {
+  height: auto;
+  width: 100%;
+}
+
+
+
+#feed_post {
+  margin-bottom: 100px;
+}
+
+
+@media only screen and (max-width: 767px) { 
+	.feed_post_content p {
+		text-align: left;
+	}
+}

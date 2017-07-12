@@ -1,0 +1,119 @@
+/*================================
+      User Comment Component
+================================*/
+#header li
+{
+  display: inline-block;
+  list-style-type: none;
+  padding-right: 20px;  
+}
+
+ion-title{
+  
+  
+}
+
+
+.message-text{
+    color: #333333;
+    font-size: 20px;
+    font-weight: 300;
+    float: left;
+    border-left: 20px;
+}
+
+.text-botom{
+    bottom: 0px;
+}
+
+.image-object {
+    border: 1px solid #07e5d8;
+    border-radius: 50%;
+    height: 30px;
+    margin: 1px;
+    width: 30px;
+    
+}
+
+
+
+.cardContainer{
+    display:inline-flex;
+}
+
+.cardContainer > p {
+    font-size: 5pt;
+}
+
+ion-input{
+    border-bottom: 1px solid #333333;
+}
+
+
+.newMedia > img{
+    border: 5px solid #dcdcdc;
+    border-radius: 5px;
+    height: auto;
+    width: 95%;
+    margin-left: 10px;
+}
+
+.commentPostContainer{
+    width:85%;
+    margin:10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    
+}
+
+
+/*================================
+			Comments
+================================*/
+.comments {
+    padding:30px 0;
+}
+.comments .media-object {
+    border: 1px solid #07e5d8;
+    border-radius: 50%;
+    height: 30px;
+    margin: 1px;
+    width: 30px;
+}
+.media-body > .text-font {
+    color: #333333;
+    font-size: 15px;
+    font-weight: 300;
+    float: left;
+}
+
+
+.comments_reply{
+    color: #333333;    
+    font-size: 15px;
+    float: left;
+}
+
+.comments_reply > li {
+    display: inline-block;
+    padding-top: 0px;
+}
+
+.comments_reply > button {
+    display: inline-block;
+    padding-top: 0px;
+    font-size: 15pt;
+}
+.comments_reply li a {
+    
+    display: block;    
+    padding-right: 10px;
+}
+.comments_reply li:last-child a {
+    color: #b9b9b9;
+}
+.comments  .media {
+  margin-top: 5px;
+}
+
+

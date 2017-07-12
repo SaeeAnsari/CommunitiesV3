@@ -1,0 +1,69 @@
+<!--
+  Generated template for the Community page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Community</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="communityForm" novalidate (ngSubmit)="saveCommunity(communityForm.value, communityForm.valid)">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked><i class="fa fa-users"></i>&nbsp;Name your Community</ion-label>
+        <ion-input type="email" placeholder="Email Input" placeholder="Name of you Community?" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked><i class="fa fa-file-text-o"></i>&nbsp; Describe your Community</ion-label>
+        <ion-input type="email" placeholder="Email Input" placeholder="What's it about?" formControlName="description"></ion-input>
+      </ion-item>
+      <ion-item>
+
+        <div class="fileUploadCommunity btn btn-primary">
+          <span><i class="fa fa-camera fa-2x" aria-hidden="true"></i></span>
+          <input type="file" class="upload" (change)="fileChange($event)" />
+        </div>
+        <span>{{uploadMessage}}</span>
+        <div *ngIf="isUploadingImage">
+          <ion-spinner name="bubbles"></ion-spinner>
+        </div>
+        <div *ngIf="uploaded">Uploaded! ready to save</div>
+
+      </ion-item>
+      <ion-item>
+        <div class="community-location">
+          <div class="pull-left zip-postal-text">
+            <div class="input-group input-group-lg" *ngIf="location== null">
+              <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" placeholder="Zip or Postal" aria-describedby="sizing-addon1" formControlName="zip_postal">
+            </div>
+            <div *ngIf="location != null" class="community-location-text">
+              <span>Located </span> <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="pull-right community-locate-me">
+            <button type="button" class="btn btn-success" (click)="locateMe()"><i class="fa fa-compass fa-2x" aria-hidden="true"></i><span class="community-locate-text">Locate Me</span></button>
+          </div>
+        </div>
+      </ion-item>
+
+      <br>
+      <br>
+
+      <div >
+        <button ion-button  round type="submit" color="primary">
+          <span  >Continue ></span>
+        </button>
+      </div>
+
+    </ion-list>
+  </form>
+</ion-content>

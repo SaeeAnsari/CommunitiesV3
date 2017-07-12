@@ -1,0 +1,126 @@
+/*================================
+      Login
+================================*/
+
+#login_page .container{
+  background-color: #ccc;
+  background-image: url(../assets/images/login/bg.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top:100px;
+}
+#login_page img {
+    padding: 20px 0 100px;
+    width: 110px;
+    
+}
+.soical_login {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.soical_login a {
+  background: #4751a9 none repeat scroll 0 0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #fff;
+  display: inline-block;
+  font-weight: 700;
+  margin-bottom: 10px;
+  width: 45%;
+  padding: 5px 5px;
+  transition: all 0.5s ease 0s;
+}
+.soical_login a:hover{
+  background: #FF931E;
+}
+.soical_login a {
+		padding: 20px 20px;
+        padding-right: 3px;        
+}
+.soical_login i.fa {    
+  padding-right:3px;
+}
+
+.soical_login span {
+  color: #fff;
+  display: block;
+  position: relative;
+  padding: 10px 0;
+  font-size: 15px;
+}
+.soical_login span::before {
+    background: #333333 none repeat scroll 0 0;
+    content: "";
+    height: 1px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45%;
+}
+.soical_login span::after {
+    background: #333333 none repeat scroll 0 0;
+    content: "";
+    height: 1px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45%;
+}
+.soical_login a.google_plus{
+  background: #e94132;
+}
+.soical_login a.google_plus:hover{
+  background: #FF931E;
+}
+.login_form {
+  padding-bottom: 100px;
+}
+.input_feild, .search_feild {
+    position: relative;
+}
+.input_feild i.fa {
+    color: #999999;
+    font-size: 15px;
+    left: 16px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.input_feild .form-control,
+.form-control
+ {
+    border-radius: 10px;
+    font-size: 10px;
+    margin-bottom: 5px;
+    min-height: 20px;
+    padding-left: 60px;
+}
+.login_form .btn.btn-info {
+    background: #ff7162 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 10px;
+    font-size: 20px;
+    min-height: 50px;
+    width: 100%;
+    transition: .5s;
+}
+.login_form .btn.btn-info:hover{
+  background: #FF931E;
+}
+.login_form a {
+    color: #333333;
+    display: inline-block;
+    font-size: 20px;
+    padding: 10px;
+    text-decoration: underline;
+    transition: all 0.5s ease 0s;
+}
+.login_form a:hover{
+  color: #4751a9;
+}

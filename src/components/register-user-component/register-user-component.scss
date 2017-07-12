@@ -1,0 +1,126 @@
+/*================================
+      Register User Component
+================================*/
+
+.containerRegister{
+	max-width: 400px;
+	margin: auto;
+}
+
+.containerRegister  img {
+    padding: 10px 0 50px;
+    
+    width: 80px;    
+}
+
+.btn-login{
+
+    margin-top: 20px;
+}
+
+.btn-Register{
+    margin-top: 10px;
+
+}
+
+
+.registerLink a {
+    color: #333333;
+    display: inline-block;
+    font-size: 12px;
+    padding: 10px;
+    text-decoration: underline;
+    transition: all 0.5s ease 0s;
+}
+.registerLink a:hover{
+  color: #4751a9;
+}
+
+.feed_post{
+    top: 500px;
+}
+
+.feed_post_area {
+  
+  margin: 15px 0;
+  padding: 5px 5px;
+}
+
+.feed_post_header {
+  overflow: hidden;
+  position: relative;
+  padding: 2px;
+}
+
+.textArea{
+    height: 150px
+}   
+
+
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    
+}
+
+.form-group input[type="file"] {
+    margin-bottom: 20px;
+    min-height: auto;
+    box-shadow: 0 0 0;
+    border: none;
+}
+
+/* -=-=-=-= OverLay -=-===-=*/
+
+
+.loader-overlay {
+        -ms-opacity: 0.9;
+        background: #c0c0c0;
+        display: block;
+        height: 100%;
+        left: 0;
+        opacity: 0.9;
+        position: fixed;
+        top: 0;
+        vertical-align: middle;
+        width: 100%;
+        z-index: 100000;
+    }
+
+    .loader-content {
+        height: auto;
+        margin-left: auto;
+        margin-top: auto;
+        width: auto;
+    }
+
+    .loader-center {
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        left: 50%;
+        position: fixed;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    z-index:1;
+    }
+
+    .loader-text {
+        color: #FFF;
+        font-size: 18px;
+    z-index: 1;
+    }

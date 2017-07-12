@@ -1,0 +1,8 @@
+<div class="feed_post_content">
+  <div class="feed_post_message" [innerHTML]="PostMessage"></div>
+  <div *ngIf="hasImage===true">
+    <img src="{{PostMediaURL}}" (click)="openComments()">
+  </div>
+</div>
+ <app-user-post-action LikeCount="{{LikeCount}}" CommentCount="{{CommentCount}}"  UserID="UserID" StoryID="{{StoryID}}"></app-user-post-action>
+          

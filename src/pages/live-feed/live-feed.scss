@@ -1,0 +1,134 @@
+/*================================
+      Live-Feed
+================================*/
+*{padding:0; margin:0;}
+a, a:active, a:focus, a:hover{
+	outline:none;
+	text-decoration:none;
+}
+
+h1, h2, h3, h4, h5, p, ul{
+	padding:0;
+	margin:0;
+	list-style: none;
+}
+body{
+    font-family: 'Lato', sans-serif;
+	font-size: 14px;
+}
+
+.container{
+	max-width: 768px;
+	margin: auto;
+}
+
+/*================================
+			Header
+================================*/
+
+#left{
+    
+    float:left;
+}
+#right{
+    
+    float: right;
+    padding-right: 40px;
+    cursor: pointer; cursor: hand;
+}
+
+
+
+header .container {
+    background: #07e5d8 none repeat scroll 0 0;
+    
+    
+}
+
+
+
+
+.headerText{
+    color: #fff;
+    display: block;
+    font-size: 25px;
+    padding: 20px;
+    text-align: left;
+    text-transform: capitalize;
+    position: relative;
+    font-family: 'Rajdhani', sans-serif;
+    -webkit-transition: .5s;
+    transition: .5s;   
+   
+}
+
+
+
+.live-feed-AddIconRight{
+position: absolute;
+    right: 20px;
+    top:30%;
+
+    cursor: pointer; cursor: hand;
+
+}
+
+.live-feed-AddIconRight > button{
+
+    font-size: 12pt;
+}
+
+
+.nameIcon{
+    padding-left: 10px;
+}
+
+/*================================
+			Feed Post
+================================*/
+#feed_post .container{
+	background: #dcdcdc;
+}
+.feed_post_area {
+  background: #fff none repeat scroll 0 0;
+  margin: 15px 0;
+  padding: 5px 5px;
+}
+.feed_post_header {
+  overflow: hidden;
+  position: relative;
+  padding: 2px;
+}
+
+.feed_post_user {
+  padding-top: 20px;
+}
+.feed_post_user h2 {
+    color: #07e5d8;
+    font-size: 30px;
+}
+.feed_post_user h3 {
+    color: #9d9d9d;
+    font-size: 20px;
+}
+.feed_post_user h3 i.fa {
+    margin-left: 10px;
+}
+
+
+
+/* Medium Layout: 1280px. */
+@media only screen and (min-width: 992px) and (max-width: 1200px) { 
+ 
+}
+/* Tablet Layout: 768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) { 
+
+   
+    
+ }
+
+/* Wide Mobile Layout: 480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) { 
+
+ }

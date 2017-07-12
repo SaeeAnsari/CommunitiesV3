@@ -1,0 +1,8 @@
+<div *ngIf="user" class="new-post-marker">
+  <div class="new-post-main" (click)="redirecttoNewPost()">
+    <app-user-tag ID="{{user.ID}}" ImageURL="{{user.ImageURL}}" Name="{{user.DisplayName}}" PostDate=""></app-user-tag>
+    <textarea name="a" id="" placeholder="Post Something..."  disabled></textarea>
+    
+  </div>
+
+</div>

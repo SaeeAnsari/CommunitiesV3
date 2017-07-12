@@ -1,0 +1,26 @@
+/*================================
+      Marker New Post
+================================*/
+
+.new-post-marker{
+
+    padding: 5px;
+    background: white;
+
+    padding-bottom: 30px;
+
+}
+
+.new-post-main{
+    display: inline;
+}
+
+.new-post-main > textarea{
+    padding-top: 10px;
+    width: 60%;
+    height: 50px;
+     border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid #c3c3c3;
+}
