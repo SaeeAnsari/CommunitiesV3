@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { TabsPage } from '../tabs/tabs';
 
@@ -31,6 +32,7 @@ export class Login {
   loginDetails: AuthLoginResult;
 
   constructor(
+    private storage: Storage,
     public auth: Auth,
     private facebook: FacebookAuth,
     public navCtrl: NavController,
@@ -115,14 +117,26 @@ export class Login {
   }
 
   ionViewDidLoad() {
-    if (+sessionStorage.getItem('userID') > 0) {
+
+    if(this.storage.get('userID').then(id=>{
+      sessionStorage.setItem("userID", id);//Temporary removeit later
       this._userService.getLoggedinInUser().subscribe(s => {
         if (s.ID > 0 && s.DefaultCommunityID > 0) {
           let communityID = s.DefaultCommunityID;
           this.navCtrl.push(TabsPage, { communityID: communityID });
         }
       });
-    }
+    }))
+
+    /*
+    if (+this.storage.get('userID') > 0) {
+      this._userService.getLoggedinInUser().subscribe(s => {
+        if (s.ID > 0 && s.DefaultCommunityID > 0) {
+          let communityID = s.DefaultCommunityID;
+          this.navCtrl.push(TabsPage, { communityID: communityID });
+        }
+      });
+    }*/
 
     this.err.logError('Login Loaded').subscribe();
 

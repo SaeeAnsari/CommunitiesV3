@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar >
+  <ion-navbar>
     <ul id="header">
       <li>
         <button ion-button (click)="closeModal()" icon-left>
@@ -15,32 +15,34 @@
 
   </ion-navbar>
 
- 
+
 </ion-header>
 <ion-content padding>
+  <form [formGroup]="loginForm" novalidate (ngSubmit)="loginUser(loginForm.value, loginForm.valid)">
 
-  <div class="containerLogin text-center">
-    <a href="#"><img src="assets/images/login/logo.png" alt="logo"></a>
+    <div class="containerLogin text-center">
+      <a href="#"><img src="assets/images/login/logo.png" alt="logo"></a>
 
-    <ion-item>
-      <ion-label color="primary" stacked>Email</ion-label>
-      <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Email</ion-label>
+        <ion-input type="email" placeholder="Email" formControlName="email" [ngClass]="{'has-error':!loginForm.controls['email'].valid}"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label color="primary" stacked>Password</ion-label>
-      <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Password</ion-label>
+        <ion-input type="password" placeholder="Password" formControlName="password" [ngClass]="{'has-error':!loginForm.controls['password'].valid}"></ion-input>
+      </ion-item>
 
-    <div class="registerLink">
-      <a href="#" (click)="registerClicked()">Register with us</a>
-      <a href="#">Forgot Password?</a>
+      <div class="registerLink">
+        <a href="#" (click)="registerClicked()">Register with us</a>
+        <a href="#">Forgot Password?</a>
+      </div>
+
+
+
+      <button ion-button block class="btn-login" [disabled]="!loginForm.valid">Login</button>
+
     </div>
-
-
-
-    <button ion-button block class="btn-login" (click)="loginUser()">Login</button>
-
-  </div>
+  </form>
 
 </ion-content>

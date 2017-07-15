@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 
 import { Observable } from 'rxjs/Rx';
@@ -34,7 +35,8 @@ export class RegisterUserComponent {
     public navParams: NavParams,
     private _userService: UserService,
     private _mediaPost: MediaPostService,
-    public vc: ViewController) {
+    public vc: ViewController,
+    private storage: Storage) {
     this.registerationForm = this._fb.group({
       firstName: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
       lastName: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
@@ -73,10 +75,10 @@ export class RegisterUserComponent {
       model.authenticationPortalID = 1;//Custom
       this._userService.RegisterUser(model).subscribe(sub => {
         this.id = +sub;
-
+        this.storage.set("userID", this.id);
         sessionStorage.setItem('userID', this.id.toString());
         let data = {
-          id:this.id
+          id: this.id
         };
 
         this.vc.dismiss(data);

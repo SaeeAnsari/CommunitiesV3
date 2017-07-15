@@ -58,6 +58,7 @@ import {FileTransfer}  from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { CameraPluginProvider } from '../providers/camera-plugin/camera-plugin';
 import { HelperProvider } from '../providers/helper/helper';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 
@@ -105,7 +106,8 @@ const cloudSettings: CloudSettings = {
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    CloudModule.forRoot(cloudSettings)
+    CloudModule.forRoot(cloudSettings),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
