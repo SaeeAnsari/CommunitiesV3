@@ -54,6 +54,10 @@ import { NewEventComponent } from '../components/new-event/new-event';
 import { EventProvider } from '../providers/event/event';
 import { Camera } from '@ionic-native/camera';
 import {MediaCapture} from '@ionic-native/media-capture';
+import {FileTransfer}  from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { CameraPluginProvider } from '../providers/camera-plugin/camera-plugin';
+import { HelperProvider } from '../providers/helper/helper';
 
 
 
@@ -137,7 +141,11 @@ const cloudSettings: CloudSettings = {
     FacebookApiProvider,
     EventProvider,
     Camera,
-    MediaCapture
+    MediaCapture,
+    FileTransfer,
+    File,
+    CameraPluginProvider,
+    HelperProvider
   ]
 })
 export class AppModule { }

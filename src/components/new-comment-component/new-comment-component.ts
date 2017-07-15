@@ -11,9 +11,15 @@ import { MediaPostService } from '../../providers/media-post-service';
 import { CommunityService } from '../../providers/community-service';
 import { UserService } from "../../providers/user-service";
 
+import { CameraPluginProvider } from '../../providers/camera-plugin/camera-plugin';
+import { HelperProvider } from '../../providers/helper/helper';
+import { UploadImage } from '../../interfaces/upload-image';
+
 
 import { ViewController, NavParams, NavController } from 'ionic-angular';
 import { OpenGraphServiceProvider } from '../../providers/open-graph-service/open-graph-service';
+
+
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
@@ -21,11 +27,16 @@ import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/observable/fromEvent';
 
 
-import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
+
+//import firebase from 'firebase';
+
+/*
 import { Firebase } from '@ionic-native/firebase';
 import { firebase } from 'firebase';
-
+*/
 
 /**
  * Generated class for the NewCommentComponent component.
@@ -36,7 +47,7 @@ import { firebase } from 'firebase';
 @Component({
   selector: 'new-comment-component',
   templateUrl: 'new-comment-component.html',
-  providers: [UserService, StoryService, MediaPostService, CommunityService, OpenGraphServiceProvider]
+  providers: [UserService, StoryService, MediaPostService, CommunityService, OpenGraphServiceProvider, CameraPluginProvider]
 })
 export class NewCommentComponent implements OnInit {
 
@@ -74,6 +85,10 @@ export class NewCommentComponent implements OnInit {
 
   private firebaseToken = "";
 
+  private captureDataUrl: string = "";
+
+  private file_transfer: FileTransferObject = this.transfer.create();
+
 
   constructor(
     private _fb: FormBuilder,
@@ -85,10 +100,10 @@ export class NewCommentComponent implements OnInit {
     public vc: ViewController,
     public navParams: NavParams,
     private _openGraphApi: OpenGraphServiceProvider,
-    private mediaCapture: MediaCapture,
-    private _firebase: Firebase
+    private transfer: FileTransfer,
+    private file: File,
+    private cameraPluginServices: CameraPluginProvider
   ) {
-
   }
 
   ngOnInit() {
@@ -126,18 +141,6 @@ export class NewCommentComponent implements OnInit {
 
     this.listenToGraph();
 
-    this._firebase.getToken().then(token => {
-      this.firebaseToken = token;
-    })
-      .catch(error => {
-        console.error('Error getting token', error)
-      });
-
-    this._firebase.onTokenRefresh()
-      .subscribe((token: string) => {
-        this.firebaseToken = token;
-        console.log(`Got a new token ${token}`)
-      });
   }
 
   listenToGraph() {
@@ -165,26 +168,59 @@ export class NewCommentComponent implements OnInit {
       });
   }
 
-  launchCamera() {
+  public async launchCamera() {
 
-    console.log('inside launch Camera v2');
-    let options: CaptureImageOptions = { limit: 1 };
-    this.mediaCapture.captureImage(options)
-      .then(
-      (data: MediaFile[]) => {
-        console.log('here');
-        console.log(data);
+    try {
 
-        console.log(data.length);
+      let orignal = await this.cameraPluginServices.open_camera();
 
-        if (data.length > 0) {
-          data[0].getFormatData(raw => {
-            
-          });
-        }
+      console.log(orignal);
+
+      this.upload(orignal);
+
+    }
+    catch (e){
+
+      console.log("Error : " + e);
+
+    }
+
+  }
+
+  public async upload(cameraImageURL) {
+
+    console.log("In the Upload Method :  " + cameraImageURL);
+    let options = {
+      fileKey: 'file',
+      fileName: cameraImageURL.split('/').pop(),
+      mimeType: 'image/jpeg',
+      chunkedMode: false,
+      headers: {
+        'Content-Type': undefined
       },
-      (err: CaptureError) => console.error(err)
+      params: {}
+    };
+
+    try {
+      console.log("Aout to call the Upload Method : " + JSON.stringify(options));
+
+      let url = BaseLinkProvider.GetBaseUrl() + "/Image";
+
+      console.log("URL : " + url);
+
+      let result = await this.file_transfer.upload(
+        encodeURI(cameraImageURL),
+        encodeURI(url),
+        options,
+        false
       );
+
+      console.log("Response : " + JSON.stringify(result));
+
+    } catch (e) {
+      console.log("Error : " + JSON.stringify(e));
+
+    }
   }
 
   post() {
@@ -225,69 +261,74 @@ export class NewCommentComponent implements OnInit {
       });
     }
   }
-
-  imageFileChange(event) {
-    this.imageSelected = true;
-    this.uploaded = false;
-    this.isUploadingImage = true;
-
-    let fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData: FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-
-
-      this._mediaPost.postImage(formData, 'Story').subscribe(sub => {
-        this.uploaded = true;
-        this.isUploadingImage = false;
-
-        this.mediaName = sub;
-        this.mediaType = "Image";
-        this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/Thumb/' + sub;
-      });
+  /*
+    imageFileChange(event) {
+      this.imageSelected = true;
+      this.uploaded = false;
+      this.isUploadingImage = true;
+  
+      let fileList: FileList = event.target.files;
+      if (fileList.length > 0) {
+        let file: File = fileList[0];
+        let formData: FormData = new FormData();
+        formData.append('uploadFile', file, file.name);
+  
+        console.log(file);
+  
+  
+        this._mediaPost.postImage(formData, 'Story').subscribe(sub => {
+          this.uploaded = true;
+          this.isUploadingImage = false;
+  
+          this.mediaName = sub;
+          this.mediaType = "Image";
+          this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/Thumb/' + sub;
+        });
+      }
     }
-  }
-
-  videoFileChange(event) {
-    this.videoSelected = true;
-    this.uploaded = false;
-    this.isUploadingImage = true;
-
-    let fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData: FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-
-
-      this._mediaPost.postVideo(formData).subscribe(sub => {
-        this.uploaded = true;
-        this.isUploadingImage = false;
-
-        this.mediaName = sub;
-        this.mediaType = "Video";
-      });
+  
+    videoFileChange(event) {
+      this.videoSelected = true;
+      this.uploaded = false;
+      this.isUploadingImage = true;
+  
+      let fileList: FileList = event.target.files;
+      if (fileList.length > 0) {
+        let file: File = fileList[0];
+        let formData: FormData = new FormData();
+        formData.append('uploadFile', file, file.name);
+  
+  
+        this._mediaPost.postVideo(formData).subscribe(sub => {
+          this.uploaded = true;
+          this.isUploadingImage = false;
+  
+          this.mediaName = sub;
+          this.mediaType = "Video";
+        });
+      }
     }
-  }
+    */
 
   closeModal() {
 
     this.vc.dismiss();
   }
 
-
-  uploadMedia(event) {
-    let fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      let file: File = fileList[0];
-      if (file.name.toLowerCase().endsWith('.avi') || file.name.toLowerCase().endsWith('.mpeg')) {
-        this.videoFileChange(event);
-      }
-      else {
-        this.imageFileChange(event);
+  /*
+    uploadMedia(event) {
+      let fileList: FileList = event.target.files;
+      if (fileList.length > 0) {
+        let file: File = fileList[0];
+        if (file.name.toLowerCase().endsWith('.avi') || file.name.toLowerCase().endsWith('.mpeg')) {
+          this.videoFileChange(event);
+        }
+        else {
+          this.imageFileChange(event);
+        }
       }
     }
-  }
+  
+    */
 
 }

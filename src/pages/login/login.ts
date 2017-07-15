@@ -54,23 +54,18 @@ export class Login {
     this.fb.login(['public_profile', 'user_friends', 'email'])
       .then((res: FacebookLoginResponse) => {
 
-        let userID= "0";
+        let userID = "0";
 
-        if(res!= null){
+        if (res != null) {
           console.log('Logged into Facebook!', JSON.stringify(res));
 
           userID = res.authResponse.userID;
 
           console.log('userID found ', JSON.stringify(res));
 
-          this.getFacebookUserDetails(userID);
+          this.getFacebookUserDetails(userID, res);
         }
 
-
-
-
-        
-       
         sessionStorage.setItem('userID', '1');
         this.ionViewDidLoad();
       })
@@ -82,25 +77,11 @@ export class Login {
     this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
   }
 
-  getFacebookUserDetails(userID: string) {
+  getFacebookUserDetails(userID: string, res: any) {
 
-    let permissions: string[] = [];
-
-    permissions.push('id');
-    permissions.push('name');
-    permissions.push('email');
-    permissions.push('picture');
-    permissions.push('gender');
-    permissions.push('first_name');
-    permissions.push('last_name');
-
-
-    this.fb.api('https://graph.facebook.com/v2.9/'+ userID, permissions).then(res => {
-      console.log('User details : ' + JSON.stringify(res));
-    })
-      .catch(e => {
-        this.err.logError('Login FB GetFaceboolUserDetails Failed + ' + JSON.stringify(e)).subscribe();
-      })
+    this.fb.api('/' + userID + '?fields=id,name,email,first_name,last_name,picture', []).then(data => {
+      console.log(data);
+    });
   }
 
   loginClicked() {
