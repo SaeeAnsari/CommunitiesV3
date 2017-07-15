@@ -87,4 +87,8 @@ export class RegisterUserComponent {
     }
   }
 
+  closeModal(){
+    this.vc.dismiss();  
+  }
+
 }
