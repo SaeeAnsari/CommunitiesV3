@@ -6,5 +6,7 @@ export interface User{
     authenticationPortalID: number,
     imageURL:string,
     email: string,
-    password?: string
+    password?: string,
+    gender?:string,
+    thirdPartyAuthID?:string
 }

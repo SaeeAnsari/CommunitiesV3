@@ -57,35 +57,7 @@ export class UserService {
     this.options = new RequestOptions({ headers: this.headers });
   }
 
-  /*
   
-    public GetAllActiveUsers_old() {
-  
-      let params: URLSearchParams = new URLSearchParams();
-  
-      var request = new RequestOptions();
-      request.search = params;
-  
-      var ret = this._http.get(this._url, request)
-        .map(ret => ret.json())
-        .subscribe(sub => {
-          sub.forEach(element => {
-  
-            var user = {
-              id: element.ID,
-              firstName: element.FirstName,
-              lastName: element.LastName,
-              active: element.Active,
-              authenticationPortalID: element.AuthenticationPortalID
-            };
-  
-            this._users.push(user);
-          });
-        })
-      return this._users;
-    }
-  */
-
   public GetAllActiveUsers(searchVal: string, communityID: number): Observable<any> {
     return this._http.get(this._url + '/GetSearch?communityID=' + communityID + '&searchTerm=' + searchVal)
       .map(ret => ret.json());
@@ -98,8 +70,6 @@ export class UserService {
 
 
     let data = new URLSearchParams();
-    //data.append('userID', 1);
-    //data.append('CommunityID', '1');
 
     return this._http.post(
       this._url + '/AddUsertoCommunity?userID=' + userID + '&communityID=' + communityID,
@@ -158,6 +128,36 @@ export class UserService {
       .catch(this.handleError)
 
   }
+
+
+  public RegisterSocialAuthUser(user: User) {
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let data = {
+      ID: user.id,
+      FirstName: user.firstName,
+      LastName: user.lastName,
+      Email: user.email,
+      ImageURL: user.imageURL,
+      AuthPortal: user.authenticationPortalID,
+      Password: user.password,
+      Gender: user.gender,
+      ThirdPartyAuthID: user.thirdPartyAuthID
+    }
+
+    return this._http.post(
+      this._url,
+      data,
+      { headers: this.headers }
+    )
+      .map(res => res.json())
+      .catch(this.handleError)
+
+  }
+
+
 
 
   public SaveUserLocation(userId: number, lattitude, longitude) {

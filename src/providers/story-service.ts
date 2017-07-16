@@ -116,7 +116,7 @@ export class StoryService {
         imageURL = externalImageURL;
       }
       else if (mediaName.length > 0) {
-        imageURL = this._uploadURL + '/MediaUpload/Story/Thumb/' + mediaName;
+        imageURL = this._uploadURL + '/MediaUpload/Story/' + mediaName;
       }
     }
 

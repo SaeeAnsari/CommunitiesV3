@@ -31,19 +31,10 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { File } from '@ionic-native/file';
 
 
-//import firebase from 'firebase';
+import * as xml2js from 'xml2js';
 
-/*
-import { Firebase } from '@ionic-native/firebase';
-import { firebase } from 'firebase';
-*/
 
-/**
- * Generated class for the NewCommentComponent component.
- *
- * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
- * for more info on Angular Components.
- */
+
 @Component({
   selector: 'new-comment-component',
   templateUrl: 'new-comment-component.html',
@@ -53,11 +44,10 @@ export class NewCommentComponent implements OnInit {
 
 
   private user;
-  private isUploadingImage: boolean = false;
-  private uploaded: boolean = false;
+  public uploaded: boolean = false;
   private postText: string = "";
-  private mediaName: string = "";
-  private mediaType: string = "";
+  public mediaName: string = "";
+  public mediaType: string = "";
 
   private videoSelected: boolean = false;
   private imageSelected: boolean = false;
@@ -79,7 +69,7 @@ export class NewCommentComponent implements OnInit {
   private graphVideo: string = "";
   private graphExternalURL: string = "";
 
-  private uploadedMediaURL: string = "";
+  public uploadedMediaURL: string = "";
 
   private createNewEvent: boolean = false;
 
@@ -179,7 +169,7 @@ export class NewCommentComponent implements OnInit {
       this.upload(orignal);
 
     }
-    catch (e){
+    catch (e) {
 
       console.log("Error : " + e);
 
@@ -188,6 +178,8 @@ export class NewCommentComponent implements OnInit {
   }
 
   public async upload(cameraImageURL) {
+    this.imageSelected = true;
+    this.uploaded = false;
 
     console.log("In the Upload Method :  " + cameraImageURL);
     let options = {
@@ -202,7 +194,7 @@ export class NewCommentComponent implements OnInit {
     };
 
     try {
-      console.log("Aout to call the Upload Method : " + JSON.stringify(options));
+      console.log("About to call the Upload Method : " + JSON.stringify(options));
 
       let url = BaseLinkProvider.GetBaseUrl() + "/Image";
 
@@ -215,7 +207,14 @@ export class NewCommentComponent implements OnInit {
         false
       );
 
-      console.log("Response : " + JSON.stringify(result));
+
+      var parsingString = result.response;
+      var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
+      this.uploaded = true;
+      
+      this.mediaName = fileName;
+      this.mediaType = "Image";
+      this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/' + fileName;
 
     } catch (e) {
       console.log("Error : " + JSON.stringify(e));
@@ -234,7 +233,6 @@ export class NewCommentComponent implements OnInit {
 
       this._storyService.SavePost(this.user.id, this.postText, this.mediaType, this.mediaName, this.optionsModel, extImageURL, this.graphExternalURL).subscribe(sub => {
         let id = sub;
-        this.isUploadingImage = false;
         this.uploaded = false;
         this.postText = "";
         this.mediaName = "";

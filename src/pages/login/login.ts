@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 
 import { TabsPage } from '../tabs/tabs';
 
-import { FacebookAuth, User, AuthLoginResult, Auth } from '@ionic/cloud-angular';
+import { FacebookAuth, AuthLoginResult, Auth } from '@ionic/cloud-angular';
 
 import { LoginComponent } from '../../components/login-component/login-component';
 import { RegisterUserComponent } from '../../components/register-user-component/register-user-component';
@@ -14,6 +14,10 @@ import { UserService } from '../../providers/user-service';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
 import { ErrorLogServiceProvider } from '../../providers/error-log-service/error-log-service';
+
+import { User } from '../../interfaces/User';
+
+
 
 /**
  * Generated class for the Login page.
@@ -42,6 +46,9 @@ export class Login {
     private fb: Facebook,
     private err: ErrorLogServiceProvider
   ) {
+
+
+
   }
 
   facebookLogin() {
@@ -81,9 +88,28 @@ export class Login {
 
   getFacebookUserDetails(userID: string, res: any) {
 
-    this.fb.api('/' + userID + '?fields=id,name,email,first_name,last_name,picture', []).then(data => {
+    this.fb.api('/' + userID + '?fields=id,name,email,first_name,last_name,picture,gender', []).then(data => {
       console.log(data);
+
+      var user: User = {
+        id: -1,
+        firstName: data.first_name,
+        lastName: data.last_name,
+        gender: data.gender,
+        email: data.email,
+        imageURL: data.picture.data.url,
+        thirdPartyAuthID: data.id,
+        authenticationPortalID: 2,
+        active: true
+      }
+
+
+      this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
+        console.log(sub);
+      });
+
     });
+
   }
 
   loginClicked() {
@@ -117,8 +143,8 @@ export class Login {
   }
 
   ionViewDidLoad() {
-
-    if(this.storage.get('userID').then(id=>{
+    
+    if (this.storage.get('userID').then(id => {
       sessionStorage.setItem("userID", id);//Temporary removeit later
       this._userService.getLoggedinInUser().subscribe(s => {
         if (s.ID > 0 && s.DefaultCommunityID > 0) {
@@ -128,17 +154,17 @@ export class Login {
       });
     }))
 
-    /*
-    if (+this.storage.get('userID') > 0) {
-      this._userService.getLoggedinInUser().subscribe(s => {
-        if (s.ID > 0 && s.DefaultCommunityID > 0) {
-          let communityID = s.DefaultCommunityID;
-          this.navCtrl.push(TabsPage, { communityID: communityID });
-        }
-      });
-    }*/
+      /*
+      if (+this.storage.get('userID') > 0) {
+        this._userService.getLoggedinInUser().subscribe(s => {
+          if (s.ID > 0 && s.DefaultCommunityID > 0) {
+            let communityID = s.DefaultCommunityID;
+            this.navCtrl.push(TabsPage, { communityID: communityID });
+          }
+        });
+      }*/
 
-    this.err.logError('Login Loaded').subscribe();
+      this.err.logError('Login Loaded').subscribe();
 
     console.log('ionViewDidLoad Login');
   }
