@@ -57,19 +57,13 @@
                   <br>
                 </div>
                 <div *ngIf="!uploaded">
-
-                  <input type="file" name="photo"  />Uplaod <br>
-
-                  <button (click)="launchCamera()">launch camera</button>
-
-
-                  <div class="fileUpload btn btn-outline-info" *ngIf="!imageSelected">
+                  <!--
+                  <div class="fileUpload btn btn-outline-info" *ngIf="!imageSelected" (click)="launchCamera()">
                     <span><i class="fa fa-video-camera fa-3x" aria-hidden="true"></i><i  class="fa fa-camera fa-3x user-right" aria-hidden="true"></i></span>
-                    <input type="file" class="upload" (change)="uploadMedia($event)" />
                   </div>
-
+                  -->
+                <local-gallery-upload></local-gallery-upload><video-upload></video-upload><image-upload (OnFileSaved)="imageSelectedForPosting($event)"></image-upload>
                 </div>
-
               </div>
               <div class="post-body">
                 <textarea [ngClass]="{textAreaSmall: graphFound == true}" rows="3" placeholder="Whats on your mind?" [(ngModel)]="postText"
@@ -86,7 +80,7 @@
               <div class="fileUpload  pull-right">
                 <button type="submit" class="btn btn-success Go-Button-New-Comp" [disabled]="isUploadingImage" (click)="post()">Go <i class="fa fa-check " aria-hidden="true"></i></button></div>
             </div>
-            <div *ngIf="uploaded">Uploaded! ready to save</div>
+            
           </div>
           <div *ngIf="createNewEvent">
             <new-event></new-event>
@@ -95,18 +89,4 @@
       </div>
     </section>
   </div>
-
-
-  <div *ngIf="isUploadingImage">
-    <div id="loadingOverlay" class="loader-overlay">
-      <div class="loader-content loader-center">
-        Uploading Please wait!..
-
-
-      </div>
-    </div>
-
-  </div>
-
-
 </ion-content>

@@ -211,14 +211,26 @@ export class NewCommentComponent implements OnInit {
       var parsingString = result.response;
       var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
       this.uploaded = true;
-      
+
       this.mediaName = fileName;
       this.mediaType = "Image";
-      this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/' + fileName;
+      this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/Thumb/' + fileName;
 
     } catch (e) {
       console.log("Error : " + JSON.stringify(e));
 
+    }
+  }
+
+  imageSelectedForPosting(data) {
+
+    console.log("inside the imageSelectedForPosting");
+    if(data!= null){
+      console.log("Got Data: " + JSON.stringify(data));
+      this.uploaded = true;
+      this.uploadedMediaURL = data.fullPathFileName,
+      this.mediaName = data.fileName,
+      this.mediaType = data.mediaType
     }
   }
 

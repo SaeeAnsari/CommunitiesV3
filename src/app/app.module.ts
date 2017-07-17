@@ -59,7 +59,9 @@ import { File } from '@ionic-native/file';
 import { CameraPluginProvider } from '../providers/camera-plugin/camera-plugin';
 import { HelperProvider } from '../providers/helper/helper';
 import { IonicStorageModule } from '@ionic/storage';
-
+import { ImageUploadComponent } from '../components/image-upload/image-upload';
+import { VideoUploadComponent } from '../components/video-upload/video-upload';
+import { LocalGalleryUploadComponent } from '../components/local-gallery-upload/local-gallery-upload';
 
 
 const cloudSettings: CloudSettings = {
@@ -100,7 +102,10 @@ const cloudSettings: CloudSettings = {
     SettingsPage,
     UploadedMediaPostComponent,
     EventFeedPage,
-    NewEventComponent
+    NewEventComponent,
+    ImageUploadComponent,
+    VideoUploadComponent,
+    LocalGalleryUploadComponent
   ],
   imports: [
     BrowserModule,
