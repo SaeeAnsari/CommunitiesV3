@@ -12,4 +12,5 @@ export interface UserPost {
     postDate:string;
     userProfileImage:string;
     storyExternalURL:string;
+    mediaType: string;
 }

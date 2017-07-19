@@ -39,6 +39,13 @@ export class ImageUploadComponent {
 
   public async launchCamera() {
 
+    /*
+     this.OnFileSaved.emit({
+        mediaType: "Image",
+        fileName: "6f96dc09-e38d-489d-aa73-c85f67da2e1d.jpg",
+        fullPathFileName: "http://saeedansari-001-site2.itempurl.com/MediaUpload/Story/6f96dc09-e38d-489d-aa73-c85f67da2e1d.jpg"
+      });
+      */
     try {
 
       let orignal = await this.cameraPluginServices.open_camera();
@@ -78,10 +85,9 @@ export class ImageUploadComponent {
         encodeURI(url),
         options,
         false
-      );
-
-
-      var parsingString = result.response;
+      )
+      
+       var parsingString = result.response;
       var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
       this.uploaded = true;
 

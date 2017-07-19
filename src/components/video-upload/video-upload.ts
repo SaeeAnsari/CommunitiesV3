@@ -37,14 +37,14 @@ export class VideoUploadComponent {
 
   public async loadVideoCamera() {
     this.uploaded = false;
-/*
-     this.OnFileSaved.emit({
+
+     /*this.OnFileSaved.emit({
         mediaType: "Video",
         fileName: "c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4",
-        fullPathFileName: "https://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4"
+        fullPathFileName: "http://saeedansari-001-site2.itempurl.com/MediaUpload/Story/c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4"
       });
-
-  */  
+      */
+  
     console.log("In the Upload Method");
 
     let options = { limit: 1, duration: 10 };
@@ -62,6 +62,7 @@ export class VideoUploadComponent {
       },
       (err: CaptureError) => console.error(err)
       );
+    
     
   }
 

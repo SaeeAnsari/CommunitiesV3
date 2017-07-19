@@ -62,15 +62,14 @@ export class LiveFeed implements OnInit {
 
         postS.forEach(element => {
 
-          if(element.ID == 1066){
-            let xy = 0;
-          }
+    
+          
 
           this.posts.push({
             storyID: element.ID,
             title: element.Title,
             text: element.LongDescription,
-            imageURL: element.ImageURL,
+            imageURL: element.MediaType == 'Video'? element.Video.VideoIdentifier : element.ImageURL,
             likeCount: element.ActionSummary.SupportCount,
             dislikeCount: element.ActionSummary.DisagreeCount,
             commentsCount: element.ActionSummary.CommentCount,
@@ -79,7 +78,8 @@ export class LiveFeed implements OnInit {
             postDate: element.Timestamp,
             userProfileImage: element.StoryUser.ImageURL,
             userFullName: element.StoryUser.DisplayName,
-            storyExternalURL: element.StoryExternalURL 
+            storyExternalURL: element.StoryExternalURL,
+            mediaType: element.MediaType
           });
         });
       });

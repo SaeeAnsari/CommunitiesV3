@@ -22,6 +22,7 @@ export class UserPostsComponent implements OnInit {
   @Input() LikeCount: number;
   @Input() UserID: number;
   @Input() StoryExternalURL: string;
+  @Input() MediaType: string;
 
   private hasImage: boolean = false;
 

@@ -71,6 +71,8 @@ export class StoryService {
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg);
+    console.log(error._body);
+    console.log("Error BIG : " + JSON.stringify(error));
     return Observable.throw(errMsg);
   }
 
@@ -134,6 +136,8 @@ export class StoryService {
     if (selectedCommunities.length > 0) {
       data.CommunityIDs = selectedCommunities;
     }
+
+    console.log("This is what i am sending SAVE POST :" + JSON.stringify(data));
 
     return this._http.post(
       this._url + '/InsertStory',

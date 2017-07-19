@@ -101,6 +101,7 @@ export class UserService {
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg);
+    console.log(error._body);
     return Observable.throw(errMsg);
   }
 

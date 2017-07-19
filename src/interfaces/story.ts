@@ -5,9 +5,9 @@ export interface Story {
     longDescription: string,
     imageURL: string,
     storyExternalURL,
-     actions:{
-         likeCount: number,
-         dislikeCount: number,
-         viewCount: number    
-    }   
+    actions: {
+        likeCount: number,
+        dislikeCount: number,
+        viewCount: number
+    }
 }
