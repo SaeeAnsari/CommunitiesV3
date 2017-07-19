@@ -53,7 +53,7 @@
               <div *ngIf="graphFound == false">
 
                 <div *ngIf="uploaded">
-                  <uploaded-media-post PostMediaURL="{{uploadedMediaURL}}"></uploaded-media-post>
+                  <uploaded-media-post PostMediaURL="{{uploadedMediaURL}}" Type="{{mediaType}}"></uploaded-media-post>
                   <br>
                 </div>
                 <div *ngIf="!uploaded">
@@ -62,25 +62,43 @@
                     <span><i class="fa fa-video-camera fa-3x" aria-hidden="true"></i><i  class="fa fa-camera fa-3x user-right" aria-hidden="true"></i></span>
                   </div>
                   -->
-                <local-gallery-upload></local-gallery-upload><video-upload></video-upload><image-upload (OnFileSaved)="imageSelectedForPosting($event)"></image-upload>
+                  <local-gallery-upload></local-gallery-upload>
+                  <video-upload (OnFileSaved)="mediaSelectedForPosting($event)"></video-upload>
+                  <image-upload (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
                 </div>
               </div>
-              <div class="post-body">
-                <textarea [ngClass]="{textAreaSmall: graphFound == true}" rows="3" placeholder="Whats on your mind?" [(ngModel)]="postText"
-                  [formControl]="PostTextControl">
+
+              <div *ngIf="!uploaded">
+                <div class="post-body">
+                  <textarea [ngClass]="{textAreaSmall: graphFound == true}" rows="3" placeholder="Whats on your mind?" [(ngModel)]="postText"
+                    [formControl]="PostTextControl">
             </textarea>
 
-                <div *ngIf="graphFound == true">
-                  <div class="newMedia">
-                    <img class="d-flex mr-3" src="{{graphImage}}" alt="Generic placeholder image">
+                  <div *ngIf="graphFound == true">
+                    <div class="newMedia">
+                      <img class="d-flex mr-3" src="{{graphImage}}" alt="Generic placeholder image">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="fileUpload float-right">
+                  <button type="submit" class="btn btn-success Go-Button-New-Comp" [disabled]="isUploadingImage" (click)="post()">Go <i class="fa fa-check " aria-hidden="true"></i></button>
+                </div>
+              </div>
+              <div *ngIf="uploaded">
+                <div class="row ">
+                  <div class="div-post-uploaded">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Whats on your mind?" [(ngModel)]="postTextUploaded">
+                      <span class="input-group-btn">
+                      <button class="btn btn-success" type="submit" (click)="post()">Go!</button>
+                    </span>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div class="fileUpload  pull-right">
-                <button type="submit" class="btn btn-success Go-Button-New-Comp" [disabled]="isUploadingImage" (click)="post()">Go <i class="fa fa-check " aria-hidden="true"></i></button></div>
             </div>
-            
+
           </div>
           <div *ngIf="createNewEvent">
             <new-event></new-event>

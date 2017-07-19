@@ -46,6 +46,7 @@ export class NewCommentComponent implements OnInit {
   private user;
   public uploaded: boolean = false;
   private postText: string = "";
+  private postTextUploaded: string = "";
   public mediaName: string = "";
   public mediaType: string = "";
 
@@ -222,31 +223,40 @@ export class NewCommentComponent implements OnInit {
     }
   }
 
-  imageSelectedForPosting(data) {
+
+  mediaSelectedForPosting(data) {
 
     console.log("inside the imageSelectedForPosting");
     if(data!= null){
       console.log("Got Data: " + JSON.stringify(data));
-      this.uploaded = true;
+      
       this.uploadedMediaURL = data.fullPathFileName,
       this.mediaName = data.fileName,
       this.mediaType = data.mediaType
+      this.uploaded = true;
     }
   }
 
   post() {
 
-    if (this.user && (this.postText != '' || this.mediaName != '')) {
+    if (this.user && (this.postText != '' || this.mediaName != ''|| this.postTextUploaded != '')) {
 
       let extImageURL = "";
       if (this.graphImage.length > 0) {
         extImageURL = this.graphImage;
       }
+      else if(this.uploadedMediaURL != ''){
+        extImageURL = this.uploadedMediaURL;
+      }
 
-      this._storyService.SavePost(this.user.id, this.postText, this.mediaType, this.mediaName, this.optionsModel, extImageURL, this.graphExternalURL).subscribe(sub => {
+      let storyText = this.postText == ""? this.postTextUploaded : this.postText;
+
+
+      this._storyService.SavePost(this.user.id, storyText, this.mediaType, this.mediaName, this.optionsModel, extImageURL, this.graphExternalURL).subscribe(sub => {
         let id = sub;
         this.uploaded = false;
         this.postText = "";
+        this.postTextUploaded = "";
         this.mediaName = "";
         this.mediaType = "";
         this.videoSelected = false;

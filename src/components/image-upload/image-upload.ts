@@ -69,7 +69,7 @@ export class ImageUploadComponent {
     try {
       console.log("About to call the Upload Method 2 : " + JSON.stringify(options));
 
-      let url = BaseLinkProvider.GetBaseUrl() + "/Image";
+      let url = BaseLinkProvider.GetBaseUrl() + "/Image?type=Story";
 
       console.log("URL : " + url);
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 /**
  * Generated class for the UploadedMediaPostComponent component.
@@ -10,13 +10,23 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'uploaded-media-post',
   templateUrl: 'uploaded-media-post.html'
 })
-export class UploadedMediaPostComponent {
+export class UploadedMediaPostComponent implements OnInit{
+  ngOnInit(): void {
+    
+    console.log(JSON.stringify({
+      PostMediaURL: this.PostMediaURL,
+      Type: this.Type
+    }))
+  }
 
   @Input() PostMediaURL: string = "";
-  
+  @Input() Type: string = "";
+
 
   constructor() {
-    
+
   }
+
+
 
 }

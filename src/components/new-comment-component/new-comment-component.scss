@@ -27,7 +27,7 @@
     height: 50px;
      border-radius: 10px;
     font-size: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     min-height: 30px;
     padding-left: 10px;
     margin-left: 10px;
@@ -58,7 +58,7 @@
    
     margin: 10px auto;
     padding-left: 2%;
-    width: 15%;
+    width: 20%;
     height: 60px;
 
 }
@@ -130,13 +130,19 @@
     }
 
     .Go-Button-New-Comp{
-        font-size: 15pt;
-        padding: 10px 20px 10px 20px;
-        
+        font-size: 12pt;
+        padding: 10px 10px 10px 20px;
+        width:200px;   
     }
     
     .post-or-event{
         position: absolute;        
         right:20px;
         top:45px;
+    }
+
+    .div-post-uploaded{
+        width: 90%;
+        padding-left: 25px;
+        padding-right: 10px;
     }
