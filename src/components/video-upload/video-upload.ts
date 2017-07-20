@@ -39,13 +39,13 @@ export class VideoUploadComponent {
 
   public async loadVideoCamera() {
     this.uploaded = false;
-/*
-    this.OnFileSaved.emit({
-       mediaType: "Video",
-       fileName: "c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4",
-       fullPathFileName: "http://saeedansari-001-site2.itempurl.com/MediaUpload/Story/c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4"
-     });
-  */   
+    /*
+        this.OnFileSaved.emit({
+           mediaType: "Video",
+           fileName: "c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4",
+           fullPathFileName: "http://saeedansari-001-site2.itempurl.com/MediaUpload/Story/c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4"
+         });
+      */
 
     console.log("In the Upload Method");
 
@@ -63,8 +63,8 @@ export class VideoUploadComponent {
 
       },
       (err: CaptureError) => console.error(err)
-      );   
-    
+      );
+
   }
 
   public async upload(fullPath, name, mimeType) {
@@ -131,7 +131,7 @@ export class VideoUploadComponent {
 
 
     } catch (e) {
-       loading.dismiss();
+      loading.dismiss();
       console.log("Error : " + JSON.stringify(e));
 
     }

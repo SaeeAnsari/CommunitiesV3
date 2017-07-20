@@ -4,7 +4,7 @@
     <img src="{{PostMediaURL}}" (click)="openComments()">
   </div>
   <div *ngIf="MediaType=='Video'">
-    <video controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer">
+    <video controls="controls" preload="metadata" autoplay muted  webkit-playsinline="webkit-playsinline" class="videoPlayer">
       <source src="{{PostMediaURL}}" type="video/mp4" />
     </video>
   </div>
