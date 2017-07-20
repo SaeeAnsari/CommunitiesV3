@@ -1,5 +1,12 @@
-.upload-media-video-container > video{
+.feed_post_content_new_media video{
     width:97%;
     padding-left: 10px;
     padding-right: 10px;
+    height: auto;
+}
+
+
+.feed_post_content_new_media img {
+  height: auto;
+  width: 100%;  
 }

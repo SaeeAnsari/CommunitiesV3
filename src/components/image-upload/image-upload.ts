@@ -2,6 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { UploadImage } from '../../interfaces/upload-image';
 import { BaseLinkProvider } from '../../providers/base-link/base-link';
 
+import { LoadingController } from 'ionic-angular';
+
 
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
@@ -32,7 +34,8 @@ export class ImageUploadComponent {
   constructor(
     private transfer: FileTransfer,
     private file: File,
-    private cameraPluginServices: CameraPluginProvider
+    private cameraPluginServices: CameraPluginProvider,
+    public loadingCtrl: LoadingController
   ) {
   }
 
@@ -61,6 +64,14 @@ export class ImageUploadComponent {
   public async upload(cameraImageURL) {
     this.uploaded = false;
 
+     let loading = this.loadingCtrl.create({
+      content: 'Uploading...',
+      spinner: 'dots'
+    });
+
+    loading.present();
+
+
     console.log("In the Upload Method :  " + cameraImageURL);
     let options = {
       fileKey: 'file',
@@ -80,26 +91,36 @@ export class ImageUploadComponent {
 
       console.log("URL : " + url);
 
-      let result = await this.file_transfer.upload(
+      this.file_transfer.upload(
         encodeURI(cameraImageURL),
         encodeURI(url),
         options,
         false
-      )
-      
-       var parsingString = result.response;
-      var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
-      this.uploaded = true;
+      ).then(result => {
+        console.log("RESULT OBJECT : " + JSON.stringify(result));
+        var parsingString = result.response;
+        var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
+        this.uploaded = true;
 
-      this.mediaName = fileName;
-      this.mediaType = "Image";
-      this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/' + fileName;
-      console.log("firing Emit!");
-      this.OnFileSaved.emit({
-        mediaType: "Image",
-        fileName: fileName,
-        fullPathFileName: this.uploadedMediaURL
-      });
+        this.mediaName = fileName;
+        this.mediaType = "Image";
+        this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/' + fileName;
+        console.log("firing Emit!");
+
+        loading.dismiss();
+        this.OnFileSaved.emit({
+          mediaType: "Image",
+          fileName: fileName,
+          fullPathFileName: this.uploadedMediaURL
+        });
+      })
+        .catch(error => {
+          loading.dismiss();
+          console.log("FILE TARNSFER ERROR : " + JSON.stringify(error));
+
+        });
+
+
 
     } catch (e) {
       console.log("Error : " + JSON.stringify(e));

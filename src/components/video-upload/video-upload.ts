@@ -3,6 +3,7 @@ import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ion
 
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { LoadingController } from 'ionic-angular';
 
 
 
@@ -32,19 +33,20 @@ export class VideoUploadComponent {
   constructor(
     private transfer: FileTransfer,
     private file: File,
-    private mediaCapture: MediaCapture) {
+    private mediaCapture: MediaCapture,
+    public loadingCtrl: LoadingController) {
   }
 
   public async loadVideoCamera() {
     this.uploaded = false;
+/*
+    this.OnFileSaved.emit({
+       mediaType: "Video",
+       fileName: "c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4",
+       fullPathFileName: "http://saeedansari-001-site2.itempurl.com/MediaUpload/Story/c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4"
+     });
+  */   
 
-     /*this.OnFileSaved.emit({
-        mediaType: "Video",
-        fileName: "c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4",
-        fullPathFileName: "http://saeedansari-001-site2.itempurl.com/MediaUpload/Story/c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4"
-      });
-      */
-  
     console.log("In the Upload Method");
 
     let options = { limit: 1, duration: 10 };
@@ -53,7 +55,7 @@ export class VideoUploadComponent {
       (data: MediaFile[]) => {
 
         console.log("getting the logs for video: " + JSON.stringify(data));
-        if(data.length ==1){
+        if (data.length == 1) {
           console.log("got to data :" + JSON.stringify(data));
 
           this.upload(data[0].fullPath, data[0].name, data[0].type);
@@ -61,12 +63,19 @@ export class VideoUploadComponent {
 
       },
       (err: CaptureError) => console.error(err)
-      );
-    
+      );   
     
   }
 
   public async upload(fullPath, name, mimeType) {
+
+
+    let loading = this.loadingCtrl.create({
+      content: 'Uploading...',
+      spinner: 'dots'
+    });
+
+    loading.present();
 
     this.mediaCaptureURL = fullPath;
     console.log(this.mediaCaptureURL)
@@ -107,17 +116,22 @@ export class VideoUploadComponent {
       this.mediaType = "Video";
       this.mediaCaptureURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/' + fileName;
       console.log("firing Emit!" + JSON.stringify({
-         mediaType: "Video",
+        mediaType: "Video",
         fileName: fileName,
         fullPathFileName: this.mediaCaptureURL
       }));
+
+      loading.dismiss();
+
       this.OnFileSaved.emit({
         mediaType: "Video",
         fileName: fileName,
         fullPathFileName: this.mediaCaptureURL
       });
 
+
     } catch (e) {
+       loading.dismiss();
       console.log("Error : " + JSON.stringify(e));
 
     }
