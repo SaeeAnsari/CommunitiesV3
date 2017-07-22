@@ -34,7 +34,25 @@
 
       <!-- Feed Post Single Area -->
 
+      <ion-list>
+        <ion-item *ngFor="let post of posts">
 
+          <div class="feed_post_area" >
+            <div class="feed_post_header">
+              <app-user-tag ID="{{post.userID}}" ImageURL="{{post.userProfileImage}}" Name="{{post.userFullName}}" PostDate="{{post.postDate}}"></app-user-tag>
+              <app-user-post PostMessage="{{post.text}}" PostMediaURL="{{post.imageURL}}" StoryID="{{post.storyID}}" LikeCount="{{post.likeCount}}"
+                CommentCount="{{post.commentsCount}}" UserID="userID" StoryExternalURL={{post.storyExternalURL}} MediaType={{post.mediaType}}></app-user-post>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+
+      <!--
       <div class="feed_post_area" *ngFor="let post of posts">
         <div class="feed_post_header">
           <app-user-tag ID="{{post.userID}}" ImageURL="{{post.userProfileImage}}" Name="{{post.userFullName}}" PostDate="{{post.postDate}}"></app-user-tag>
@@ -43,9 +61,9 @@
           <div style="display:none">
             <app-user-comments></app-user-comments>
         </div>
-        <!---->
+       
       </div>
-    </div>
+      </div>-->
     </div>
   </section>
 </ion-content>

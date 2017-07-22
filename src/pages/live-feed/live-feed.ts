@@ -6,7 +6,7 @@ import { StoryService } from '../../providers/story-service';
 import { CommunityService } from '../../providers/community-service';
 import { UserService } from '../../providers/user-service';
 
-import {CommunityPage} from '../../pages/community/community';
+import { CommunityPage } from '../../pages/community/community';
 
 
 
@@ -31,7 +31,7 @@ export class LiveFeed implements OnInit {
   private posts: UserPost[] = [];
   private subscription;
   private communityID: number = 0;
-  private pageIndex: number = 0;
+  private nextPageIndex: number = 0;
   private communityName: string = "";
 
   constructor(
@@ -41,7 +41,7 @@ export class LiveFeed implements OnInit {
     private _communityService: CommunityService,
     private _userService: UserService,
     public modalCtrl: ModalController
-    ) {
+  ) {
 
 
 
@@ -56,20 +56,20 @@ export class LiveFeed implements OnInit {
   }
 
   loadStories() {
+    this.nextPageIndex = 0;
     this.posts = [];
-    this._storyService.GetStoriesByCommunity(this.communityID, this.pageIndex)
+    this._storyService.GetStoriesByCommunity(this.communityID, this.nextPageIndex)
       .subscribe(postS => {
+        if(postS.length > 0)
+          this.nextPageIndex = this.nextPageIndex +1;
 
         postS.forEach(element => {
-
-    
-          
 
           this.posts.push({
             storyID: element.ID,
             title: element.Title,
             text: element.LongDescription,
-            imageURL: element.MediaType == 'Video'? element.Video.VideoIdentifier : element.ImageURL,
+            imageURL: element.MediaType == 'Video' ? element.Video.VideoIdentifier : element.ImageURL,
             likeCount: element.ActionSummary.SupportCount,
             dislikeCount: element.ActionSummary.DisagreeCount,
             commentsCount: element.ActionSummary.CommentCount,
@@ -82,6 +82,7 @@ export class LiveFeed implements OnInit {
             mediaType: element.MediaType
           });
         });
+
       });
   }
 
@@ -108,7 +109,7 @@ export class LiveFeed implements OnInit {
     }
   }
 
-  BootstrapFeed(){
+  BootstrapFeed() {
     this.getCommunityDetails();
     this.loadStories();
   }
@@ -121,9 +122,50 @@ export class LiveFeed implements OnInit {
     console.log('ionViewDidLoad LiveFeed');
   }
 
-  editCommunities(){
-    this.navCtrl.push(CommunityPage, {communityID: this.communityID});
+  editCommunities() {
+    this.navCtrl.push(CommunityPage, { communityID: this.communityID });
   }
 
+  doInfinite(): Promise<any> {
+   
+
+    return new Promise((resolve) => {
+      setTimeout(() => {       
+        
+        this._storyService.GetStoriesByCommunity(this.communityID, this.nextPageIndex)
+          .subscribe(postS => {
+            
+            if(postS.length >  0)
+              {
+                 this.nextPageIndex = this.nextPageIndex+1;
+              }
+            
+            postS.forEach(element => {
+
+              this.posts.push({
+                storyID: element.ID,
+                title: element.Title,
+                text: element.LongDescription,
+                imageURL: element.MediaType == 'Video' ? element.Video.VideoIdentifier : element.ImageURL,
+                likeCount: element.ActionSummary.SupportCount,
+                dislikeCount: element.ActionSummary.DisagreeCount,
+                commentsCount: element.ActionSummary.CommentCount,
+                totalViews: element.ActionSummary.ViewCount,
+                userID: element.StoryUser.ID,
+                postDate: element.Timestamp,
+                userProfileImage: element.StoryUser.ImageURL,
+                userFullName: element.StoryUser.DisplayName,
+                storyExternalURL: element.StoryExternalURL,
+                mediaType: element.MediaType
+              });
+            });
+          });
+
+          
+
+        resolve();
+      }, 500);
+    })
+  }
 
 }
