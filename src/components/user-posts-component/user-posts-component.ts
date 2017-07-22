@@ -39,10 +39,11 @@ export class UserPostsComponent implements OnInit {
 
   
 
-  openComments() {
+  //Type : Video or Image
+  openComments(type) {
 
     let commentsModal = this.modalCtrl.create(UserCommentsComponent, 
-    { storyID: this.StoryID, postMediaURL: this.PostMediaURL, postMessage: this.PostMessage, storyExternalURL : this.StoryExternalURL }, 
+    { storyID: this.StoryID, postMediaURL: this.PostMediaURL, postMessage: this.PostMessage, storyExternalURL : this.StoryExternalURL, type: type }, 
     { showBackdrop: true, enableBackdropDismiss: true });
 
     commentsModal.onDidDismiss(data => {

@@ -1,12 +1,12 @@
 <div class="feed_post_content">
   <div class="feed_post_message" [innerHTML]="PostMessage"></div>
   <div *ngIf="MediaType=='Image'">
-    <img src="{{PostMediaURL}}" (click)="openComments()">
+    <img src="{{PostMediaURL}}" (click)="openComments('Image')">
   </div>
   <div *ngIf="MediaType=='Video'">
-    <video controls="controls" preload="metadata" autoplay muted  webkit-playsinline="webkit-playsinline" class="videoPlayer">
+    <video controls="controls" preload="metadata" autoplay muted  webkit-playsinline="webkit-playsinline" class="videoPlayer" (click)="openComments('Video')">
       <source src="{{PostMediaURL}}" type="video/mp4" />
-    </video>
+    </video >
   </div>
 </div>
 <app-user-post-action LikeCount="{{LikeCount}}" CommentCount="{{CommentCount}}" UserID="UserID" StoryID="{{StoryID}}"></app-user-post-action>

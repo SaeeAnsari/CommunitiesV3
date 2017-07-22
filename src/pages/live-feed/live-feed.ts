@@ -126,7 +126,7 @@ export class LiveFeed implements OnInit {
     this.navCtrl.push(CommunityPage, { communityID: this.communityID });
   }
 
-  doInfinite(): Promise<any> {
+  dynamicLoadStories(): Promise<any> {
    
 
     return new Promise((resolve) => {

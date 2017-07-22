@@ -23,6 +23,8 @@ import { ViewController, NavParams, NavController } from 'ionic-angular';
 export class UserCommentsComponent implements OnInit {
 
   
+  public MediaType: string = "Image";
+
   ngOnInit(): void {
      if (this.navParams.get('storyID')) {
       this.storyID = this.navParams.get('storyID');
@@ -40,6 +42,11 @@ export class UserCommentsComponent implements OnInit {
      if(this.navParams.get("storyExternalURL")){
       this.storyExternalURL = this.navParams.get("storyExternalURL");
     }    
+
+    if(this.navParams.get("type")){
+      this.MediaType = this.navParams.get("type");
+      
+    }
   }
 
   private commentPost: string;

@@ -47,7 +47,7 @@
         </ion-item>
       </ion-list>
 
-      <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(dynamicLoadStories())">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
 
