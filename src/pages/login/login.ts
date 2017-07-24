@@ -103,6 +103,8 @@ export class Login {
         active: true
       }
 
+      console.log(user);
+
 
       this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
         console.log(sub);

@@ -5,12 +5,13 @@
 
 .feed_post_message {
   color: #3b3b3b;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 300;
   line-height: 28px;
   padding-left: 10px;
   padding-bottom: 5px;
   padding-top: 10px;
+  font-family: 'Lato', sans-serif;
 }
 
 
@@ -19,7 +20,7 @@
   border-radius: 5px;
   height: auto;
   width: 100%;
-  max-height: 300px; 
+  max-height: 600px; 
 }
 
 .feed_post_content video {
@@ -27,7 +28,7 @@
   border-radius: 5px;
   height: auto;
   width: 100%;
-  max-height: 300px; 
+  max-height: 600px; 
   background-color: black;
 }
 

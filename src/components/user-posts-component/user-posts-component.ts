@@ -37,6 +37,9 @@ export class UserPostsComponent implements OnInit {
     }
   }
 
+  viewCommentsClicked(){
+    this.openComments(this.MediaType);
+  }
   
 
   //Type : Video or Image

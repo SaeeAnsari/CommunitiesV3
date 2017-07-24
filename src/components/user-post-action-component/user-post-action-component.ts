@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component , OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { StoryService } from '../../providers/story-service';
 import { UserService } from '../../providers/user-service';
 import { UserCommentsComponent } from '../user-comments-component/user-comments-component';
@@ -21,6 +21,8 @@ export class UserPostActionComponent implements OnInit {
   @Input() LikeCount: number;
   @Input() StoryID: number;
   @Input() UserID: number;
+
+  @Output() ViewCommentsClicked = new EventEmitter();
 
 
   constructor(private _storyService: StoryService, private _userService: UserService, ) { }
@@ -45,12 +47,9 @@ export class UserPostActionComponent implements OnInit {
 
   viewComments(storyID: number) {
 
-    alert('broke this popup as we need to ionicize it');
-    /*
-        const modalRef = this._modalService.open(UserCommentsComponent, { windowClass: 'dark-modal' });
-        modalRef.componentInstance.storyID = storyID;
-        modalRef.componentInstance.loadComments();
-    */
+    this.ViewCommentsClicked.emit({
+      storyID: storyID
+    });
   }
 
 }
