@@ -130,6 +130,18 @@ export class UserService {
 
   }
 
+  public AuthenticateThirdPartyUser(thirdPartyUserID: string){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+      return this._http.get(
+      this._url + '/AuthenticateThirdPartyUser?thirdPartyUserID=' + thirdPartyUserID,
+      { headers: this.headers }
+    )
+      .map(res => res.json())
+      .catch(this.handleError)
+  }
+
 
   public RegisterSocialAuthUser(user: User) {
 

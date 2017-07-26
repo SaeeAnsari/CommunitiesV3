@@ -46,17 +46,11 @@ export class Login {
     private fb: Facebook,
     private err: ErrorLogServiceProvider
   ) {
-
-
-
   }
 
+
+
   facebookLogin() {
-
-    /*this.auth.login('facebook').then(e => {
-      alert('all done');
-    });*/
-
 
     this.err.logError('Login FB Clicked').subscribe();
 
@@ -74,9 +68,6 @@ export class Login {
 
           this.getFacebookUserDetails(userID, res);
         }
-
-        sessionStorage.setItem('userID', '1');
-        this.ionViewDidLoad();
       })
       .catch(e => {
         console.log('Login FB Failed + ' + JSON.stringify(e));
@@ -91,26 +82,83 @@ export class Login {
     this.fb.api('/' + userID + '?fields=id,name,email,first_name,last_name,picture,gender', []).then(data => {
       console.log(data);
 
-      var user: User = {
-        id: -1,
-        firstName: data.first_name,
-        lastName: data.last_name,
-        gender: data.gender,
-        email: data.email,
-        imageURL: data.picture.data.url,
-        thirdPartyAuthID: data.id,
-        authenticationPortalID: 2,
-        active: true
-      }
+      this._userService.AuthenticateThirdPartyUser(data.id).subscribe(sub => {
+        console.log("RAW got : " + sub)
+        if (sub != null && +sub > 0) {
+          console.log("Found the User : " + sub);
+          this.storage.set('userID', sub);
+          this.ionViewDidLoad();
+        }
+        else {
+          var user: User = {
+            id: -1,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            gender: data.gender == "male" ? "M" : "F",
+            email: data.email,
+            imageURL: data.picture.data.url,
+            thirdPartyAuthID: data.id,
+            authenticationPortalID: 2,
+            active: true
+          }
 
-      console.log(user);
+          console.log(user);
 
-
-      this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
-        console.log(sub);
-      });
+          this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
+            console.log("loaded :" + sub);
+            this.storage.set('userID', sub);
+            this.ionViewDidLoad();
+          });
+        }
+      })
 
     });
+  }
+
+  doDummyLogin() {
+    var user: User = {
+      id: -1,
+      firstName: "Saeed",
+      lastName: "Ansari",
+      gender: "male" == "male" ? "M" : "F",
+      email: "saedansari@gmail.com",
+      imageURL: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/10525797_10152962537591528_3712779174895063807_n.jpg?oh=d0cab2c3e0a6b4d80de9df1369f917ba&oe=59F7E379",
+      thirdPartyAuthID: "10155483413286528",
+      authenticationPortalID: 2,
+      active: true
+    }
+
+    console.log(user);
+
+    this._userService.AuthenticateThirdPartyUser(user.thirdPartyAuthID).subscribe(sub => {
+      console.log("RAW got : " + sub)
+      if (sub != null && +sub > 0) {
+        console.log("Found the User : " + sub);
+        this.storage.set('userID', sub);
+        this.ionViewDidLoad();
+      }
+      else {
+        var user2: User = {
+          id: -1,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          gender: user.gender == "male" ? "M" : "F",
+          email: user.email,
+          imageURL: user.imageURL,
+          thirdPartyAuthID: user.thirdPartyAuthID,
+          authenticationPortalID: 2,
+          active: true
+        }
+
+        console.log(user2);
+
+        this._userService.RegisterSocialAuthUser(user2).subscribe(sub => {
+          console.log("loaded :" + sub);
+          this.storage.set('userID', sub);
+          this.ionViewDidLoad();
+        });
+      }
+    })
 
   }
 
@@ -145,26 +193,23 @@ export class Login {
   }
 
   ionViewDidLoad() {
-    
+
     if (this.storage.get('userID').then(id => {
       sessionStorage.setItem("userID", id);//Temporary removeit later
       this._userService.getLoggedinInUser().subscribe(s => {
-        if (s.ID > 0 && s.DefaultCommunityID > 0) {
-          let communityID = s.DefaultCommunityID;
-          this.navCtrl.push(TabsPage, { communityID: communityID });
-        }
-      });
-    }))
+        if (s != null && s.ID > 0) {
 
-      /*
-      if (+this.storage.get('userID') > 0) {
-        this._userService.getLoggedinInUser().subscribe(s => {
-          if (s.ID > 0 && s.DefaultCommunityID > 0) {
+          if (s.DefaultCommunityID <= 0) {
+            this.navCtrl.push(UserLocation);
+          }
+          else {
+            
             let communityID = s.DefaultCommunityID;
             this.navCtrl.push(TabsPage, { communityID: communityID });
           }
-        });
-      }*/
+        }
+      });
+    }))
 
       this.err.logError('Login Loaded').subscribe();
 
