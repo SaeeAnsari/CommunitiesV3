@@ -17,10 +17,12 @@
       </ion-item>
 
       <ion-item>
-        <div class="fileUpload btn btn-outline-info">
+
+        <image-upload ImageCategory="Story" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
+        <!--<div class="fileUpload btn btn-outline-info">
           <span><i  class="fa fa-camera fa-3x user-right" aria-hidden="true"></i></span>
           <input type="file" class="upload" (change)="imageFileChange($event)" />
-        </div>
+        </div>-->
       </ion-item>
 
       <ion-item>

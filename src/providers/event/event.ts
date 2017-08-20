@@ -47,7 +47,7 @@ export class EventProvider {
 
 
   public PostEvent(id: number, name: string, description: string, imageURL: string, active: boolean, ownerID: number, address: string,
-    city: string, postalZip: string, country: string): Observable<any> {
+    city: string, postalZip: string, country: string, link: string): Observable<any> {
 
     let data = new URLSearchParams();
 
@@ -62,7 +62,8 @@ export class EventProvider {
         Address:address,
         City:city,
         PostalZip:postalZip,
-        Country:country
+        Country:country,
+        Link: link
       }),
       { headers: this.headers })
       .map(res => res.json())

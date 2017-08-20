@@ -87,6 +87,18 @@ export class RegisterUserComponent {
     }
   }
 
+  mediaSelectedForPosting(data) {
+
+    console.log("inside the imageSelectedForPosting");
+    if(data!= null){
+      console.log("Got Data: " + JSON.stringify(data));
+      
+       this.uploaded = true;
+        this.isUploadingImage = false;
+        this.selfieURL = data.fileName;
+    }
+  }
+
   closeModal(){
     this.vc.dismiss();  
   }

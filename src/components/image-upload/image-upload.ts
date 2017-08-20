@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { UploadImage } from '../../interfaces/upload-image';
 import { BaseLinkProvider } from '../../providers/base-link/base-link';
 
@@ -28,6 +28,8 @@ export class ImageUploadComponent {
   public mediaName: string = "";
   public mediaType: string = "";
   public uploadedMediaURL: string = "";
+
+  @Input() ImageCategory: string;
 
   @Output() OnFileSaved = new EventEmitter();
 
@@ -87,7 +89,7 @@ export class ImageUploadComponent {
     try {
       console.log("About to call the Upload Method 2 : " + JSON.stringify(options));
 
-      let url = BaseLinkProvider.GetBaseUrl() + "/Image?type=Story";
+      let url = BaseLinkProvider.GetBaseUrl() + "/Image?type=" + this.ImageCategory;
 
       console.log("URL : " + url);
 
@@ -104,8 +106,9 @@ export class ImageUploadComponent {
 
         this.mediaName = fileName;
         this.mediaType = "Image";
-        this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/' + fileName;
+        this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/' + this.ImageCategory+'/' + fileName;
         console.log("firing Emit!");
+        console.log("UPloadMediaURL : " + this.uploadedMediaURL);
 
         loading.dismiss();
         this.OnFileSaved.emit({

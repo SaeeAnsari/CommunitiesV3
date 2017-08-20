@@ -28,17 +28,18 @@
             <app-user-tag ID="{{user.id}}" ImageURL="{{user.imageURL}}" Name="{{user.displayName}}"></app-user-tag>
           </div>
 
-          <div class="post-or-event">
+          
+
+          <div *ngIf="!createNewEvent">
+            <div class="form-group">
+              <div class="post-or-event">
 
             <ion-item no-lines>
-              <ion-label>New Event?</ion-label>
+              <ion-label>Want to post a New Event?</ion-label>
               <ion-toggle [(ngModel)]="createNewEvent" checked="false"></ion-toggle>
 
             </ion-item>
           </div>
-
-          <div *ngIf="!createNewEvent">
-            <div class="form-group">
 
               <ion-item>
                 <ion-label><i class="fa fa-users"></i> Communities</ion-label>
@@ -64,7 +65,7 @@
                   -->
                   <local-gallery-upload></local-gallery-upload>
                   <video-upload (OnFileSaved)="mediaSelectedForPosting($event)"></video-upload>
-                  <image-upload (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
+                  <image-upload ImageCategory="Story" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
                 </div>
               </div>
 

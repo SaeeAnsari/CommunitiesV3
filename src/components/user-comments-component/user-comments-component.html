@@ -33,13 +33,16 @@
     <!-- Adding the section for image here -->
 
     <div class="feed_post_content commentPostContainer">
-      <p>{{postMessage}}</p>
+
+
+      <p [innerHTML]="postMessage"></p>
+
+
       <div *ngIf="MediaType=='Image'">
         <img src="{{postMediaURL}}" (click)="launch()">
       </div>
       <div *ngIf="MediaType=='Video'">
-        <video controls="controls" preload="metadata" autoplay webkit-playsinline="webkit-playsinline" class="videoPlayer"
-          (click)="openComments('Video')">
+        <video controls="controls" preload="metadata" autoplay webkit-playsinline="webkit-playsinline" class="videoPlayer" (click)="openComments('Video')">
           <source src="{{postMediaURL}}" type="video/mp4" />
         </video>
       </div>

@@ -115,7 +115,7 @@ export class UserService {
       FirstName: user.firstName,
       LastName: user.lastName,
       Email: user.email,
-      ImageURL: this._imageUploadURL + '/MediaUpload/User/Thumb' + user.imageURL,
+      ImageURL: this._imageUploadURL + '/MediaUpload/User/' + user.imageURL,
       AuthPortal: user.authenticationPortalID,
       Password: user.password
     }

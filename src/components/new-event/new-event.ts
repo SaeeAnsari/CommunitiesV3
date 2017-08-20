@@ -19,7 +19,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera'
 @Component({
   selector: 'new-event',
   templateUrl: 'new-event.html',
-  providers: [Camera, MediaPostService,  UserService, EventProvider]
+  providers: [Camera, MediaPostService, UserService, EventProvider]
 })
 export class NewEventComponent implements OnInit {
 
@@ -138,6 +138,20 @@ export class NewEventComponent implements OnInit {
     loader.dismiss();
   }
 
+  mediaSelectedForPosting(data) {
+
+    console.log("inside the imageSelectedForPosting");
+    if (data != null) {
+      console.log("Got Data: " + JSON.stringify(data));
+
+      this.uploaded = true;
+
+      this.mediaName = data.fileName;
+
+      this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/' + data.fileName;
+    }
+  }
+
 
   saveEvent(model, isValid: boolean) {
     console.log("in the save event button");
@@ -149,26 +163,32 @@ export class NewEventComponent implements OnInit {
 
       if (this.user) {
 
-        let extImageURL = "";
+        let imgURL = "";
         if (this.graphImage.length > 0) {
-          extImageURL = this.graphImage;
+          imgURL = this.graphImage;
         }
+        else if (this.mediaName.length > 0) {
+          imgURL = this.uploadedMediaURL;
+        }
+
+        imgURL = this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/2599eca0-15f1-4996-b44f-e5db61185358.jpg';
 
         this._eventService.PostEvent(-1,
           model.name,
           model.description,
-          extImageURL,
+          imgURL,
           true,
           this.user.id,
           model.address,
           model.city,
           model.zip,
-          model.country)
+          model.country,
+          model.link)
           .subscribe(sub => {
             console.log("What we got is " + sub);
             let id = sub;
             this.vc.dismiss({ storyID: id });//this is false but hoping the live feed will just reload :)
-          });        
+          });
       }
     }
   }

@@ -20,7 +20,7 @@
 
   <form [formGroup]="registerationForm" novalidate (ngSubmit)="saveUser(registerationForm.value, registerationForm.valid)">
     <div class="containerRegister text-center">
-      <a href="#"><img src="../../assets/images/login/logo.png" alt="logo"></a>
+      <a href="#"><img src="assets/images/login/logo.png" alt="logo"></a>
 
 
       <ion-item>
@@ -41,13 +41,16 @@
       </ion-item>
 
       <ion-item>
-        
+
+        <image-upload ImageCategory="User" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
+        <!--
         <div class="fileUpload btn btn-primary">
           <span><i class="fa fa-camera" aria-hidden="true"></i></span>
           <input type="file" class="upload" (change)="fileChange($event)" />
         </div>
         <span>{{uploadMessage}}</span><div *ngIf="isUploadingImage"><ion-spinner name="bubbles"></ion-spinner></div>
         <div *ngIf="uploaded">Uploaded! ready to save</div> 
+        -->
       </ion-item>
 
 
