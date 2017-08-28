@@ -2,22 +2,27 @@
       User Post Component
 ================================*/
 
+.no-padding {
+    padding: 0px !important;
+}
 
 .feed_post_message {
   color: #3b3b3b;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 300;
-  line-height: 28px;
+  line-height: 20px;
   padding-left: 10px;
   padding-bottom: 5px;
   padding-top: 10px;
   font-family: 'Lato', sans-serif;
   min-height: 40px;
+  
+   white-space: normal;
 }
 
 
 .feed_post_content img {
-  border: 5px solid #dcdcdc;
+  border: 1px solid #dcdcdc;
   border-radius: 5px;
   height: auto;
   width: 100%;

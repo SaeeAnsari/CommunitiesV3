@@ -1,4 +1,4 @@
-<div class="feed_post_content">
+<div class="feed_post_content md-no-style">
   <div class="feed_post_message" [innerHTML]="PostMessage"></div>
   <div *ngIf="MediaType=='Image'">
     <img src="{{PostMediaURL}}" (click)="openComments('Image')">
