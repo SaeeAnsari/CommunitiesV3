@@ -74,6 +74,9 @@ export class NewCommentComponent implements OnInit {
 
   private createNewEvent: boolean = false;
 
+  private hideEventsSection: boolean = false;
+
+
   private firebaseToken = "";
 
   private captureDataUrl: string = "";
@@ -234,6 +237,9 @@ export class NewCommentComponent implements OnInit {
       this.mediaName = data.fileName,
       this.mediaType = data.mediaType
       this.uploaded = true;
+      
+      this.hideEventsSection = true;
+
     }
   }
 
