@@ -64,32 +64,29 @@ export class ImageUploadComponent {
   }
 
   //Dummy Image for testing
-  public DummyShowImage(){
-    
+  public DummyShowImage() {
+
     var fileName = 'http://res.cloudinary.com/http-communities-me/image/upload/v1504497765/l3ofqjfmzzr8xl5lumiq.jpg';
     this.mediaType = "Image";
     this.uploadedMediaURL = fileName;
-    this.mediaName= fileName;
+    this.mediaName = fileName;
 
 
     this.uploaded = true;
 
 
     this.OnFileSaved.emit({
-          mediaType: "Image",
-          fileName: fileName,
-          fullPathFileName: this.uploadedMediaURL
-        });
-
-
-    
+      mediaType: "Image",
+      fileName: fileName,
+      fullPathFileName: this.uploadedMediaURL
+    });
   }
 
 
   public async upload(cameraImageURL) {
     this.uploaded = false;
 
-     let loading = this.loadingCtrl.create({
+    let loading = this.loadingCtrl.create({
       content: 'Uploading...',
       spinner: 'dots'
     });
@@ -126,8 +123,8 @@ export class ImageUploadComponent {
         var parsingString = result.response;
         console.log("Parsing String: " + parsingString);
         var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
-        fileName = fileName.slice(0,-1);//comes with a / in the end. Slice will remove the /
-        
+        fileName = fileName.slice(0, -1);//comes with a / in the end. Slice will remove the /
+
         console.log("Full NAme: " + fileName);
         this.uploaded = true;
 
