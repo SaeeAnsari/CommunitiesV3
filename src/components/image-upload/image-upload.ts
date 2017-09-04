@@ -103,7 +103,7 @@ export class ImageUploadComponent {
         var parsingString = result.response;
         console.log("Parsing String: " + parsingString);
         var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
-        fileName = fileName.slice(0,-1);
+        fileName = fileName.slice(0,-1);//comes with a / in the end. Slice will remove the /
         
         console.log("Full NAme: " + fileName);
         this.uploaded = true;
