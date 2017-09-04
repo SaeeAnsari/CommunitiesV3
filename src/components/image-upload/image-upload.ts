@@ -55,11 +55,34 @@ export class ImageUploadComponent {
 
       let orignal = await this.cameraPluginServices.open_camera();
       console.log(orignal);
+      //this.DummyShowImage();
       this.upload(orignal);
     }
     catch (e) {
       console.log("Error : " + e);
     }
+  }
+
+  //Dummy Image for testing
+  public DummyShowImage(){
+    
+    var fileName = 'http://res.cloudinary.com/http-communities-me/image/upload/v1504497765/l3ofqjfmzzr8xl5lumiq.jpg';
+    this.mediaType = "Image";
+    this.uploadedMediaURL = fileName;
+    this.mediaName= fileName;
+
+
+    this.uploaded = true;
+
+
+    this.OnFileSaved.emit({
+          mediaType: "Image",
+          fileName: fileName,
+          fullPathFileName: this.uploadedMediaURL
+        });
+
+
+    
   }
 
 
