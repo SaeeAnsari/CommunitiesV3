@@ -99,7 +99,19 @@ position: absolute;
   position: relative;
   //padding: 2px;
 }
+/*===================
+      Needed section for removing padding
+====================*/
+.label {
+   margin: 0;
+}
 
+.item-inner {
+   padding-right: 0px!important;
+}
+/*===================
+      ENDED
+====================*/
 .feed_post_user {
   padding-top: 5px;
 }

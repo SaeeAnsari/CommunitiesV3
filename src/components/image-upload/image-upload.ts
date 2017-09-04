@@ -101,12 +101,16 @@ export class ImageUploadComponent {
       ).then(result => {
         console.log("RESULT OBJECT : " + JSON.stringify(result));
         var parsingString = result.response;
+        console.log("Parsing String: " + parsingString);
         var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
+        fileName = fileName.slice(0,-1);
+        
+        console.log("Full NAme: " + fileName);
         this.uploaded = true;
 
         this.mediaName = fileName;
         this.mediaType = "Image";
-        this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/' + this.ImageCategory+'/' + fileName;
+        this.uploadedMediaURL = fileName;//BaseLinkProvider.GetMediaURL() + 'MediaUpload/' + this.ImageCategory+'/' + fileName;
         console.log("firing Emit!");
         console.log("UPloadMediaURL : " + this.uploadedMediaURL);
 
