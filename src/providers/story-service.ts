@@ -90,7 +90,9 @@ export class StoryService {
     mediaName: string,
     selectedCommunities: number[],
     externalImageURL: string,
-    storyExternalURL: string
+    storyExternalURL: string,
+    mediaPublicID: string,
+    mediaVersionID: string
     ): Observable<any> {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -98,6 +100,8 @@ export class StoryService {
     let id: number;
     let videoTag;
     let imageURL = '';
+
+    console.log("Public ID: " + mediaPublicID);
 
 
 
@@ -131,6 +135,8 @@ export class StoryService {
       Video: videoTag,
       CommunityIDs: [],
       ImageURL: imageURL,
+      PublicID: mediaPublicID,
+      VersionID: mediaVersionID,
       StoryExternalURL: storyExternalURL
     };
     if (selectedCommunities.length > 0) {

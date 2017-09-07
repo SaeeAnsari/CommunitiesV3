@@ -49,6 +49,8 @@ export class NewCommentComponent implements OnInit {
   private postTextUploaded: string = "";
   public mediaName: string = "";
   public mediaType: string = "";
+  public cloudinaryPublicID: string = "";
+  public cloudinaryVersionID: string = "";
 
   private videoSelected: boolean = false;
   private imageSelected: boolean = false;
@@ -233,9 +235,12 @@ export class NewCommentComponent implements OnInit {
     if(data!= null){
       console.log("Got Data: " + JSON.stringify(data));
       
-      this.uploadedMediaURL = data.fullPathFileName,
-      this.mediaName = data.fileName,
-      this.mediaType = data.mediaType
+      this.uploadedMediaURL = data.fullPathFileName;
+      this.mediaName = data.fileName;
+      this.mediaType = data.mediaType;
+      this.cloudinaryPublicID = data.publicID;
+      this.cloudinaryVersionID = data.versionID;
+
       this.uploaded = true;
       
       this.hideEventsSection = true;
@@ -258,7 +263,7 @@ export class NewCommentComponent implements OnInit {
       let storyText = this.postText == ""? this.postTextUploaded : this.postText;
 
 
-      this._storyService.SavePost(this.user.id, storyText, this.mediaType, this.mediaName, this.optionsModel, extImageURL, this.graphExternalURL).subscribe(sub => {
+      this._storyService.SavePost(this.user.id, storyText, this.mediaType, this.mediaName, this.optionsModel, extImageURL, this.graphExternalURL, this.cloudinaryPublicID, this.cloudinaryVersionID).subscribe(sub => {
         let id = sub;
         this.uploaded = false;
         this.postText = "";
