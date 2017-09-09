@@ -6,7 +6,7 @@ import { Community } from '../../interfaces/community';
 import { FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 
-import {CommunityPage} from '../../pages/community/community';
+import { CommunityPage } from '../../pages/community/community';
 
 
 
@@ -48,21 +48,18 @@ export class MyCommunitiesPage implements OnInit {
   searchItems = [];
   searchInput = new FormControl();
 
+  private nextPageIndex: number = 0;
+
 
 
 
   ngOnInit(): void {
-    this.searchInput.valueChanges
-      .debounceTime(1000)
-      .distinctUntilChanged()
-      .subscribe(va => {
-        
-        this.bindCommunitiesList();
-      });
+    this.initialBindCommunitiesList();
+    
   }
 
 
-  public bindCommunitiesList() {
+  public initialBindCommunitiesList() {
 
     this.searchItems = [];
 
@@ -72,8 +69,11 @@ export class MyCommunitiesPage implements OnInit {
     this._userService.getLoggedinInUser().subscribe(s => {
       let userID = s.ID;
 
-      this._searchService.GetAllCommunities(this.searchVal, userID)
+      this._searchService.GetAllCommunities(this.searchVal, userID, this.nextPageIndex)
         .subscribe(sub => {
+
+          this.nextPageIndex = this.nextPageIndex +1;
+
           sub.forEach(element => {
             var community = {
               id: element.ID,
@@ -94,12 +94,63 @@ export class MyCommunitiesPage implements OnInit {
     });
   }
 
-  userJoinedCommunity(data){
 
-    if(data && data.communityID && data.isMember){
-      this.searchItems.forEach(item=>{
-        if(item.id == data.communityID){          
-          item.isMember = data.isMember == "true"? "false" : "true"          
+  bindCommunitiesList_Paging(): Promise<any> {
+
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+
+        this.searchItems = [];
+
+        if (this.searchVal == undefined)
+          this.searchVal = '';
+
+        this._userService.getLoggedinInUser().subscribe(s => {
+          let userID = s.ID;
+
+          this._searchService.GetAllCommunities(this.searchVal, userID, this.nextPageIndex)
+            .subscribe(sub => {
+
+              if (sub.length > 0) {
+                this.nextPageIndex = this.nextPageIndex + 1;
+              }
+              //reset back to zero when all items are exhausted
+              else if (sub.length == 0 && this.nextPageIndex > 0){
+                this.nextPageIndex = 0;
+                this.initialBindCommunitiesList();
+              }
+
+              sub.forEach(element => {
+                var community = {
+                  id: element.ID,
+                  name: element.Name,
+                  description: element.Description,
+                  ownerID: element.OwnerID,
+                  ownerName: element.OwnerName,
+                  typeID: 1,
+                  typeName: 'City',
+                  imageURL: element.ImageURL,
+                  lastUpdate: null,
+                  isMember: element.isMember
+                };
+
+                this.searchItems.push(community);
+              });
+            });
+        });
+
+        resolve();
+      }, 500);
+    })
+  }
+
+  userJoinedCommunity(data) {
+
+    if (data && data.communityID && data.isMember) {
+      this.searchItems.forEach(item => {
+        if (item.id == data.communityID) {
+          item.isMember = data.isMember == "true" ? "false" : "true"
         }
       })
     }
@@ -115,10 +166,18 @@ export class MyCommunitiesPage implements OnInit {
   }
 
   ionViewDidLoad() {
+    this.searchInput.valueChanges
+      .debounceTime(1000)
+      .distinctUntilChanged()
+      .subscribe(va => {
 
+        this.nextPageIndex = 0;
+        this.initialBindCommunitiesList();
+
+      });
   }
 
-  addCommunities(){
+  addCommunities() {
     this.navCtrl.push(CommunityPage);
   }
 

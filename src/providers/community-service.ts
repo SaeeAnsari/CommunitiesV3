@@ -48,9 +48,9 @@ export class CommunityService {
   }
 
 
-  public GetAllCommunities(searchTerm: string, userID: number): Observable<any> {
+  public GetAllCommunities(searchTerm: string, userID: number, nextPageIndex: number): Observable<any> {
 
-    return this._http.get(this._url + '?userID=' + userID + '&searchTerm=' + searchTerm)
+    return this._http.get(this._url + '?userID=' + userID + '&searchTerm=' + searchTerm + '&nextPageIndex=' + nextPageIndex)
       .map(ret => ret.json());
 
   }

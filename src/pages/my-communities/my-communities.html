@@ -34,7 +34,13 @@
             (CommunityChanged)="userJoinedCommunity($event)"></community-item>
         </div>
 
+
       </ion-list>
+      
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(bindCommunitiesList_Paging())">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
     </div>
   </section>
 
