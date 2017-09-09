@@ -1,8 +1,8 @@
-import { Component , OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Community} from '../../interfaces/community';
-import {UserService} from '../../providers/user-service';
-import {TabsPage} from '../../pages/tabs/tabs';
+import { Community } from '../../interfaces/community';
+import { UserService } from '../../providers/user-service';
+import { TabsPage } from '../../pages/tabs/tabs';
 /**
  * Generated class for the CommunityItemComponent component.
  *
@@ -14,9 +14,9 @@ import {TabsPage} from '../../pages/tabs/tabs';
   templateUrl: 'community-item.html',
   providers: [UserService]
 })
-export class CommunityItemComponent  implements OnInit{
+export class CommunityItemComponent implements OnInit {
   ngOnInit(): void {
-    if(this.ImageURL == undefined || this.ImageURL == ""){
+    if (this.ImageURL == undefined || this.ImageURL == "") {
       this.ImageURL = "https://cdn2.iconfinder.com/data/icons/flat-ui-free/128/Chat.png";
     }
 
@@ -46,7 +46,7 @@ export class CommunityItemComponent  implements OnInit{
     private _userService: UserService,
     public navCtrl: NavController,
     public navParams: NavParams) {
-    
+
   }
 
   joinCommunity() {
@@ -56,26 +56,29 @@ export class CommunityItemComponent  implements OnInit{
 
       this._userService.AddUsertoCommunity(userID, this.ID).subscribe(sub => {
         this.existingUser = true;
-        this.CommunityChanged.emit({communityID: this.ID, isMember: this.Member });
+        this.CommunityChanged.emit({ communityID: this.ID, isMember: this.Member });
       });
     });
   }
 
 
-  leaveCommunity(){
+  leaveCommunity() {
     this._userService.getLoggedinInUser().subscribe(sub => {
 
       let userID: number = sub.ID;
 
       this._userService.RemoveUserFromCommunity(userID, this.ID).subscribe(sub => {
         this.existingUser = true;
-        this.CommunityChanged.emit({communityID: this.ID, isMember: this.Member });
+        this.CommunityChanged.emit({ communityID: this.ID, isMember: this.Member });
       });
     });
   }
 
-  navigate(){
-    sessionStorage.setItem('activeCommunity', this.ID);  
-    this.navCtrl.push(TabsPage, {communityID: this.ID});
+  navigate() {
+
+    if (this.Member == "true") {
+      sessionStorage.setItem('activeCommunity', this.ID);
+      this.navCtrl.push(TabsPage, { communityID: this.ID });
+    }
   }
 }

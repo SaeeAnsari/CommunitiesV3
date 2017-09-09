@@ -252,18 +252,18 @@ export class NewCommentComponent implements OnInit {
 
     if (this.user && (this.postText != '' || this.mediaName != ''|| this.postTextUploaded != '')) {
 
-      let extImageURL = "";
+      let extMediaURL = "";
       if (this.graphImage.length > 0) {
-        extImageURL = this.graphImage;
+        extMediaURL = this.graphImage;
       }
       else if(this.uploadedMediaURL != ''){
-        extImageURL = this.uploadedMediaURL;
+        extMediaURL = this.uploadedMediaURL;
       }
 
       let storyText = this.postText == ""? this.postTextUploaded : this.postText;
 
 
-      this._storyService.SavePost(this.user.id, storyText, this.mediaType, this.mediaName, this.optionsModel, extImageURL, this.graphExternalURL, this.cloudinaryPublicID, this.cloudinaryVersionID).subscribe(sub => {
+      this._storyService.SavePost(this.user.id, storyText, this.mediaType, this.mediaName, this.optionsModel, extMediaURL, this.graphExternalURL, this.cloudinaryPublicID, this.cloudinaryVersionID).subscribe(sub => {
         let id = sub;
         this.uploaded = false;
         this.postText = "";
