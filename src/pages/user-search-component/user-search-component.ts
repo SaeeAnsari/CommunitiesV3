@@ -1,4 +1,4 @@
-import { Component , OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserService } from '../../providers/user-service';
 import { User } from '../../interfaces/user';
@@ -11,7 +11,7 @@ import { FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } 
 
 
 
-import {LiveFeed} from '../live-feed/live-feed';
+import { LiveFeed } from '../live-feed/live-feed';
 
 // Observable class extensions
 import 'rxjs/add/observable/of';
@@ -38,7 +38,7 @@ import 'rxjs/add/operator/switchMap';
   templateUrl: 'user-search-component.html',
   providers: [UserService]
 })
-export class UserSearchComponent  implements OnInit {
+export class UserSearchComponent implements OnInit {
 
   private communityID: number = -1;
   private subscription;
@@ -46,27 +46,33 @@ export class UserSearchComponent  implements OnInit {
   searchVal: string;
   searchInput = new FormControl();
 
+  private nextPageIndex: number = 0;
 
-  constructor(private userService: UserService,public navCtrl: NavController, public navParams: NavParams) {
-   
+
+  constructor(private userService: UserService, public navCtrl: NavController, public navParams: NavParams) {
+
     this.searchVal = "";
-    if(navParams.get('communityID'))
-    {
-      this.communityID = navParams.get('communityID');     
+    if (navParams.get('communityID')) {
+      this.communityID = navParams.get('communityID');
     }
   }
 
-  bindUserGrid() {
+  initialBindUsers() {
 
     this.userItems = [];
 
     if (this.searchVal == undefined)
       this.searchVal = '';
 
-      
 
-    this.userService.GetAllActiveUsers(this.searchVal, this.communityID)
+
+    this.userService.GetAllActiveUsers(this.searchVal, this.communityID, this.nextPageIndex)
       .subscribe(list => {
+
+        
+          this.nextPageIndex = this.nextPageIndex +1;
+
+
 
         list.forEach(element => {
 
@@ -88,28 +94,110 @@ export class UserSearchComponent  implements OnInit {
 
   }
 
-  ngOnInit() {
-    
-    this.searchInput.valueChanges
-      .debounceTime(1000)
-      .distinctUntilChanged()
-      .subscribe(va => {
-        
-        this.bindUserGrid();
+  reBindUserList() {
+
+    this.userItems = [];
+
+    if (this.searchVal == undefined)
+      this.searchVal = '';
+
+
+
+    this.userService.GetAllActiveUsers(this.searchVal, this.communityID, this.nextPageIndex-1)
+      .subscribe(list => {    
+
+
+        list.forEach(element => {
+
+          var user = {
+            id: element.ID,
+            firstName: element.FirstName,
+            lastName: element.LastName,
+            active: element.Active,
+            authenticationPortalID: element.AuthenticationPortalID,
+            imageURL: element.ImageURL,
+            alreadyMember: element.AlreadyMember,
+            email: element.Email
+          };
+
+          this.userItems.push(user);
+        });
+
       });
+
   }
 
-   userAddedorRemoved(){
-    this.bindUserGrid();
+  bindUserList_Paging(): Promise<any> {
+
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+
+        this.userItems = [];
+
+        if (this.searchVal == undefined)
+          this.searchVal = '';
+
+
+        this.userService.GetAllActiveUsers(this.searchVal, this.communityID, this.nextPageIndex)
+          .subscribe(list => {
+
+            if (list.length > 0) {
+              this.nextPageIndex = this.nextPageIndex + 1;
+            }
+            //reset back to zero when all items are exhausted
+            else if (list.length == 0 && this.nextPageIndex > 0) {
+              this.nextPageIndex = 0;
+              this.initialBindUsers();
+            }
+
+            list.forEach(element => {
+
+              var user = {
+                id: element.ID,
+                firstName: element.FirstName,
+                lastName: element.LastName,
+                active: element.Active,
+                authenticationPortalID: element.AuthenticationPortalID,
+                imageURL: element.ImageURL,
+                alreadyMember: element.AlreadyMember,
+                email: element.Email
+              };
+
+              this.userItems.push(user);
+            });
+
+          });
+
+        resolve();
+      }, 500);
+    })
+  }
+
+  ngOnInit() {
+    this.nextPageIndex = 0;
+    this.initialBindUsers();
+
+  }
+
+  userAddedorRemoved() {
+    this.reBindUserList();
   }
 
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserSearchComponent');
+    this.searchInput.valueChanges
+      .debounceTime(1000)
+      .distinctUntilChanged()
+      .subscribe(va => {
+        this.nextPageIndex = 0;
+        this.initialBindUsers();
+      });
   }
 
-  navigateToFeed(){
+  navigateToFeed() {
     this.navCtrl.push(LiveFeed);
   }
 }

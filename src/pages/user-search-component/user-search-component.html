@@ -45,6 +45,10 @@
         </div>
       </ion-list>
 
+       <ion-infinite-scroll (ionInfinite)="$event.waitFor(bindUserList_Paging())">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
 
     </div>
   </section>

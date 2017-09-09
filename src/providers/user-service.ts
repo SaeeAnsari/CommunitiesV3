@@ -58,8 +58,8 @@ export class UserService {
   }
 
   
-  public GetAllActiveUsers(searchVal: string, communityID: number): Observable<any> {
-    return this._http.get(this._url + '/GetSearch?communityID=' + communityID + '&searchTerm=' + searchVal)
+  public GetAllActiveUsers(searchVal: string, communityID: number, pageIndex): Observable<any> {
+    return this._http.get(this._url + '/GetSearch?communityID=' + communityID + '&searchTerm=' + searchVal + '&pageIndex=' + pageIndex)
       .map(ret => ret.json());
   }
 
