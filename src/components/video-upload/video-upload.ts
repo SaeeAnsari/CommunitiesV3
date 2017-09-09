@@ -108,7 +108,12 @@ export class VideoUploadComponent {
 
 
       var parsingString = result.response;
-      var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
+
+      var fileName = parsingString.substring(parsingString.indexOf("<FileName>"), parsingString.indexOf("</FileName>")).replace("<FileName>", "");
+      var publicID = parsingString.substring(parsingString.indexOf("<PublicID>"), parsingString.indexOf("</PublicID>")).replace("<PublicID>", "");
+      var versionID = parsingString.substring(parsingString.indexOf("<VersionID>"), parsingString.indexOf("</VersionID>")).replace("<VersionID>", "")
+
+      console.log("FileName: " + fileName + ", publicID: " + publicID + ", versionID: " + versionID);
       this.uploaded = true;
 
 
@@ -118,7 +123,8 @@ export class VideoUploadComponent {
       console.log("firing Emit!" + JSON.stringify({
         mediaType: "Video",
         fileName: fileName,
-        fullPathFileName: this.mediaCaptureURL
+        fullPathFileName: this.mediaCaptureURL,
+        publicID: publicID
       }));
 
       loading.dismiss();
@@ -126,9 +132,10 @@ export class VideoUploadComponent {
       this.OnFileSaved.emit({
         mediaType: "Video",
         fileName: fileName,
-        fullPathFileName: this.mediaCaptureURL
+        fullPathFileName: fileName,
+        publicID: publicID,
+        versionID: versionID
       });
-
 
     } catch (e) {
       loading.dismiss();
