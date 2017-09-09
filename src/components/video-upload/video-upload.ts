@@ -39,13 +39,10 @@ export class VideoUploadComponent {
 
   public async loadVideoCamera() {
     this.uploaded = false;
+
     /*
-        this.OnFileSaved.emit({
-           mediaType: "Video",
-           fileName: "c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4",
-           fullPathFileName: "http://saeedansari-001-site2.itempurl.com/MediaUpload/Story/c00056b1-a244-416d-a6e2-ce15e3d9a821.mp4"
-         });
-      */
+    this.DummyShowVideoSection();
+    */
 
     console.log("In the Upload Method");
 
@@ -65,7 +62,32 @@ export class VideoUploadComponent {
       (err: CaptureError) => console.error(err)
       );
 
+
   }
+
+  //Dummy Image for testing
+  public DummyShowVideoSection() {
+
+    var fileName = 'http://res.cloudinary.com/http-communities-me/video/upload/v1504974348/tgsm3y6ino5a7ebsygym.mp4';
+    this.mediaType = "Video";
+
+    this.mediaName = fileName;
+
+
+    this.uploaded = true;
+
+
+    this.OnFileSaved.emit({
+
+      mediaType: "Video",
+      fileName: fileName,
+      fullPathFileName: fileName,
+      publicID: '222222',
+      versionID: '111111'
+
+    });
+  }
+
 
   public async upload(fullPath, name, mimeType) {
 
@@ -119,11 +141,9 @@ export class VideoUploadComponent {
 
       this.mediaName = fileName;
       this.mediaType = "Video";
-      this.mediaCaptureURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/' + fileName;
       console.log("firing Emit!" + JSON.stringify({
         mediaType: "Video",
         fileName: fileName,
-        fullPathFileName: this.mediaCaptureURL,
         publicID: publicID
       }));
 

@@ -89,7 +89,7 @@ export class StoryService {
     mediaType: string,
     mediaName: string,
     selectedCommunities: number[],
-    externalImageURL: string,
+    extMediaURL: string,
     storyExternalURL: string,
     mediaPublicID: string,
     mediaVersionID: string
@@ -108,7 +108,7 @@ export class StoryService {
     if (mediaType == "Video" && mediaName.length > 0) {
       videoTag = {
         ID: -1,
-        VideoIdentifier: this._uploadURL + '/MediaUpload/Story/' + mediaName,
+        VideoIdentifier: extMediaURL,
         HostProvider: 1
       }
     }
@@ -118,8 +118,8 @@ export class StoryService {
         VideoIdentifier: '',
         HostProvider: 0
       };
-      if (externalImageURL.length > 0) {
-        imageURL = externalImageURL;
+      if (extMediaURL.length > 0) {
+        imageURL = extMediaURL;
       }
       else if (mediaName.length > 0) {
         imageURL = this._uploadURL + '/MediaUpload/Story/Thumb/' + mediaName;

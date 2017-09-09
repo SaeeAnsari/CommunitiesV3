@@ -57,8 +57,8 @@ ion-input{
 }
 
 .commentPostContainer{
-    width:85%;
-    margin:10px;
+    width:100%;
+    
     margin-top: 30px;
     margin-bottom: 20px;
     
@@ -69,20 +69,15 @@ ion-input{
 			Comments
 ================================*/
 .comments {
-    padding:30px 0;
+    background-color: #202020;
+    color: #F5F5F5;
+    text-align:center;
 }
-.comments .media-object {
-    border: 1px solid #07e5d8;
-    border-radius: 50%;
-    height: 30px;
-    margin: 1px;
-    width: 30px;
-}
-.media-body > .text-font {
-    color: #333333;
-    font-size: 15px;
-    font-weight: 300;
-    float: left;
+
+
+.comments video {
+    width: 2024px;
+
 }
 
 

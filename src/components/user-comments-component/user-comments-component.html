@@ -17,7 +17,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
   <div class="comments">
 
     <div class="col-lg-6">
@@ -42,7 +42,7 @@
         <img src="{{postMediaURL}}" (click)="launch()">
       </div>
       <div *ngIf="MediaType=='Video'">
-        <video controls="controls" preload="metadata" autoplay webkit-playsinline="webkit-playsinline" class="videoPlayer" (click)="openComments('Video')">
+        <video controls="controls" preload="metadata" autoplay webkit-playsinline="webkit-playsinline" >
           <source src="{{postMediaURL}}" type="video/mp4" />
         </video>
       </div>

@@ -292,74 +292,12 @@ export class NewCommentComponent implements OnInit {
       });
     }
   }
-  /*
-    imageFileChange(event) {
-      this.imageSelected = true;
-      this.uploaded = false;
-      this.isUploadingImage = true;
   
-      let fileList: FileList = event.target.files;
-      if (fileList.length > 0) {
-        let file: File = fileList[0];
-        let formData: FormData = new FormData();
-        formData.append('uploadFile', file, file.name);
-  
-        console.log(file);
-  
-  
-        this._mediaPost.postImage(formData, 'Story').subscribe(sub => {
-          this.uploaded = true;
-          this.isUploadingImage = false;
-  
-          this.mediaName = sub;
-          this.mediaType = "Image";
-          this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/Thumb/' + sub;
-        });
-      }
-    }
-  
-    videoFileChange(event) {
-      this.videoSelected = true;
-      this.uploaded = false;
-      this.isUploadingImage = true;
-  
-      let fileList: FileList = event.target.files;
-      if (fileList.length > 0) {
-        let file: File = fileList[0];
-        let formData: FormData = new FormData();
-        formData.append('uploadFile', file, file.name);
-  
-  
-        this._mediaPost.postVideo(formData).subscribe(sub => {
-          this.uploaded = true;
-          this.isUploadingImage = false;
-  
-          this.mediaName = sub;
-          this.mediaType = "Video";
-        });
-      }
-    }
-    */
 
   closeModal() {
 
     this.vc.dismiss();
   }
 
-  /*
-    uploadMedia(event) {
-      let fileList: FileList = event.target.files;
-      if (fileList.length > 0) {
-        let file: File = fileList[0];
-        if (file.name.toLowerCase().endsWith('.avi') || file.name.toLowerCase().endsWith('.mpeg')) {
-          this.videoFileChange(event);
-        }
-        else {
-          this.imageFileChange(event);
-        }
-      }
-    }
-  
-    */
 
 }
