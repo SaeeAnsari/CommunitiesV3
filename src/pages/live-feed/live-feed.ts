@@ -9,6 +9,9 @@ import { UserService } from '../../providers/user-service';
 import { CommunityPage } from '../../pages/community/community';
 
 
+import { UserSearchComponent } from '../user-search-component/user-search-component';
+
+
 
 
 
@@ -166,6 +169,11 @@ export class LiveFeed implements OnInit {
         resolve();
       }, 500);
     })
+  }
+
+  addUserToCommunity(){
+
+        this.navCtrl.push(UserSearchComponent, { communityID: this.communityID });
   }
 
 }
