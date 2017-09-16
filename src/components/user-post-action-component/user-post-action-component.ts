@@ -1,7 +1,12 @@
-import { Component , OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { StoryService } from '../../providers/story-service';
 import { UserService } from '../../providers/user-service';
 import { UserCommentsComponent } from '../user-comments-component/user-comments-component';
+
+import { PopoverController } from 'ionic-angular';
+
+
+import { SocialSharingPopoverComponent } from '../../components/social-sharing-popover/social-sharing-popover';
 
 
 /**
@@ -21,11 +26,14 @@ export class UserPostActionComponent implements OnInit {
   @Input() LikeCount: number;
   @Input() StoryID: number;
   @Input() UserID: number;
+  @Input() MediaType: string;
 
   @Output() ViewCommentsClicked = new EventEmitter();
 
 
-  constructor(private _storyService: StoryService, private _userService: UserService, ) { }
+  constructor(private _storyService: StoryService,
+    private _userService: UserService,
+    public popoverCtrl: PopoverController) { }
 
   ngOnInit() {
 
@@ -50,6 +58,17 @@ export class UserPostActionComponent implements OnInit {
     this.ViewCommentsClicked.emit({
       storyID: storyID
     });
+  }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(SocialSharingPopoverComponent, { storyID: this.StoryID });
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  ionViewDidLoad() {
+    console.log("Media TYpe: " + this.MediaType)
   }
 
 }

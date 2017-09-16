@@ -91,6 +91,7 @@ export class VideoUploadComponent {
 
   public async upload(fullPath, name, mimeType) {
 
+    console.log("Uploading video: "+ fullPath + ":" + name)
 
     let loading = this.loadingCtrl.create({
       content: 'Uploading...',

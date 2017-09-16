@@ -62,6 +62,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ImageUploadComponent } from '../components/image-upload/image-upload';
 import { VideoUploadComponent } from '../components/video-upload/video-upload';
 import { LocalGalleryUploadComponent } from '../components/local-gallery-upload/local-gallery-upload';
+import { SocialSharingPopoverComponent } from '../components/social-sharing-popover/social-sharing-popover';
+
 
 
 const cloudSettings: CloudSettings = {
@@ -87,6 +89,7 @@ const cloudSettings: CloudSettings = {
     UserSearchComponent,
     UserSearchItemComponent,
     LiveFeed,
+    
     MarkerNewPostComponent,
     UserCommentsComponent,
     UserPostActionComponent,
@@ -105,7 +108,8 @@ const cloudSettings: CloudSettings = {
     NewEventComponent,
     ImageUploadComponent,
     VideoUploadComponent,
-    LocalGalleryUploadComponent
+    LocalGalleryUploadComponent,
+    SocialSharingPopoverComponent
   ],
   imports: [
     BrowserModule,
@@ -124,6 +128,7 @@ const cloudSettings: CloudSettings = {
     CommunityPage,
     UserSearchComponent,
     LiveFeed,
+    SocialSharingPopoverComponent,
     UserCommentsComponent,
     NewCommentComponent,
     Login,
@@ -137,6 +142,7 @@ const cloudSettings: CloudSettings = {
   ],
   providers: [
     StatusBar,
+    
     SplashScreen,
     Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler },

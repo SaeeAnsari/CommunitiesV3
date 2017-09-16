@@ -1,11 +1,12 @@
 <div class="post_like">
   <ul>
     <li>
-      
+
       <button type="button" class="btn btn-link fa fa-thumbs-up fa-2x" (click)="setLike(StoryID)"> {{LikeCount}}</button>
     </li>
     <li>
       <button type="button" class="btn btn-link fa fa-comments" (click)="viewComments(StoryID)"> {{CommentCount}}</button>
     </li>
+    <li><div *ngIf="MediaType=='Image'"><button type="button" class="btn btn-link fa fa-share-square-o" (click)="presentPopover($event)">Share</button></div></li>
   </ul>
 </div>

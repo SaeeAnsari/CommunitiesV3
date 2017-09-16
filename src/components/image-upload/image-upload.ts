@@ -53,10 +53,10 @@ export class ImageUploadComponent {
       */
     try {
 
-      //let orignal = await this.cameraPluginServices.open_camera();
-      //console.log(orignal);
-      this.DummyShowImage();
-      //this.upload(orignal);
+      let orignal = await this.cameraPluginServices.open_camera();
+      console.log(orignal);
+      //this.DummyShowImage();
+      this.upload(orignal);
     }
     catch (e) {
       console.log("Error : " + e);
