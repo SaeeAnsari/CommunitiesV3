@@ -35,7 +35,7 @@ export class SocialSharingPopoverComponent {
 
       console.log("Sharing on FB: " + sub.LongDescription);
 
-      this.socilaSharing.shareViaFacebook(sub.LongDescription, null, sub.StoryExternalURL== null ? sub.ImageURL : sub.StoryExternalURL).then((data) => {
+      this.socilaSharing.shareViaFacebook(sub.LongDescription, sub.ImageURL, sub.StoryExternalURL).then((data) => {
         this.viewController.dismiss();
       })
     });
