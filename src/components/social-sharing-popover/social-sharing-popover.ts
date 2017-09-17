@@ -33,7 +33,7 @@ export class SocialSharingPopoverComponent {
 
     this.storyService.GetStory(this.storyID).subscribe(sub => {
 
-      console.log("Sharing on FB: " + sub.StoryExternalURL== null ? sub.ImageURL : sub.StoryExternalURL);
+      console.log("Sharing on FB: " + sub.LongDescription);
 
       this.socilaSharing.shareViaFacebook(sub.LongDescription, null, sub.StoryExternalURL== null ? sub.ImageURL : sub.StoryExternalURL).then((data) => {
         this.viewController.dismiss();
