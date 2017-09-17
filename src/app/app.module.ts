@@ -64,7 +64,7 @@ import { ImageUploadComponent } from '../components/image-upload/image-upload';
 import { VideoUploadComponent } from '../components/video-upload/video-upload';
 import { LocalGalleryUploadComponent } from '../components/local-gallery-upload/local-gallery-upload';
 import { SocialSharingPopoverComponent } from '../components/social-sharing-popover/social-sharing-popover';
-import { GalleryUploadComponent } from '../components/gallery-upload/gallery-upload';
+
 
 
 
@@ -111,8 +111,7 @@ const cloudSettings: CloudSettings = {
     ImageUploadComponent,
     VideoUploadComponent,
     LocalGalleryUploadComponent,
-    SocialSharingPopoverComponent,
-    GalleryUploadComponent
+    SocialSharingPopoverComponent
   ],
   imports: [
     BrowserModule,
