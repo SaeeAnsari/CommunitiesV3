@@ -4,11 +4,13 @@
     <img src="{{PostMediaURL}}" (click)="openComments('Image')">
   </div>
   <div *ngIf="MediaType=='Video'">
-    <video controls="controls" preload="metadata" autoplay muted  webkit-playsinline="webkit-playsinline" class="videoPlayer" (click)="openComments('Video')">
+    <video controls="controls" preload="metadata" autoplay muted webkit-playsinline="webkit-playsinline" class="videoPlayer"
+      (click)="openComments('Video')">
       <source src="{{PostMediaURL}}" type="video/mp4" />
-    </video >
+    </video>
   </div>
 </div>
-<app-user-post-action MediaType="{{MediaType}}" LikeCount="{{LikeCount}}" CommentCount="{{CommentCount}}" UserID="UserID" StoryID="{{StoryID}}" (ViewCommentsClicked)="viewCommentsClicked()"></app-user-post-action>
-
-
+<div class="content-centered">
+  <app-user-post-action MediaType="{{MediaType}}" LikeCount="{{LikeCount}}" CommentCount="{{CommentCount}}" UserID="UserID"
+    StoryID="{{StoryID}}" (ViewCommentsClicked)="viewCommentsClicked()"></app-user-post-action>
+</div>
