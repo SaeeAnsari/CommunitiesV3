@@ -61,7 +61,7 @@ export class UserPostActionComponent implements OnInit {
   }
 
   presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(SocialSharingPopoverComponent, { storyID: this.StoryID });
+    let popover = this.popoverCtrl.create(SocialSharingPopoverComponent, { storyID: this.StoryID, mediaType: this.MediaType });
     popover.present({
       ev: myEvent
     });

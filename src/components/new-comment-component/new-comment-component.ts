@@ -19,7 +19,7 @@ import { UploadImage } from '../../interfaces/upload-image';
 import { ViewController, NavParams, NavController } from 'ionic-angular';
 import { OpenGraphServiceProvider } from '../../providers/open-graph-service/open-graph-service';
 
-
+import {Keyboard} from '@ionic-native/keyboard';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
@@ -78,6 +78,7 @@ export class NewCommentComponent implements OnInit {
 
   private hideEventsSection: boolean = false;
 
+  private keyboardShowing: boolean;
 
   private firebaseToken = "";
 
@@ -98,11 +99,22 @@ export class NewCommentComponent implements OnInit {
     private _openGraphApi: OpenGraphServiceProvider,
     private transfer: FileTransfer,
     private file: File,
-    private cameraPluginServices: CameraPluginProvider
+    private cameraPluginServices: CameraPluginProvider,
+    private keyboard: Keyboard
   ) {
   }
 
   ngOnInit() {
+    this.keyboard.disableScroll(true);
+    this.keyboard.onKeyboardShow().subscribe(sub=>{
+      this.keyboardShowing = true;
+    });
+
+    this.keyboard.onKeyboardHide().subscribe(sub=>{
+      this.keyboardShowing = false;
+    });
+      
+
     this._userService.getLoggedinInUser().subscribe(sub => {
 
       this.user = {

@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ViewController, NavParams } from 'ionic-angular';
 import { StoryService } from '../../providers/story-service';
+import { CommunityService } from '../../providers/community-service';
+import { UserService } from '../../providers/user-service';
+import {ID_Name_Pair} from '../../interfaces/id-name-list';
+
 
 /**
  * Generated class for the SocialSharingPopoverComponent component.
@@ -12,20 +16,36 @@ import { StoryService } from '../../providers/story-service';
 @Component({
   selector: 'social-sharing-popover',
   templateUrl: 'social-sharing-popover.html',
-  providers: [SocialSharing, StoryService]
+  providers: [SocialSharing, StoryService, CommunityService, UserService]
 })
-export class SocialSharingPopoverComponent {
+
+export class SocialSharingPopoverComponent implements OnInit {
 
   text: string;
   private storyID: number;
+  userCommunity: ID_Name_Pair[] = [];
+  mediaType: string;
+
+  ngOnInit(): void {
+    
+      this.loadUserCommunities();
+    
+  }
 
   constructor(
     private viewController: ViewController,
     private socilaSharing: SocialSharing,
     private navParams: NavParams,
-    private storyService: StoryService) {
+    private storyService: StoryService,
+    private communityService: CommunityService,
+    private userService: UserService
+  ) {
     if (this.navParams.get("storyID")) {
       this.storyID = this.navParams.get("storyID");
+    }
+
+    if(this.navParams.get("mediaType")){
+      this.mediaType = this.navParams.get("mediaType");
     }
   }
 
@@ -40,12 +60,57 @@ export class SocialSharingPopoverComponent {
       })
     });
   }
+
   shareWhatsApp() {
+
     this.storyService.GetStory(this.storyID).subscribe(sub => {
 
       this.socilaSharing.shareViaWhatsApp(sub.LongDescription, sub.ImageURL, sub.StoryExternalURL).then((data) => {
         this.viewController.dismiss();
       })
     });
+  }
+
+  loadUserCommunities() {
+
+    this.userService.getLoggedinInUser().subscribe(s => {
+      let userID = s.ID;
+
+      this.communityService.GetUserCommunities(userID).subscribe(c => {
+        
+        c.forEach(element => {
+
+          var pair: ID_Name_Pair = {id: element.ID, name: element.Name};
+          this.userCommunity.push(pair);
+        });
+      });      
+    });
+  }
+
+  onShareClick(id){
+
+    //let communityID= [id];
+    //communityID.push(id);
+
+    this.userService.getLoggedinInUser().subscribe(s => {
+      let userID = s.ID;
+      this.storyService.GetStory(this.storyID).subscribe(sub=>{
+
+        let mediaIdentifier = "";
+        if(sub.MediaType == "Video") {
+          mediaIdentifier = sub.Video.VideoIdentifier;
+        }
+        else if(sub.MediaType == "Image"){
+          mediaIdentifier = sub.ImageURL;
+        }
+
+        this.storyService.SavePost(userID, sub.LongDescription, sub.MediaType, sub.ImageURL, id ,mediaIdentifier, sub.StoryExternalURL, sub.PublicID, sub.VersionID ).subscribe(sub=>{
+          console.log("Share Successful!");
+        })
+      })
+    });
+    
+    console.log("in here " + id);
+    this.viewController.dismiss();
   }
 }

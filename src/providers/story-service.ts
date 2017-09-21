@@ -105,7 +105,7 @@ export class StoryService {
 
 
 
-    if (mediaType == "Video" && mediaName.length > 0) {
+    if (mediaType == "Video" && (mediaName.length > 0 || extMediaURL.length >0)) {
       videoTag = {
         ID: -1,
         VideoIdentifier: extMediaURL,

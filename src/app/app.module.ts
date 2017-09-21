@@ -12,6 +12,7 @@ import { CloudModule, CloudSettings } from '@ionic/cloud-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import {Facebook} from '@ionic-native/facebook';
 import {ImagePicker} from '@ionic-native/image-picker';
+import {Keyboard} from '@ionic-native/keyboard';
 
 
 import { AboutPage } from '../pages/about/about';
@@ -156,6 +157,7 @@ const cloudSettings: CloudSettings = {
     FacebookApiProvider,
     EventProvider,
     Camera,
+    Keyboard,
     ImagePicker,
     MediaCapture,
     FileTransfer,

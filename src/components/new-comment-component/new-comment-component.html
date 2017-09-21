@@ -51,7 +51,7 @@
             <div class="form-group">
               <div *ngIf="graphFound == false">
 
-                <div *ngIf="uploaded">
+                <div *ngIf="uploaded && !keyboardShowing">
                   <uploaded-media-post PostMediaURL="{{uploadedMediaURL}}" Type="{{mediaType}}"></uploaded-media-post>
                   <br>
                 </div>
