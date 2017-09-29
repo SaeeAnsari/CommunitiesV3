@@ -19,7 +19,7 @@ import { UploadImage } from '../../interfaces/upload-image';
 import { ViewController, NavParams, NavController } from 'ionic-angular';
 import { OpenGraphServiceProvider } from '../../providers/open-graph-service/open-graph-service';
 
-import {Keyboard} from '@ionic-native/keyboard';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
@@ -47,10 +47,12 @@ export class NewCommentComponent implements OnInit {
   public uploaded: boolean = false;
   private postText: string = "";
   private postTextUploaded: string = "";
-  public mediaName: string = "";
   public mediaType: string = "";
-  public cloudinaryPublicID: string = "";
-  public cloudinaryVersionID: string = "";
+  public uploadedMediaURL :string = "";
+
+
+  public videoObj: any;
+  public imageListObj= [];
 
   private videoSelected: boolean = false;
   private imageSelected: boolean = false;
@@ -71,8 +73,6 @@ export class NewCommentComponent implements OnInit {
   private graphImage: string = "";
   private graphVideo: string = "";
   private graphExternalURL: string = "";
-
-  public uploadedMediaURL: string = "";
 
   private createNewEvent: boolean = false;
 
@@ -106,14 +106,14 @@ export class NewCommentComponent implements OnInit {
 
   ngOnInit() {
     this.keyboard.disableScroll(true);
-    this.keyboard.onKeyboardShow().subscribe(sub=>{
+    this.keyboard.onKeyboardShow().subscribe(sub => {
       this.keyboardShowing = true;
     });
 
-    this.keyboard.onKeyboardHide().subscribe(sub=>{
+    this.keyboard.onKeyboardHide().subscribe(sub => {
       this.keyboardShowing = false;
     });
-      
+
 
     this._userService.getLoggedinInUser().subscribe(sub => {
 
@@ -170,141 +170,96 @@ export class NewCommentComponent implements OnInit {
 
               this.postText = this.graphTitle;
               this.mediaType = "Image";
+
+              if (this.graphImage.length > 0) {
+                this.imageListObj.push(
+                  {
+                    id: -1,
+                    url: this.graphImage
+                  }
+                )
+              }
             }
           });
         }
       });
   }
 
-  public async launchCamera() {
-
-    try {
-
-      let orignal = await this.cameraPluginServices.open_camera();
-
-      console.log(orignal);
-
-      this.upload(orignal);
-
-    }
-    catch (e) {
-
-      console.log("Error : " + e);
-
-    }
-
-  }
-
-  public async upload(cameraImageURL) {
-    this.imageSelected = true;
-    this.uploaded = false;
-
-    console.log("In the Upload Method :  " + cameraImageURL);
-    let options = {
-      fileKey: 'file',
-      fileName: cameraImageURL.split('/').pop(),
-      mimeType: 'image/jpeg',
-      chunkedMode: false,
-      headers: {
-        'Content-Type': undefined
-      },
-      params: {}
-    };
-
-    try {
-      console.log("About to call the Upload Method : " + JSON.stringify(options));
-
-      let url = BaseLinkProvider.GetBaseUrl() + "/Image";
-
-      console.log("URL : " + url);
-
-      let result = await this.file_transfer.upload(
-        encodeURI(cameraImageURL),
-        encodeURI(url),
-        options,
-        false
-      );
-
-
-      var parsingString = result.response;
-      var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
-      this.uploaded = true;
-
-      this.mediaName = fileName;
-      this.mediaType = "Image";
-      this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/Thumb/' + fileName;
-
-    } catch (e) {
-      console.log("Error : " + JSON.stringify(e));
-
-    }
-  }
-
 
   mediaSelectedForPosting(data) {
 
     console.log("inside the imageSelectedForPosting");
-    if(data!= null){
+    if (data != null) {
       console.log("Got Data: " + JSON.stringify(data));
-      
-      this.uploadedMediaURL = data.fullPathFileName;
-      this.mediaName = data.fileName;
+
+      if (data.mediaType == "Video") {
+        this.videoObj = {
+          id: -1,
+          url: data.fileName,
+          publicID: data.publicID,
+          versionID: data.versionID
+        }
+        this.uploadedMediaURL = data.fileName;
+      }
+      else if (data.mediaType == "Image") {
+
+        data.imageList.forEach(element => {
+          this.imageListObj.push(
+            {
+              id: -1,
+              url: element.fileName,
+              publicID: element.publicID,
+              versionID: element.versionID
+            }
+          )
+
+          this.uploadedMediaURL = element.fileName;
+        });
+
+      }
+
       this.mediaType = data.mediaType;
-      this.cloudinaryPublicID = data.publicID;
-      this.cloudinaryVersionID = data.versionID;
-
       this.uploaded = true;
-      
       this.hideEventsSection = true;
-
     }
   }
 
   post() {
 
-    if (this.user && (this.postText != '' || this.mediaName != ''|| this.postTextUploaded != '')) {
+    if (this.user && (this.postText != '' || this.imageListObj != null || this.videoObj != null)) {     
+      
+      let storyText = this.postText == "" ? this.postTextUploaded : this.postText;
 
-      let extMediaURL = "";
-      if (this.graphImage.length > 0) {
-        extMediaURL = this.graphImage;
-      }
-      else if(this.uploadedMediaURL != ''){
-        extMediaURL = this.uploadedMediaURL;
-      }
+      this._storyService.SavePost(this.user.id,
+        storyText, this.mediaType, this.optionsModel, this.videoObj, this.imageListObj, this.graphExternalURL).subscribe(sub => {
+          let id = sub;
+          this.uploaded = false;
+          this.postText = "";
+          this.postTextUploaded = "";
+          this.mediaType = "";
+          this.videoSelected = false;
+          this.imageSelected = false;
 
-      let storyText = this.postText == ""? this.postTextUploaded : this.postText;
-
-
-      this._storyService.SavePost(this.user.id, storyText, this.mediaType, this.mediaName, this.optionsModel, extMediaURL, this.graphExternalURL, this.cloudinaryPublicID, this.cloudinaryVersionID).subscribe(sub => {
-        let id = sub;
-        this.uploaded = false;
-        this.postText = "";
-        this.postTextUploaded = "";
-        this.mediaName = "";
-        this.mediaType = "";
-        this.videoSelected = false;
-        this.imageSelected = false;
-
-        this.vc.dismiss({ storyID: id });
+          this.vc.dismiss({ storyID: id });
 
 
-        this.optionsModel = [];
-        this.optionsModel.push(this.user.defaultCommunityID);
+          this.optionsModel = [];
+          this.optionsModel.push(this.user.defaultCommunityID);
 
-        if (this.user.defaultCommunityID > 0) {
+          if (this.user.defaultCommunityID > 0) {
 
-          let activeCommunity = this.user.defaultCommunityID;
+            let activeCommunity = this.user.defaultCommunityID;
 
-          if (sessionStorage.getItem("activeCommunity") != null) {
+            if (sessionStorage.getItem("activeCommunity") != null) {
 
-            activeCommunity = +sessionStorage.getItem("activeCommunity")
+              activeCommunity = +sessionStorage.getItem("activeCommunity")
+            }
+
           }
-
-        }
-      });
+        });
     }
   }
-  
+
 
   closeModal() {
 

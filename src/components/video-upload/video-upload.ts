@@ -40,9 +40,9 @@ export class VideoUploadComponent {
   public async loadVideoCamera() {
     this.uploaded = false;
 
-    /*
-    this.DummyShowVideoSection();
-    */
+
+    //this.DummyShowVideoSection();
+
 
     console.log("In the Upload Method");
 
@@ -81,7 +81,6 @@ export class VideoUploadComponent {
 
       mediaType: "Video",
       fileName: fileName,
-      fullPathFileName: fileName,
       publicID: '222222',
       versionID: '111111'
 
@@ -91,7 +90,7 @@ export class VideoUploadComponent {
 
   public async upload(fullPath, name, mimeType) {
 
-    console.log("Uploading video: "+ fullPath + ":" + name)
+    console.log("Uploading video: " + fullPath + ":" + name)
 
     let loading = this.loadingCtrl.create({
       content: 'Uploading...',
@@ -153,7 +152,6 @@ export class VideoUploadComponent {
       this.OnFileSaved.emit({
         mediaType: "Video",
         fileName: fileName,
-        fullPathFileName: fileName,
         publicID: publicID,
         versionID: versionID
       });

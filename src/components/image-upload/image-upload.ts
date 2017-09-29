@@ -25,9 +25,7 @@ export class ImageUploadComponent {
 
   private file_transfer: FileTransferObject = this.transfer.create();
   public uploaded: boolean = false;
-  public mediaName: string = "";
   public mediaType: string = "";
-  public uploadedMediaURL: string = "";
 
   @Input() ImageCategory: string;
 
@@ -44,13 +42,7 @@ export class ImageUploadComponent {
 
   public async launchCamera() {
 
-    /*
-     this.OnFileSaved.emit({
-        mediaType: "Image",
-        fileName: "6f96dc09-e38d-489d-aa73-c85f67da2e1d.jpg",
-        fullPathFileName: "http://saeedansari-001-site2.itempurl.com/MediaUpload/Story/6f96dc09-e38d-489d-aa73-c85f67da2e1d.jpg"
-      });
-      */
+    
     try {
 
       let orignal = await this.cameraPluginServices.open_camera();
@@ -68,8 +60,6 @@ export class ImageUploadComponent {
 
     var fileName = 'http://res.cloudinary.com/http-communities-me/image/upload/v1504497765/l3ofqjfmzzr8xl5lumiq.jpg';
     this.mediaType = "Image";
-    this.uploadedMediaURL = fileName;
-    this.mediaName = fileName;
 
 
     this.uploaded = true;
@@ -77,8 +67,12 @@ export class ImageUploadComponent {
 
     this.OnFileSaved.emit({
       mediaType: "Image",
-      fileName: fileName,
-      fullPathFileName: this.uploadedMediaURL
+      imageList: [{
+        id:-1,
+        fileName: fileName,
+        publicID: "222",
+        versionID :"222"
+      }]         
     });
   }
 
@@ -138,20 +132,17 @@ export class ImageUploadComponent {
         console.log("FileName: " + fileName + ", publicID: " + publicID + ", versionID: " + versionID);
         
         this.uploaded = true;
-
-        this.mediaName = fileName;
         this.mediaType = "Image";
-        this.uploadedMediaURL = fileName;//BaseLinkProvider.GetMediaURL() + 'MediaUpload/' + this.ImageCategory+'/' + fileName;
-        console.log("firing Emit!");
-        console.log("UPloadMediaURL : " + this.uploadedMediaURL);
 
         loading.dismiss();
         this.OnFileSaved.emit({
           mediaType: "Image",
-          fileName: fileName,
-          fullPathFileName: this.uploadedMediaURL,
-          publicID: publicID,
-          versionID :versionID
+          imageList: [{
+            id:-1,
+            fileName: fileName,
+            publicID: publicID,
+            versionID :versionID
+          }]         
         });
       })
         .catch(error => {

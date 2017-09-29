@@ -83,12 +83,15 @@ export class LocalGalleryUploadComponent {
           console.log("FileName: " + fileName + ", publicID: " + publicID + ", versionID: " + versionID);
 
           loading.dismiss();
+         
           this.OnFileSaved.emit({
             mediaType: "Image",
-            fileName: fileName,
-            fullPathFileName: fileName,
-            publicID: publicID,
-            versionID: versionID
+            imageList: [{
+              id:-1,
+              fileName: fileName,
+              publicID: publicID,
+              versionID :versionID
+            }]         
           });
         })
           .catch(error => {
