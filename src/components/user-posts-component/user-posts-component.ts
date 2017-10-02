@@ -23,34 +23,31 @@ export class UserPostsComponent implements OnInit {
   @Input() UserID: number;
   @Input() StoryExternalURL: string;
   @Input() MediaType: string;
-  @Input() StoryImages;
 
-  public fixedImagesforStory;
-
+  private hasImage: boolean = false;
 
   constructor(
     public modalCtrl: ModalController
-  ) { }
+    ) { }
 
   ngOnInit() {
-    if (this.StoryImages.length > 0) {
-      this.fixedImagesforStory = this.StoryImages[0];
+    if (this.PostMediaURL.length > 0) {
+      
+      this.hasImage = true;
     }
-    console.log(this.StoryImages);
   }
 
-  viewCommentsClicked() {
+  viewCommentsClicked(){
     this.openComments(this.MediaType);
   }
-
+  
 
   //Type : Video or Image
   openComments(type) {
 
-
-    let commentsModal = this.modalCtrl.create(UserCommentsComponent,
-      { storyID: this.StoryID, postMediaURL: type=="Image" ?this.fixedImagesforStory : this.PostMediaURL , postMessage: this.PostMessage, storyExternalURL: this.StoryExternalURL, type: type },
-      { showBackdrop: true, enableBackdropDismiss: true });
+    let commentsModal = this.modalCtrl.create(UserCommentsComponent, 
+    { storyID: this.StoryID, postMediaURL: this.PostMediaURL, postMessage: this.PostMessage, storyExternalURL : this.StoryExternalURL, type: type }, 
+    { showBackdrop: true, enableBackdropDismiss: true });
 
     commentsModal.onDidDismiss(data => {
 
@@ -60,6 +57,12 @@ export class UserPostsComponent implements OnInit {
     });
     commentsModal.present();
 
+    //alert('broke this as we need  to IONIZe it');
+    /*
+    const modalRef = this._modalService.open(UserCommentsComponent, { windowClass: 'dark-modal' } );   
+    modalRef.componentInstance.storyID = this.StoryID;
+    modalRef.componentInstance.loadComments();
+    */
   }
 
 }

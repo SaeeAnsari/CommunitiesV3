@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 
-import { BaseLinkProvider } from '../providers/base-link/base-link';
+import {BaseLinkProvider} from '../providers/base-link/base-link';
 
 
 
@@ -35,7 +35,7 @@ import 'rxjs/add/operator/switchMap';
 @Injectable()
 export class StoryService {
 
-  private _url = BaseLinkProvider.GetBaseUrl() + '/Story';
+  private _url = BaseLinkProvider.GetBaseUrl()+ '/Story';
   private _uploadURL = BaseLinkProvider.GetMediaURL();
   headers: Headers;
 
@@ -87,11 +87,13 @@ export class StoryService {
     userID: number,
     postText: string,
     mediaType: string,
+    mediaName: string,
     selectedCommunities: number[],
-    video: any,
-    images: any,
-    storyExternalURL: string
-  ): Observable<any> {
+    extMediaURL: string,
+    storyExternalURL: string,
+    mediaPublicID: string,
+    mediaVersionID: string
+    ): Observable<any> {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -99,40 +101,31 @@ export class StoryService {
     let videoTag;
     let imageURL = '';
 
-    if (mediaType == "Video" && video != null) {
+    console.log("Public ID: " + mediaPublicID);
+
+
+
+    if (mediaType == "Video" && (mediaName.length > 0 || extMediaURL.length >0)) {
       videoTag = {
         ID: -1,
-        VideoIdentifier: video.url,
-        HostProvider: 1,
-        PublicID: video.publicID,
-        VersionID: video.versionID
+        VideoIdentifier: extMediaURL,
+        HostProvider: 1
       }
     }
     else {
       videoTag = {
         ID: -1,
         VideoIdentifier: '',
-        HostProvider: 0,
-        PublicID: "",
-        VersionID: ""
+        HostProvider: 0
       };
+      if (extMediaURL.length > 0) {
+        imageURL = extMediaURL;
+      }
+      else if (mediaName.length > 0) {
+        imageURL = this._uploadURL + '/MediaUpload/Story/Thumb/' + mediaName;
+      }
     }
 
-    let imageList=[];
-    if (mediaType == "Image" && images != null) {
-      images.forEach(element => {
-        imageList.push(
-          {
-            ID: -1,
-            ImageURL: element.url,
-            StoryID: -1,
-            Active: true,
-            PublicID: element.publicID,
-            VersionID: element.versionID
-          }
-        )
-      });
-    }
 
 
     let data = {
@@ -142,13 +135,13 @@ export class StoryService {
       Video: videoTag,
       CommunityIDs: [],
       ImageURL: imageURL,
-      StoryExternalURL: storyExternalURL,
-      Images: imageList
+      PublicID: mediaPublicID,
+      VersionID: mediaVersionID,
+      StoryExternalURL: storyExternalURL
     };
     if (selectedCommunities.length > 0) {
       data.CommunityIDs = selectedCommunities;
     }
-
 
     console.log("This is what i am sending SAVE POST :" + JSON.stringify(data));
 
@@ -160,24 +153,5 @@ export class StoryService {
     ).map(res => res.json())
       .catch(this.handleError)
   }
-
-  public ShareStory(storyID: number, userID: number, communityIDs: number[]): Observable<any> {
-    
-      let _shareURL = BaseLinkProvider.GetBaseUrl() + '/StoryShare'
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        let data ={
-          StoryID: storyID,
-          UserID: userID,
-          CommunityID: communityIDs
-        };
-
-        return this._http.post(
-          _shareURL ,
-          data,
-          { headers: this.headers }
-        ).map(res => res.json())
-          .catch(this.handleError)
-      }
 
 }

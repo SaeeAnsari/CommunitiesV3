@@ -1,10 +1,7 @@
 <div class="feed_post_content md-no-style">
   <div class="feed_post_message" [innerHTML]="PostMessage"></div>
   <div *ngIf="MediaType=='Image'">
-    <div *ngFor="let img of fixedImagesforStory">       
-      
-      <img src="{{img.ImageURL}}" (click)="openComments('Image')">
-    </div>
+    <img src="{{PostMediaURL}}" (click)="openComments('Image')">
   </div>
   <div *ngIf="MediaType=='Video'">
     <video controls="controls" preload="metadata" autoplay muted webkit-playsinline="webkit-playsinline" class="videoPlayer"
