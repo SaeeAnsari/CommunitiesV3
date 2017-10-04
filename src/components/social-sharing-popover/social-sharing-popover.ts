@@ -89,28 +89,16 @@ export class SocialSharingPopoverComponent implements OnInit {
 
   onShareClick(id){
 
-    //let communityID= [id];
-    //communityID.push(id);
-
     this.userService.getLoggedinInUser().subscribe(s => {
       let userID = s.ID;
-      this.storyService.GetStory(this.storyID).subscribe(sub=>{
 
-        let mediaIdentifier = "";
-        if(sub.MediaType == "Video") {
-          mediaIdentifier = sub.Video.VideoIdentifier;
-        }
-        else if(sub.MediaType == "Image"){
-          mediaIdentifier = sub.ImageURL;
-        }
-
-        this.storyService.SavePost(userID, sub.LongDescription, sub.MediaType, sub.ImageURL, id ,mediaIdentifier, sub.StoryExternalURL, sub.PublicID, sub.VersionID ).subscribe(sub=>{
-          console.log("Share Successful!");
-        })
-      })
+        this.storyService.ShareStory(this.storyID, userID, id).subscribe(sub=>{
+          if(sub == true){
+            console.log("Share Successful!");            
+          }
+        });
     });
     
-    console.log("in here " + id);
     this.viewController.dismiss();
   }
 }

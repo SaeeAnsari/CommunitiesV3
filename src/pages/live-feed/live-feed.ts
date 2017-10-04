@@ -31,7 +31,7 @@ import { UserSearchComponent } from '../user-search-component/user-search-compon
 export class LiveFeed implements OnInit {
 
   private userID: number;
-  private posts: UserPost[] = [];
+  private posts=[];
   private subscription;
   private communityID: number = 0;
   private nextPageIndex: number = 0;
@@ -82,7 +82,8 @@ export class LiveFeed implements OnInit {
             userProfileImage: element.StoryUser.ImageURL,
             userFullName: element.StoryUser.DisplayName,
             storyExternalURL: element.StoryExternalURL,
-            mediaType: element.MediaType
+            mediaType: element.MediaType,
+            images: element.Images
           });
         });
 

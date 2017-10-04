@@ -17,7 +17,7 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content>
   <div class="comments">
 
     <div class="col-lg-6">
@@ -39,10 +39,12 @@
 
 
       <div *ngIf="MediaType=='Image'">
-        <img src="{{postMediaURL}}" (click)="launch()">
+        <div *ngFor="let img of postMediaURL">
+          <img src="{{img.ImageURL}}" (click)="launch()">
+        </div>
       </div>
       <div *ngIf="MediaType=='Video'">
-        <video controls="controls" preload="metadata" autoplay webkit-playsinline="webkit-playsinline" >
+        <video controls="controls" preload="metadata" autoplay webkit-playsinline="webkit-playsinline">
           <source src="{{postMediaURL}}" type="video/mp4" />
         </video>
       </div>

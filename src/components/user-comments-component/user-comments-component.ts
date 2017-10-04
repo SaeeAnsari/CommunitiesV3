@@ -51,7 +51,7 @@ export class UserCommentsComponent implements OnInit {
 
   private commentPost: string;
   private comments = [];
-  private postMediaURL:string;
+  private postMediaURL;//Collection of images for a post
   private postMessage:string;
   private storyExternalURL:string = "";
 
