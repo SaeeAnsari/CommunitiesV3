@@ -31,7 +31,7 @@ import { UserSearchComponent } from '../user-search-component/user-search-compon
 export class LiveFeed implements OnInit {
 
   private userID: number;
-  private posts=[];
+  private posts = [];
   private subscription;
   private communityID: number = 0;
   private nextPageIndex: number = 0;
@@ -63,8 +63,8 @@ export class LiveFeed implements OnInit {
     this.posts = [];
     this._storyService.GetStoriesByCommunity(this.communityID, this.nextPageIndex)
       .subscribe(postS => {
-        if(postS.length > 0)
-          this.nextPageIndex = this.nextPageIndex +1;
+        if (postS.length > 0)
+          this.nextPageIndex = this.nextPageIndex + 1;
 
         postS.forEach(element => {
 
@@ -131,19 +131,18 @@ export class LiveFeed implements OnInit {
   }
 
   dynamicLoadStories(): Promise<any> {
-   
+
 
     return new Promise((resolve) => {
-      setTimeout(() => {       
-        
+      setTimeout(() => {
+
         this._storyService.GetStoriesByCommunity(this.communityID, this.nextPageIndex)
           .subscribe(postS => {
-            
-            if(postS.length >  0)
-              {
-                 this.nextPageIndex = this.nextPageIndex+1;
-              }
-            
+
+            if (postS.length > 0) {
+              this.nextPageIndex = this.nextPageIndex + 1;
+            }
+
             postS.forEach(element => {
 
               this.posts.push({
@@ -160,21 +159,22 @@ export class LiveFeed implements OnInit {
                 userProfileImage: element.StoryUser.ImageURL,
                 userFullName: element.StoryUser.DisplayName,
                 storyExternalURL: element.StoryExternalURL,
-                mediaType: element.MediaType
+                mediaType: element.MediaType,
+                images: element.Images
               });
             });
           });
 
-          
+
 
         resolve();
       }, 500);
     })
   }
 
-  addUserToCommunity(){
+  addUserToCommunity() {
 
-        this.navCtrl.push(UserSearchComponent, { communityID: this.communityID });
+    this.navCtrl.push(UserSearchComponent, { communityID: this.communityID });
   }
 
 }

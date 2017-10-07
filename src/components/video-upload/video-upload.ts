@@ -134,8 +134,8 @@ export class VideoUploadComponent {
       var fileName = parsingString.substring(parsingString.indexOf("<FileName>"), parsingString.indexOf("</FileName>")).replace("<FileName>", "");
       var publicID = parsingString.substring(parsingString.indexOf("<PublicID>"), parsingString.indexOf("</PublicID>")).replace("<PublicID>", "");
       var versionID = parsingString.substring(parsingString.indexOf("<VersionID>"), parsingString.indexOf("</VersionID>")).replace("<VersionID>", "")
-
-      console.log("FileName: " + fileName + ", publicID: " + publicID + ", versionID: " + versionID);
+      var videoThumbURL = parsingString.substring(parsingString.indexOf("<ThumbURL>"), parsingString.indexOf("</ThumbURL>")).replace("<ThumbURL>", "")
+      console.log("FileName: " + fileName + ", publicID: " + publicID + ", versionID: " + versionID + "ThumbURL: " + videoThumbURL);
       this.uploaded = true;
 
 

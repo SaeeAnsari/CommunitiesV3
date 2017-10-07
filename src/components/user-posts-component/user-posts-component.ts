@@ -35,6 +35,7 @@ export class UserPostsComponent implements OnInit {
   ngOnInit() {
     if (this.StoryImages.length > 0) {
       this.fixedImagesforStory = this.StoryImages[0];
+      
     }
     console.log(this.StoryImages);
   }
@@ -47,6 +48,8 @@ export class UserPostsComponent implements OnInit {
   //Type : Video or Image
   openComments(type) {
 
+    console.log("upon View click");
+    console.log({ storyID: this.StoryID, postMediaURL: type=="Image" ?this.fixedImagesforStory : this.PostMediaURL , postMessage: this.PostMessage, storyExternalURL: this.StoryExternalURL, type: type });
 
     let commentsModal = this.modalCtrl.create(UserCommentsComponent,
       { storyID: this.StoryID, postMediaURL: type=="Image" ?this.fixedImagesforStory : this.PostMediaURL , postMessage: this.PostMessage, storyExternalURL: this.StoryExternalURL, type: type },
