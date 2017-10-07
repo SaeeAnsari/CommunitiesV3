@@ -10,7 +10,7 @@
 
 
 .message-text{
-    color: #333333;
+    color: #7e7e7e;
     font-size: 20px;
     font-weight: 300;
     float: left;
@@ -69,8 +69,9 @@ ion-input{
 			Comments
 ================================*/
 .comments {
-    background-color: #202020;
-    color: #F5F5F5;
+    //background-color: #202020;
+    background-color: rgba(255, 255, 255, 0.75);
+    color: #7e7e7e;
     text-align:center;
 }
 
