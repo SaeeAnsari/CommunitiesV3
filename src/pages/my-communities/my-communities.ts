@@ -75,6 +75,8 @@ export class MyCommunitiesPage implements OnInit {
           this.nextPageIndex = this.nextPageIndex +1;
 
           sub.forEach(element => {
+
+            
             var community = {
               id: element.ID,
               name: element.Name,
@@ -85,7 +87,8 @@ export class MyCommunitiesPage implements OnInit {
               typeName: 'City',
               imageURL: element.ImageURL,
               lastUpdate: null,
-              isMember: element.isMember
+              isMember: element.isMember,
+              userCount: element.UserCount
             };
 
             this.searchItems.push(community);
@@ -132,7 +135,8 @@ export class MyCommunitiesPage implements OnInit {
                   typeName: 'City',
                   imageURL: element.ImageURL,
                   lastUpdate: null,
-                  isMember: element.isMember
+                  isMember: element.isMember,
+                  userCount: element.UserCount
                 };
 
                 this.searchItems.push(community);

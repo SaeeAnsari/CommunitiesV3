@@ -34,6 +34,7 @@ export class CommunityItemComponent implements OnInit {
   @Input() ID;
   @Input() Member;
   @Input() ImageURL;
+  @Input() UserCount;
 
   @Output() CommunityChanged = new EventEmitter();
 

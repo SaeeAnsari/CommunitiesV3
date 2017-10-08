@@ -34,8 +34,14 @@
 
         <div *ngFor="let item of searchItems">
 
-          <community-item ID={{item.id}} HeaderText={{item.name}} BodyText={{item.description}} Member={{item.isMember}} ImageURL={{item.imageURL}}
-            (CommunityChanged)="userJoinedCommunity($event)"></community-item>
+          <community-item 
+          ID={{item.id}} 
+          HeaderText={{item.name}} 
+          BodyText={{item.description}} 
+          Member={{item.isMember}} 
+          ImageURL={{item.imageURL}}
+          UserCount={{item.userCount}}
+          (CommunityChanged)="userJoinedCommunity($event)"></community-item>
         </div>
 
 
