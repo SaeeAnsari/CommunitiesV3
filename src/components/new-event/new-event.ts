@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
+
+
 import { OpenGraphServiceProvider } from '../../providers/open-graph-service/open-graph-service';
 import { MediaPostService } from '../../providers/media-post-service';
 import { BaseLinkProvider } from '../../providers/base-link/base-link';
@@ -8,7 +10,6 @@ import { EventProvider } from '../../providers/event/event';
 
 import { LoadingController, ViewController, NavParams, NavController } from 'ionic-angular';
 
-import { Camera, CameraOptions } from '@ionic-native/camera'
 
 /**
  * Generated class for the NewEventComponent component.
@@ -19,22 +20,27 @@ import { Camera, CameraOptions } from '@ionic-native/camera'
 @Component({
   selector: 'new-event',
   templateUrl: 'new-event.html',
-  providers: [Camera, MediaPostService, UserService, EventProvider]
+  providers: [MediaPostService, UserService, EventProvider]
 })
 export class NewEventComponent implements OnInit {
 
   public newEventForm: FormGroup;
 
   private postText: string = "";
-  private eventCountry;
   private mediaName: string = "";
   private uploadedMediaURL: string = "";
 
   private user;
 
-  private uploaded: true;
-
+  private imageReady: true;
   private graphImage: string = "";
+
+  private datesValidated: boolean = true;
+  private cityExists: boolean = true;
+
+  private userCountry:string="";
+  public submitted: boolean = false;
+
 
   ngOnInit() {
     this._userService.getLoggedinInUser().subscribe(sub => {
@@ -42,16 +48,25 @@ export class NewEventComponent implements OnInit {
         id: sub.ID,
         displayName: sub.DisplayName,
         imageURL: sub.ImageURL,
-        defaultCommunityID: sub.DefaultCommunityID
+        defaultCommunityID: sub.DefaultCommunityID        
       };
+      this.userCountry = sub.Country;
     });
+
+    var today = new Date();
+    var dateVal = today.getFullYear().toString() + '-' + (today.getMonth() + 1).toString() + '-' + today.getDate().toString();      
+        
+    
+    this.newEventForm.controls["startDate"].setValue(dateVal);
+    
+    this.newEventForm.controls["endDate"].setValue(dateVal);
+    
   }
 
 
   constructor(
     private _fb: FormBuilder,
     private _userService: UserService,
-    private camera: Camera,
     private _openGraphApi: OpenGraphServiceProvider,
     private _mediaPost: MediaPostService,
     public loadingCtrl: LoadingController,
@@ -66,9 +81,11 @@ export class NewEventComponent implements OnInit {
       description: [''],
       address: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
       city: ['', [<any>Validators.required, <any>Validators.minLength(1)]],
-      zip: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
-      country: ['', [<any>Validators.required]]
+      zip: ['', ],
+      startDate: ['', [<any>Validators.required]],
+      endDate: ['', [<any>Validators.required]]
     });
+
 
     this.newEventForm.controls['link'].valueChanges.debounceTime(1000)
       .distinctUntilChanged()
@@ -78,64 +95,32 @@ export class NewEventComponent implements OnInit {
       });
   }
 
-  launchCamera() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-
-    this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-      // Handle error
-    });
-  }
-
-
   listenToGraph() {
+    
+
     let uri = this._openGraphApi.checkIfURLExist(this.postText);
 
     if (uri != "") {
+      let loading = this.loadingCtrl.create({
+        content: 'Parsing...',
+        spinner: 'dots'
+      });
+  
+      loading.present();
+
       this._openGraphApi.GetOpenGraphDetails(uri).subscribe(sub => {
         if (sub.hybridGraph) {
 
-          this.graphImage = sub.hybridGraph.image;
-          this.newEventForm.controls['name'].setValue(sub.hybridGraph.title);
+          let name: string = sub.hybridGraph.title;
+          
+          this.uploadedMediaURL = sub.hybridGraph.image;
+          this.imageReady = true;
+          this.newEventForm.controls['name'].setValue(name.slice(0, 20));
           this.newEventForm.controls['description'].setValue(sub.hybridGraph.description);
         }
+        loading.dismiss();
       });
     }
-  }
-
-
-  imageFileChange(event) {
-
-    let loader = this.loadingCtrl.create({
-      content: "Saving...",
-      enableBackdropDismiss: true,
-      duration: 3000
-    })
-
-    loader.present();
-
-    let fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData: FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-
-      this._mediaPost.postImage(formData, 'Story').subscribe(sub => {
-
-        this.mediaName = sub;
-
-        this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/Thumb/' + sub;
-      });
-    }
-    loader.dismiss();
   }
 
   mediaSelectedForPosting(data) {
@@ -144,52 +129,84 @@ export class NewEventComponent implements OnInit {
     if (data != null) {
       console.log("Got Data: " + JSON.stringify(data));
 
-      this.uploaded = true;
+      this.imageReady = true;
 
-      this.mediaName = data.fileName;
-
-      this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/' + data.fileName;
+      if(data.imageList != null && data.imageList.length > 0){
+        this.uploadedMediaURL =data.imageList[0].fileName;
+      }
+      
+      console.log(this.uploadedMediaURL);
     }
+  }
+
+  validateEventDates() {
+
+    var ret: boolean = true;
+    var startDateVal = this.newEventForm.controls["startDate"].value;
+    var endDateVal = this.newEventForm.controls["endDate"].value;
+    var today = new Date();
+
+    if (startDateVal > endDateVal || startDateVal < (today.getFullYear().toString() + '-' + (today.getMonth() + 1).toString() + '-' + today.getDate().toString())) {
+      this.datesValidated = false;
+      ret = false;
+    }
+    return ret;
   }
 
 
   saveEvent(model, isValid: boolean) {
+    this.cityExists = true;//reseting
+    this.submitted = true;
+
+    let loading = this.loadingCtrl.create({
+      content: 'Saving...',
+      spinner: 'dots'
+    });
+
+    loading.present();
+
     console.log("in the save event button");
     console.log("is it valid : " + isValid);
     console.log(model);
 
-    if (isValid && isValid == true) {
+    if (isValid && isValid == true && this.validateEventDates()) {
       console.log("inside the save event");
 
-      if (this.user) {
+      
+      let city = this.newEventForm.controls["city"].value;
 
-        let imgURL = "";
-        if (this.graphImage.length > 0) {
-          imgURL = this.graphImage;
+      this._eventService.ValidateCityExist(this.userCountry, city).subscribe(sub => {
+        if (sub == true) {
+
+          if (this.user) {
+
+            this._eventService.PostEvent(-1,
+              model.name,
+              model.description,
+              this.uploadedMediaURL,
+              true,
+              this.user.id,
+              model.address,
+              model.city,
+              model.zip,
+              this.userCountry,
+              model.link,
+              model.startDate,
+              model.endDate)
+              .subscribe(sub => {
+                console.log("What we got is " + sub);
+                let id = sub;
+                this.vc.dismiss({ storyID: id });//this is false but hoping the live feed will just reload :)
+              });
+          }
+          loading.dismiss();
         }
-        else if (this.mediaName.length > 0) {
-          imgURL = this.uploadedMediaURL;
+        else {
+          this.cityExists = false;
+          loading.dismiss();
         }
+      });
 
-        imgURL = this.uploadedMediaURL = BaseLinkProvider.GetMediaURL() + 'MediaUpload/Story/2599eca0-15f1-4996-b44f-e5db61185358.jpg';
-
-        this._eventService.PostEvent(-1,
-          model.name,
-          model.description,
-          imgURL,
-          true,
-          this.user.id,
-          model.address,
-          model.city,
-          model.zip,
-          model.country,
-          model.link)
-          .subscribe(sub => {
-            console.log("What we got is " + sub);
-            let id = sub;
-            this.vc.dismiss({ storyID: id });//this is false but hoping the live feed will just reload :)
-          });
-      }
     }
   }
 

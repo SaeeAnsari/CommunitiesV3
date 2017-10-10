@@ -1,5 +1,5 @@
 
-<div class="post_like">
+<div class="post_like" *ngIf="FeedType=='Story'">
   <ul>
     <li>
       <button type="button" class="btn btn-link fa fa-thumbs-up fa-2x" (click)="setLike(StoryID)"> {{LikeCount}}</button>
@@ -13,4 +13,13 @@
   </ul>
 
 </div>
+<div class="post_like" *ngIf="FeedType=='Event'">
+    <ul>
+      
+      <li>
+        <button type="button" class="btn btn-link fa fa-share-square-o" (click)="presentPopover($event)">Share</button>
+      </li>
+    </ul>
+  
+  </div>
 <div class="bottom-bar">&nbsp;</div>

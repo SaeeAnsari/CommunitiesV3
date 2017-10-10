@@ -18,7 +18,8 @@ import { SocialSharingPopoverComponent } from '../../components/social-sharing-p
 
 @Component({
   selector: 'app-user-post-action',
-  templateUrl: 'user-post-action-component.html'
+  templateUrl: 'user-post-action-component.html',
+  providers: [StoryService, UserService]
 })
 export class UserPostActionComponent implements OnInit {
 
@@ -27,6 +28,7 @@ export class UserPostActionComponent implements OnInit {
   @Input() StoryID: number;
   @Input() UserID: number;
   @Input() MediaType: string;
+  @Input() FeedType: string;
 
   @Output() ViewCommentsClicked = new EventEmitter();
 
@@ -36,7 +38,9 @@ export class UserPostActionComponent implements OnInit {
     public popoverCtrl: PopoverController) { }
 
   ngOnInit() {
-
+    if(this.FeedType ==""){
+      this.FeedType = "Story";
+    }
   }
 
   setLike(storyID: number) {

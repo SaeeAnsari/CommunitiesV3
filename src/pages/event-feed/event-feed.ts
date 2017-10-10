@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+
+import { EventProvider } from '../../providers/event/event';
+import { UserService } from '../../providers/user-service';
+
+
+
+
 
 /**
  * Generated class for the EventFeedPage page.
@@ -11,14 +18,114 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-event-feed',
   templateUrl: 'event-feed.html',
+  providers: [EventProvider, UserService]
 })
-export class EventFeedPage {
+export class EventFeedPage implements OnInit {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private userID: number;
+  private posts = [];
+  private subscription;
+  private communityID: number = 0;
+  private nextPageIndex: number = 0;
+  private communityName: string = "";
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private _eventService: EventProvider,
+    private _userService: UserService,
+    public modalCtrl: ModalController
+  ) {
+
+
+
+  }
+
+
+  loadEvents() {
+    this.nextPageIndex = 0;
+    this.posts = [];
+    this._eventService.GetEventsByUser(this.userID, this.nextPageIndex)
+      .subscribe(postS => {
+        if (postS.length > 0)
+          this.nextPageIndex = this.nextPageIndex + 1;
+
+        postS.forEach(element => {
+
+          this.posts.push({
+            eventID: element.ID,
+            title: element.Title,
+            text: element.Description,
+            imageURL: element.ImageURL,
+            userID: element.EventUser.ID,
+            postDate: element.Timestamp,
+            userProfileImage: element.EventUser.ImageURL,
+            userFullName: element.EventUser.DisplayName,
+            storyExternalURL: element.StoryExternalURL,
+            mediaType: element.MediaType
+          });
+        });
+
+      });
+  }
+
+  ngOnInit() {
+
+    this._userService.getLoggedinInUser().subscribe(sub => {
+
+      this.userID = sub.ID;
+      this.BootstrapFeed();
+    });
+  }
+
+  BootstrapFeed() {
+    this.loadEvents();
+  }
+
+  StorySaved() {
+    this.loadEvents();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EventFeedPage');
+    console.log('ionViewDidLoad LiveFeed');
+  }
+
+
+  dynamicLoadEvents(): Promise<any> {
+
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+
+        this._eventService.GetEventsByUser(this.userID, this.nextPageIndex)
+          .subscribe(postS => {
+
+            if (postS.length > 0) {
+              this.nextPageIndex = this.nextPageIndex + 1;
+            }
+
+            postS.forEach(element => {
+
+              this.posts.push({
+                eventID: element.ID,
+                title: element.Title,
+                text: element.Description,
+                imageURL: element.ImageURL,
+                userID: element.EventUser.ID,
+                postDate: element.Timestamp,
+                userProfileImage: element.EventUser.ImageURL,
+                userFullName: element.EventUser.DisplayName,
+                storyExternalURL: element.StoryExternalURL,
+                mediaType: element.MediaType
+              });
+            });
+          });
+
+
+
+        resolve();
+      }, 500);
+    })
   }
 
 }

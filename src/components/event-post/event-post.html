@@ -1,0 +1,20 @@
+<div class="feed_post_content md-no-style">
+  <div class="feed_post_message" [innerHTML]="PostMessage"></div>
+  <div >
+    <div >   
+      <img src="{{ImageURL}}">
+    </div>
+  </div>
+</div>
+
+<div class="content-centered">
+  <app-user-post-action 
+  MediaType="{{MediaType}}" 
+  LikeCount="{{LikeCount}}" 
+  CommentCount="{{CommentCount}}" 
+  UserID="UserID"
+  StoryID="{{StoryID}}" 
+  (ViewCommentsClicked)="viewCommentsClicked()"
+  FeedType="Event"
+  ></app-user-post-action>
+</div>

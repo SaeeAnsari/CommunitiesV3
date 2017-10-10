@@ -7,52 +7,71 @@
     <h4>Setup an Event!</h4>
     <ion-list no-lines>
       <ion-item>
-        <ion-input placeholder="Event Link - do you have one?" formControlName="link" [(ngModel)]="postText" [ngClass]="{'has-error':!newEventForm.controls['link'].valid}"></ion-input>
+        <ion-input placeholder="Event Link - do you have one?" formControlName="link" [(ngModel)]="postText"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="Event Name" formControlName="name" [ngClass]="{'has-error':!newEventForm.controls['name'].valid}"></ion-input>
+
+        <ion-input placeholder="Event Name" formControlName="name" [class.invalid]="!newEventForm.controls.name.valid && (newEventForm.controls.name.dirty || submitted)"></ion-input>
+
+      </ion-item>
+      <ion-item *ngIf="!newEventForm.controls.name.valid  && (newEventForm.controls.name.dirty || submitted)">
+        <small class="error-class">Event name is required and must be less than 100 characters.</small>
       </ion-item>
       <ion-item>
         <ion-textarea placeholder="Description" formControlName="description" [ngClass]="{'has-error':!newEventForm.controls['description'].valid}"></ion-textarea>
       </ion-item>
 
       <ion-item>
-
-        <image-upload ImageCategory="Story" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
-        <!--<div class="fileUpload btn btn-outline-info">
-          <span><i  class="fa fa-camera fa-3x user-right" aria-hidden="true"></i></span>
-          <input type="file" class="upload" (change)="imageFileChange($event)" />
-        </div>-->
+        <ion-label>Event Start Date</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" formControlName="startDate" [class.invalid]="!newEventForm.controls.startDate.valid && (newEventForm.controls.startDate.dirty || submitted)"></ion-datetime>
+      </ion-item>
+      <ion-item *ngIf="!newEventForm.controls.startDate.valid  && (newEventForm.controls.startDate.dirty || submitted)">
+        <small class="error-class">Please select an Event Start Date.</small>
+      </ion-item>
+      <ion-item>
+        <ion-label>Event End Date</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" formControlName="endDate" [class.invalid]="!newEventForm.controls.endDate.valid && (newEventForm.controls.endDate.dirty || submitted)"></ion-datetime>
+      </ion-item>
+      <ion-item *ngIf="!newEventForm.controls.endDate.valid  && (newEventForm.controls.endDate.dirty || submitted)">
+        <small class="error-class">Please select an Event End Date.</small>
       </ion-item>
 
       <ion-item>
-        <ion-input placeholder="Street Address" formControlName="address" [ngClass]="{'has-error':!newEventForm.controls['address'].valid}"></ion-input>
+        <div class="event-image-selection">
+          <div>Want to use this picture?</div>
+
+          <local-gallery-upload (OnFileSaved)="mediaSelectedForPosting($event)"></local-gallery-upload>
+          <img src="{{uploadedMediaURL}}" alt="">
+          <div class="event-image-selection-marker">
+            <i class="fa fa-check-circle fa-4x" aria-hidden="true"></i>
+          </div>
+
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Street Address" formControlName="address" [class.invalid]="!newEventForm.controls.address.valid && (newEventForm.controls.address.dirty || submitted)"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!newEventForm.controls.address.valid  && (newEventForm.controls.address.dirty || submitted)">
+        <small class="error-class">Please enter a Event Address</small>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="City" formControlName="city" [ngClass]="{'has-error':!newEventForm.controls['city'].valid}"></ion-input>
+        <ion-input placeholder="City" formControlName="city" [class.invalid]="!newEventForm.controls.city.valid && (newEventForm.controls.city.dirty || submitted)"></ion-input>
         <ion-input placeholder="Zip/Postal Code" formControlName="zip" [ngClass]="{'has-error':!newEventForm.controls['zip'].valid}"></ion-input>
       </ion-item>
-
-      <ion-item>
-        <ion-label class="event-country-lable">Country</ion-label>
-        <ion-select [(ngModel)]="eventCountry" formControlName="country" [ngClass]="{'has-error':!newEventForm.controls['country'].valid}">
-          <ion-option value="USA">USA</ion-option>
-          <ion-option value="CAD">CAD</ion-option>
-        </ion-select>
+      <ion-item *ngIf="!newEventForm.controls.city.valid  && (newEventForm.controls.city.dirty || submitted)">
+        <small class="error-class">Please enter a City</small>
       </ion-item>
-
+      <ion-item *ngIf="!cityExists && submitted">
+          <small class="error-class">We cannot create events in the city entered</small>
+        </ion-item>
+      <ion-item>
+        <ion-label class="event-country-lable">{{userCountry}}</ion-label>
+      </ion-item>
       <ion-item class="event-submit-height">
         <button type="submit" class="btn btn-success Go-Button-New-Comp Go-Button-New-Event" [disabled]="isUploadingImage">Go <i class="fa fa-check " aria-hidden="true"></i></button>
       </ion-item>
 
-      <!--
-      <ion-item>
-        <button ion-item (click)="launchCamera()">
-          <ion-icon name="md-camera" item-start></ion-icon>
-          Event Banner Image
-        </button>
-      </ion-item>
--->
     </ion-list>
   </div>
 

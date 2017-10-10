@@ -38,9 +38,26 @@ export class LocalGalleryUploadComponent {
 
   public imagePickerClick() {
 
-    this.getImages({ maximumImagesCount: 1 });
-
+    //this.getImages({ maximumImagesCount: 1 });
+    this.DummyShowImage();
   }
+
+  public DummyShowImage() {
+    
+        var fileName = 'http://res.cloudinary.com/http-communities-me/image/upload/v1504497765/l3ofqjfmzzr8xl5lumiq.jpg';
+
+    
+    
+        this.OnFileSaved.emit({
+          mediaType: "Image",
+          imageList: [{
+            id:-1,
+            fileName: fileName,
+            publicID: "222",
+            versionID :"222"
+          }]         
+        });
+      }
 
   private getImages(options) {
     console.log("Inside the Image Picker");

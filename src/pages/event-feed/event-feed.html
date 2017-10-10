@@ -8,11 +8,15 @@
 
   <ion-navbar>
 
-    <div id="left"><ion-title>{{communityName}}<i class="fa fa-heartbeat nameIcon" aria-hidden="true"></i></ion-title></div>
-    <div id="right"><div class="live-feed-AddIconRight" (click)="editCommunities()"><button type="button" class="btn btn-link">Edit</button></div></div>
+    <div id="left">
+      <ion-title>{{communityName}}<i class="fa fa-heartbeat nameIcon" aria-hidden="true"></i></ion-title>
+    </div>
+    <div id="right">
+      <div class="live-feed-AddIconRight" (click)="editCommunities()"><button type="button" class="btn btn-link">Edit</button></div>
+    </div>
 
-   
-    
+
+
   </ion-navbar>
 
 </ion-header>
@@ -32,17 +36,58 @@
       <!-- Feed Post Single Area -->
 
 
+      <ion-list>
+        <ion-item *ngFor="let post of posts" no-padding no-lines>
+
+          <div class="feed_post_area">
+            <div class="feed_post_header">
+
+              <app-user-tag ID="{{post.userID}}" ImageURL="{{post.userProfileImage}}" Name="{{post.userFullName}}" PostDate="{{post.postDate}}"></app-user-tag>
+              Text : {{post.text}}
+              <event-post 
+              PostMessage="{{post.text}}" 
+              PostMediaURL="{{post.imageURL}}" 
+              EventID="{{post.eventID}}" 
+              UserID="userID" 
+              StoryExternalURL={{post.storyExternalURL}}
+              ImageURL={{post.imageURL}}
+              >
+              </event-post>
+
+
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+
+      
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(dynamicLoadEvents())">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+
+      <!--
       <div class="event_post_area" *ngFor="let post of posts">
         <div class="event_post_header">
+
+           
+         
           <app-user-tag ID="{{post.userID}}" ImageURL="{{post.userProfileImage}}" Name="{{post.userFullName}}" PostDate="{{post.postDate}}"></app-user-tag>
-          <app-user-post PostMessage="{{post.text}}" PostMediaURL="{{post.imageURL}}" StoryID="{{post.storyID}}" LikeCount="{{post.likeCount}}"
-            CommentCount="{{post.commentsCount}}" UserID="userID" StoryExternalURL={{post.storyExternalURL}}></app-user-post>
-          <div style="display:none">
+           <event-post 
+           PostMessage="{{post.text}}" 
+           PostMediaURL="{{post.imageURL}}" 
+           EventID="{{post.eventID}}" 
+           UserID="userID" 
+           StoryExternalURL={{post.storyExternalURL}}>
+          </event-post>
+          <!--<div style="display:none">
             <app-user-comments></app-user-comments>
           </div>
-          <!---->
+        -->
+      <!---->
+      <!--
         </div>
-      </div>
+      </div>-->
     </div>
   </section>
 </ion-content>

@@ -1,17 +1,9 @@
 import { Injectable } from '@angular/core';
-
-import { BaseLinkProvider } from '../../providers/base-link/base-link';
-
-import { Event } from '../../interfaces/event/event';
-
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-
 import { Observable } from 'rxjs/Observable';
-
 // Observable class extensions
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
-
 // Observable operators
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
@@ -20,6 +12,11 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+
+
+import { BaseLinkProvider } from '../../providers/base-link/base-link';
+
+//import { Event } from '../../interfaces/event/event';
 
 
 /*
@@ -47,7 +44,7 @@ export class EventProvider {
 
 
   public PostEvent(id: number, name: string, description: string, imageURL: string, active: boolean, ownerID: number, address: string,
-    city: string, postalZip: string, country: string, link: string): Observable<any> {
+    city: string, postalZip: string, country: string, link: string, eventStartDate: any, eventEndDate: any): Observable<any> {
 
     let data = new URLSearchParams();
 
@@ -55,19 +52,49 @@ export class EventProvider {
       JSON.stringify({
         ID: id,
         Name: name,
-        Description:description,
+        Description: description,
         ImageURL: imageURL,
-        Active:active,
-        OwnerID:ownerID,
-        Address:address,
-        City:city,
-        PostalZip:postalZip,
-        Country:country,
-        Link: link
+        Active: active,
+        OwnerID: ownerID,
+        Address: address,
+        City: city,
+        PostalZip: postalZip,
+        Country: country,
+        Link: link,
+        EventStartDate: eventStartDate,
+        EventEndDate: eventEndDate
       }),
       { headers: this.headers })
       .map(res => res.json())
       ._catch(this.handleError);
+  }
+
+  //had to make it a post as this is the only way its working
+  public ValidateCityExist(country: string, city: string) {
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let data = new URLSearchParams();
+    data.set('country', country);
+    data.set('city', city);
+
+    let appendURL: string = '';
+
+    appendURL = '/ValidateCityExist?country=' + country + '&city=' + city;
+
+    return this._http.post(
+      this._url + appendURL,
+      null,
+      { headers: this.headers }
+    ).map(res => res.json())
+      .catch(this.handleError)
+  }
+
+  GetEventsByUser(userID: number, pageIndex: number): Observable<any> {
+
+    return this._http.get(this._url + '?userID=' + userID + '&pageIndex=' + pageIndex)
+      .map(post => post.json())
+      .catch(this.handleError);
   }
 
   private handleError(error: any) {
