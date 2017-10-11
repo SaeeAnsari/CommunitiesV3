@@ -29,7 +29,7 @@
 
       <!-- New post Marker -->
       <div class="event_post_header">
-        <app-marker-new-post (OnStorySave)="StorySaved()"></app-marker-new-post>
+        <app-marker-new-post (OnStorySave)="StorySaved()" FeedType="Event"></app-marker-new-post>
       </div>
 
 
@@ -43,27 +43,21 @@
             <div class="feed_post_header">
 
               <app-user-tag ID="{{post.userID}}" ImageURL="{{post.userProfileImage}}" Name="{{post.userFullName}}" PostDate="{{post.postDate}}"></app-user-tag>
-              Text : {{post.text}}
-              <event-post 
-              PostMessage="{{post.text}}" 
-              PostMediaURL="{{post.imageURL}}" 
-              EventID="{{post.eventID}}" 
-              UserID="userID" 
-              StoryExternalURL={{post.storyExternalURL}}
-              ImageURL={{post.imageURL}}
-              >
-              </event-post>
+              <h1>{{post.name}}</h1>
 
+              <event-post PostMessage="{{post.text}}" PostMediaURL="{{post.imageURL}}" EventID="{{post.eventID}}" UserID="userID" StoryExternalURL={{post.storyExternalURL}}
+                ImageURL={{post.imageURL}} Address={{post.address}} City={{post.city}}>
+              </event-post>
 
             </div>
           </div>
         </ion-item>
       </ion-list>
 
-      
+
       <ion-infinite-scroll (ionInfinite)="$event.waitFor(dynamicLoadEvents())">
-          <ion-infinite-scroll-content></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
 
 
       <!--

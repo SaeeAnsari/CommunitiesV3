@@ -102,6 +102,10 @@ export class NewCommentComponent implements OnInit {
     private cameraPluginServices: CameraPluginProvider,
     private keyboard: Keyboard
   ) {
+
+    if(this.navParams.get('FeedType') && this.navParams.get('FeedType') == 'Event'){
+      this.createNewEvent = true;
+    }
   }
 
   ngOnInit() {

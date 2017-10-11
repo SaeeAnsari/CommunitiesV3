@@ -29,6 +29,7 @@ export class UserPostActionComponent implements OnInit {
   @Input() UserID: number;
   @Input() MediaType: string;
   @Input() FeedType: string;
+  @Input() EventID: string;
 
   @Output() ViewCommentsClicked = new EventEmitter();
 
@@ -38,7 +39,7 @@ export class UserPostActionComponent implements OnInit {
     public popoverCtrl: PopoverController) { }
 
   ngOnInit() {
-    if(this.FeedType ==""){
+    if (this.FeedType == "") {
       this.FeedType = "Story";
     }
   }
@@ -65,10 +66,55 @@ export class UserPostActionComponent implements OnInit {
   }
 
   presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(SocialSharingPopoverComponent, { storyID: this.StoryID, mediaType: this.MediaType });
-    popover.present({
-      ev: myEvent
-    });
+    if (this.FeedType == "Event" && this.EventID != '') {
+      //Get the EventStoryID
+      //Sent the Story to Sharing Control
+
+      this._storyService.GetStoryByEventID(+this.EventID).subscribe(sub => {
+
+        var imageURL = "";
+        if (sub.Images.length > 0) {
+          imageURL = sub.Images[0];
+        }
+
+        let popover = this.popoverCtrl.create(SocialSharingPopoverComponent,
+          {
+            storyID: sub.ID,
+            mediaType: this.MediaType,
+            longDescription: sub.LongDescription,
+            imageURL: imageURL,
+            storyExternalURL: sub.StoryExternalURL
+          });
+        popover.present({
+          ev: myEvent
+        });
+      });
+
+    }
+    else if(this.FeedType == "Story") {
+
+      //Call to get StoryDetails by ID
+
+      this._storyService.GetStory(+this.StoryID).subscribe(sub => {
+
+        var imageURL = "";
+        if (sub.Images.length > 0) {
+          imageURL = sub.Images[0];
+        }
+
+        let popover = this.popoverCtrl.create(SocialSharingPopoverComponent,
+          {
+            storyID: sub.ID,
+            mediaType: this.MediaType,
+            longDescription: sub.LongDescription,
+            imageURL: imageURL,
+            storyExternalURL: sub.StoryExternalURL
+          });
+        popover.present({
+          ev: myEvent
+        });
+      });
+    }
   }
 
   ionViewDidLoad() {

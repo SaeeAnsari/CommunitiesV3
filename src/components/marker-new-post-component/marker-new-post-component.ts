@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../../providers/user-service';
 import { NewCommentComponent } from '../new-comment-component/new-comment-component';
+import { NewEventComponent } from '../new-event/new-event';
 
 
 
@@ -21,6 +22,7 @@ import { ModalController, NavParams } from 'ionic-angular';
 export class MarkerNewPostComponent implements OnInit {
 
   @Input() StoryID: number = 0;
+  @Input() FeedType: string;
 
   @Output() OnStorySave = new EventEmitter();
 
@@ -41,17 +43,19 @@ export class MarkerNewPostComponent implements OnInit {
 
   redirecttoNewPost() {
 
-    let commentsModal = this.modalCtrl.create(NewCommentComponent, { storyID: this.StoryID }, { showBackdrop: true, enableBackdropDismiss: true });
+    
+      let commentsModal = this.modalCtrl.create(NewCommentComponent, { storyID: this.StoryID, FeedType: this.FeedType }, 
+        { showBackdrop: true, enableBackdropDismiss: true });
 
-    commentsModal.onDidDismiss(data => {
+      commentsModal.onDidDismiss(data => {
 
-      if (data) {
-        this.StoryID = data.storyID;
-        this.OnStorySave.emit();
-      }
-    });
-    commentsModal.present();
-
+        if (data) {
+          this.StoryID = data.storyID;
+          this.OnStorySave.emit();
+        }
+      });
+      commentsModal.present();
+    
   }
 
 }

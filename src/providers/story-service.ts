@@ -118,7 +118,7 @@ export class StoryService {
       };
     }
 
-    let imageList=[];
+    let imageList = [];
     if (mediaType == "Image" && images != null) {
       images.forEach(element => {
         imageList.push(
@@ -162,22 +162,29 @@ export class StoryService {
   }
 
   public ShareStory(storyID: number, userID: number, communityIDs: number[]): Observable<any> {
-    
-      let _shareURL = BaseLinkProvider.GetBaseUrl() + '/StoryShare'
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        let data ={
-          StoryID: storyID,
-          UserID: userID,
-          CommunityID: communityIDs
-        };
 
-        return this._http.post(
-          _shareURL ,
-          data,
-          { headers: this.headers }
-        ).map(res => res.json())
-          .catch(this.handleError)
-      }
+    let _shareURL = BaseLinkProvider.GetBaseUrl() + '/StoryShare'
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let data = {
+      StoryID: storyID,
+      UserID: userID,
+      CommunityID: communityIDs
+    };
+
+    return this._http.post(
+      _shareURL,
+      data,
+      { headers: this.headers }
+    ).map(res => res.json())
+      .catch(this.handleError)
+  }
+
+  GetStoryByEventID(eventID:number): Observable<any> {
+
+    return this._http.get(this._url + '?eventID=' + eventID)
+      .map(post => post.json())
+      .catch(this.handleError);
+  }
 
 }

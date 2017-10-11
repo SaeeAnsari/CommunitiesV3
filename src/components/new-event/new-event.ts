@@ -163,7 +163,7 @@ export class NewEventComponent implements OnInit {
       spinner: 'dots'
     });
 
-    loading.present();
+    
 
     console.log("in the save event button");
     console.log("is it valid : " + isValid);
@@ -176,9 +176,13 @@ export class NewEventComponent implements OnInit {
       let city = this.newEventForm.controls["city"].value;
 
       this._eventService.ValidateCityExist(this.userCountry, city).subscribe(sub => {
-        if (sub == true) {
+        if (sub != null && sub.length > 0) {
+          
+          city = sub;
 
           if (this.user) {
+
+            loading.present();
 
             this._eventService.PostEvent(-1,
               model.name,
@@ -187,7 +191,7 @@ export class NewEventComponent implements OnInit {
               true,
               this.user.id,
               model.address,
-              model.city,
+              city,
               model.zip,
               this.userCountry,
               model.link,
@@ -196,10 +200,10 @@ export class NewEventComponent implements OnInit {
               .subscribe(sub => {
                 console.log("What we got is " + sub);
                 let id = sub;
+                loading.dismiss();
                 this.vc.dismiss({ storyID: id });//this is false but hoping the live feed will just reload :)
               });
-          }
-          loading.dismiss();
+          }          
         }
         else {
           this.cityExists = false;

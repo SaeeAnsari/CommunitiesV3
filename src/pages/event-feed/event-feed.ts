@@ -54,6 +54,7 @@ export class EventFeedPage implements OnInit {
 
           this.posts.push({
             eventID: element.ID,
+            name: element.Name,
             title: element.Title,
             text: element.Description,
             imageURL: element.ImageURL,
@@ -61,8 +62,10 @@ export class EventFeedPage implements OnInit {
             postDate: element.Timestamp,
             userProfileImage: element.EventUser.ImageURL,
             userFullName: element.EventUser.DisplayName,
-            storyExternalURL: element.StoryExternalURL,
-            mediaType: element.MediaType
+            storyExternalURL: element.Link,
+            mediaType: element.MediaType,
+            address: element.Address,
+            city: element.City
           });
         });
 
@@ -108,6 +111,7 @@ export class EventFeedPage implements OnInit {
 
               this.posts.push({
                 eventID: element.ID,
+                name: element.Name,
                 title: element.Title,
                 text: element.Description,
                 imageURL: element.ImageURL,

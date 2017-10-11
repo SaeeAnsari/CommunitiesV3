@@ -1,20 +1,31 @@
 <div class="feed_post_content md-no-style">
-  <div class="feed_post_message" [innerHTML]="PostMessage"></div>
-  <div >
-    <div >   
-      <img src="{{ImageURL}}">
+
+
+  <div>
+    <div>
+      <img src="{{ImageURL}}" (click)="openComments()">
     </div>
   </div>
+  <div class="feed_post_message" [innerHTML]="PostMessage">
+
+
+  </div>
+
+  <h4>
+    <div class="addressSection customWell">
+      <address>
+        <h2><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<b>Location:</b></h2>
+        <div class="location">{{Address}}, {{City}}</div>
+      </address>
+    </div>
+  </h4>
 </div>
 
+
+
+
+
 <div class="content-centered">
-  <app-user-post-action 
-  MediaType="{{MediaType}}" 
-  LikeCount="{{LikeCount}}" 
-  CommentCount="{{CommentCount}}" 
-  UserID="UserID"
-  StoryID="{{StoryID}}" 
-  (ViewCommentsClicked)="viewCommentsClicked()"
-  FeedType="Event"
-  ></app-user-post-action>
+  <app-user-post-action MediaType="{{MediaType}}" LikeCount="{{LikeCount}}" CommentCount="{{CommentCount}}" UserID="UserID"
+    StoryID="{{StoryID}}" (ViewCommentsClicked)="viewCommentsClicked()" FeedType="Event" EventID="{{EventID}}"></app-user-post-action>
 </div>

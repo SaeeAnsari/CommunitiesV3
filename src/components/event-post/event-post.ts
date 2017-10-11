@@ -4,6 +4,9 @@ import { UserCommentsComponent } from '../user-comments-component/user-comments-
 
 import { ModalController, NavParams } from 'ionic-angular';
 
+
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 /**
  * Generated class for the EventPostComponent component.
  *
@@ -12,10 +15,13 @@ import { ModalController, NavParams } from 'ionic-angular';
  */
 @Component({
   selector: 'event-post',
-  templateUrl: 'event-post.html'
+  templateUrl: 'event-post.html',
+  providers: [InAppBrowser]
 })
 export class EventPostComponent implements OnInit {
   
+   @Input() Address: string;
+   @Input() City: string;
     @Input() PostMessage: string;
     @Input() PostMediaURL: string;
     @Input() EventID: number;
@@ -27,7 +33,8 @@ export class EventPostComponent implements OnInit {
   
     
   constructor(
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private iab: InAppBrowser
   ) { }
 
   
@@ -41,7 +48,9 @@ export class EventPostComponent implements OnInit {
 
 
   //Type : Video or Image
-  openComments(type) {
-
+  openComments() {
+    if(this.StoryExternalURL != ""){
+      const browser = this.iab.create(this.StoryExternalURL);
+    }
   }
 }
