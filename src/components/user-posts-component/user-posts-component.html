@@ -7,10 +7,10 @@
   </div>
   <div *ngIf="MediaType=='Video'">
     <div *ngFor="let img of fixedImagesforStory">
-      <div class="videos" (click)="openComments('Video')">        
-        <a class="video">  
-            <span></span>         
-            <img src="{{img.ImageURL}}" >
+      <div class="videos" >        
+        <a class="video" >  
+            <span (click)="openComments('Video')"></span >         
+            <img src="{{img.ImageURL}}"  (click)="openComments('Video')">
         </a>
       </div>
     </div>

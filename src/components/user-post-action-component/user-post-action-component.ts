@@ -33,6 +33,8 @@ export class UserPostActionComponent implements OnInit {
 
   @Output() ViewCommentsClicked = new EventEmitter();
 
+  private likeClicked: boolean = false;
+
 
   constructor(private _storyService: StoryService,
     private _userService: UserService,
@@ -121,4 +123,10 @@ export class UserPostActionComponent implements OnInit {
     console.log("Media TYpe: " + this.MediaType)
   }
 
+  triggerAnimation(){
+    this.likeClicked = true;
+    setTimeout(()=>{
+      this.likeClicked = false;
+    },1000);
+  }
 }
