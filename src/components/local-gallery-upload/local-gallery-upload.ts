@@ -38,8 +38,8 @@ export class LocalGalleryUploadComponent {
 
   public imagePickerClick() {
 
-    //this.getImages({ maximumImagesCount: 1 });
-    this.DummyShowImage();
+    this.getImages({ maximumImagesCount: 1 });
+    //this.DummyShowImage();
   }
 
   public DummyShowImage() {
