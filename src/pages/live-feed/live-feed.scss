@@ -14,12 +14,15 @@ h1, h2, h3, h4, h5, p, ul{
 }
 body{
     font-family: 'Lato', sans-serif;
-	font-size: 14px;
+    font-size: 14px;
+    
+    
 }
 
 .container{
 	max-width: 768px;
-	margin: auto;
+    margin: auto;
+    
 }
 
 /*================================
@@ -87,11 +90,12 @@ position: absolute;
 			Feed Post
 ================================*/
 #feed_post .container{
-	background: #dcdcdc;
+    //background: #dcdcdc;
+    background-color: rgba(240, 248, 255, 0.70);
 }
 
 .feed_post_area {
-  background: #fff none repeat scroll 0 0;
+  //background: #fff none repeat scroll 0 0;
   
 }
 .feed_post_header {
@@ -133,7 +137,11 @@ position: absolute;
     
 }
 
-
+.item.item-trns {
+	border-color: rgba(0, 0, 0, 0);
+	background-color: rgba(0, 0, 0, 0);
+	
+}
 
 
 /* Medium Layout: 1280px. */

@@ -68,7 +68,7 @@ export class LocalGalleryUploadComponent {
         spinner: 'dots'
       });
 
-      loading.present();
+      
 
       for (var i = 0; i < results.length; i++) {
 
@@ -84,6 +84,8 @@ export class LocalGalleryUploadComponent {
           },
           params: {}
         };
+
+        loading.present();
 
         let url = BaseLinkProvider.GetBaseUrl() + "/Image?type=Story";
         this.file_transfer.upload(
