@@ -70,7 +70,7 @@
     },
     "devDependencies": {
         "@ionic/app-scripts": "2.0.0",
-        "ionic": "3.10.3",
+        "ionic": "3.13.0",
         "typescript": "2.3.4"
     },
     "description": "An Ionic project",
@@ -78,7 +78,9 @@
         "plugins": {
             "cordova-plugin-camera": {},
             "cordova-plugin-inappbrowser": {},
-            "cordova-plugin-geolocation": {},
+            "cordova-plugin-geolocation": {
+                "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+            },
             "cordova-plugin-facebook4": {
                 "APP_ID": "1863707417227215",
                 "APP_NAME": "CommunitiesV2"

@@ -28,6 +28,7 @@ export class RegisterUserComponent {
   private isUploadingImage: boolean = false;
   private uploaded: boolean = false;
   private selfieURL: string = "";
+  private passwordMatch: boolean = true;
 
 
   constructor(private _fb: FormBuilder,
@@ -67,40 +68,51 @@ export class RegisterUserComponent {
   }
 
   saveUser(model, isValid: boolean) {
+    this.passwordMatch = model.password == model.confirmPassword;
+
     if (isValid && isValid == true) {
-      if (this.selfieURL != "") {
-        model.imageURL = this.selfieURL;
+      if (this.passwordMatch) {
+        if (this.selfieURL != "") {
+          model.imageURL = this.selfieURL;
+        }
+
+        model.authenticationPortalID = 1;//Custom
+        this._userService.RegisterUser(model).subscribe(sub => {
+          this.id = +sub;
+          this.storage.set("userID", this.id);
+          sessionStorage.setItem('userID', this.id.toString());
+          let data = {
+            id: this.id
+          };
+
+          this.vc.dismiss(data);
+
+        });
       }
-
-      model.authenticationPortalID = 1;//Custom
-      this._userService.RegisterUser(model).subscribe(sub => {
-        this.id = +sub;
-        this.storage.set("userID", this.id);
-        sessionStorage.setItem('userID', this.id.toString());
-        let data = {
-          id: this.id
-        };
-
-        this.vc.dismiss(data);
-
-      });
     }
   }
+
 
   mediaSelectedForPosting(data) {
 
     console.log("inside the imageSelectedForPosting");
-    if(data!= null){
+    if (data != null) {
       console.log("Got Data: " + JSON.stringify(data));
-      
-       this.uploaded = true;
-        this.isUploadingImage = false;
-        this.selfieURL = data.fileName;
+
+      if (data.mediaType == "Image") {
+
+        data.imageList.forEach(element => {
+
+          this.selfieURL = element.fileName;
+        });
+
+      }
     }
   }
 
-  closeModal(){
-    this.vc.dismiss();  
+
+  closeModal() {
+    this.vc.dismiss();
   }
 
 }

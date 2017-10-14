@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar >
+  <ion-navbar>
     <ul id="header">
       <li>
         <button ion-button (click)="closeModal()" icon-left>
@@ -14,13 +14,13 @@
 
 
   </ion-navbar>
-  
+
 </ion-header>
 <ion-content padding>
 
   <form [formGroup]="registerationForm" novalidate (ngSubmit)="saveUser(registerationForm.value, registerationForm.valid)">
     <div class="containerRegister text-center">
-      <a href="#"><img src="assets/images/login/logo.png" alt="logo"></a>
+
 
 
       <ion-item>
@@ -30,7 +30,7 @@
         <ion-input placeholder="Last name" formControlName="lastName" [ngClass]="{'has-error':!registerationForm.controls['lastName'].valid}"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="email" placeholder="Email" formControlName="email" [ngClass]="{'has-error':!registerationForm.controls['email'].valid}"></ion-input>
+        <ion-input type="email" placeholder="Email"  formControlName="email" [ngClass]="{'has-error':!registerationForm.controls['email'].valid}"></ion-input>
       </ion-item>
       <ion-item>
         <ion-input type="password" placeholder="Password" formControlName="password" [ngClass]="{'has-error':!registerationForm.controls['password'].valid}"></ion-input>
@@ -39,7 +39,9 @@
       <ion-item>
         <ion-input type="password" placeholder="Confirm password" formControlName="confirmPassword" [ngClass]="{'has-error':!registerationForm.controls['confirmPassword'].valid}"></ion-input>
       </ion-item>
-
+      <ion-item *ngIf="!passwordMatch">
+        <small class="error-class">Password and Confirm Password should match</small>
+      </ion-item>
       <ion-item>
 
         <image-upload ImageCategory="User" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>

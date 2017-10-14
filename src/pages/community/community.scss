@@ -50,6 +50,30 @@ header .container {
     
 }
 
+.community-image-upload{
+    width: 350px;
+    padding: 10px 0 10px 0;
+}
+
+.community-Zip-LocateMe-OR{
+    
+    font-size: 15pt;
+    font-weight: bold;
+
+}
+
+
+.new-community h1{
+    padding-top: 20px;
+    color: #333333;
+    
+}
+
+.new-community .community-text-blurb{
+    padding-bottom: 20px;
+    padding-top: 10px;
+    color: #333333;
+}
 
 
 
@@ -183,33 +207,6 @@ header .container {
     }    
 }
 
-.fileUploadCommunity {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-     display: inline-flex;
-    align-items: center;
-   
-    margin: 10px auto;
-    padding-left: 18px;
-    width: 60px;
-    height: 50px;
-
-}
-.fileUploadCommunity input.upload {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0);     
-     width: 60px;
-    height: 50px;
-}
-
 
 
 /* -=-=-=-= OverLay -=-===-=*/
@@ -260,5 +257,14 @@ header .container {
     }
 
     .community-location-text{
-        margin-top: 10px;
+        padding-top: 15px;
+        padding-right: 40px;
+    }
+
+    .community-location-text > button{
+        
+    }
+
+    .community-location{
+        display: inline-table;
     }

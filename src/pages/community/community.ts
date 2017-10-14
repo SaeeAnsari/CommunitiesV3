@@ -32,6 +32,8 @@ export class CommunityPage implements OnInit {
 
   public communityForm: FormGroup;
   public events: any[] = []; // use later to display form changes
+  
+  public submitted: boolean = false;
 
   private id: number;
   name: string;
@@ -40,6 +42,7 @@ export class CommunityPage implements OnInit {
   private communityImage: string = '';
   private uploadMessage: string = '';
   private uploaded: boolean = false;
+  private gotLocationEntry: boolean = false;
   private location;
 
 
@@ -58,8 +61,8 @@ export class CommunityPage implements OnInit {
   ngOnInit() {
     this.communityForm = this._fb.group({
       name: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
-      description: [''],
-      zip_postal: ['', [<any>Validators.required, <any>Validators.minLength(7)]]
+      description: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
+      zip_postal: ['']
     });
 
     if (this.navParams.get('communityID')) {
@@ -70,76 +73,85 @@ export class CommunityPage implements OnInit {
 
 
   saveCommunity(model, isValid: boolean) {
-    if (this.id > 0 && this.id != undefined) {
-      model.id = this.id;
-    }
 
+    this.submitted = true;
 
-    if (this.communityImage != undefined && this.communityImage.length > 0) {
-      model.imageURL = this.communityImage;
-    }
-
-    this._userService.getLoggedinInUser().subscribe(s => {
-      let userID = s.ID;
-
-      model.location = null;
-
-      if (this.location != null) {
-        model.location = this.location;
-        this.SaveCommunityFinal(model, userID)
+    if (isValid) {
+      if (this.id > 0 && this.id != undefined) {
+        model.id = this.id;
       }
 
-      else if (model.zip_postal.length > 2) {
-        this._geoService.GetLatLongDetails(model.zip_postal).subscribe(sub => {
+
+      if (this.communityImage != undefined && this.communityImage.length > 0) {
+        model.imageURL = this.communityImage;
+      }
+
+      this.gotLocationEntry = (this.location != null || model.zip_postal.length > 0);
+
+      if (this.gotLocationEntry) {
+
+        this._userService.getLoggedinInUser().subscribe(s => {
+          let userID = s.ID;
+
+          model.location = null;
 
 
-          if (sub.results.length > 0) {
-            this.location = { lat: sub.results[0].geometry.location.lat, lng: sub.results[0].geometry.location.lng };
+          if (this.location != null) {
             model.location = this.location;
-          }
-          else if (this.location != null) {
-            model.location = this.location;
+            this.SaveCommunityFinal(model, userID)
           }
 
-          this.SaveCommunityFinal(model, userID)
+          else if (model.zip_postal.length > 2) {
+            this._geoService.GetLatLongDetails(model.zip_postal).subscribe(sub => {
 
+
+              if (sub.results.length > 0) {
+                this.location = { lat: sub.results[0].geometry.location.lat, lng: sub.results[0].geometry.location.lng };
+                model.location = this.location;
+              }
+              else if (this.location != null) {
+                model.location = this.location;
+              }
+
+              this.SaveCommunityFinal(model, userID)
+
+            });
+          }
+          else {
+            this.SaveCommunityFinal(model, userID)
+          }
         });
       }
-      else{
-        this.SaveCommunityFinal(model, userID)
-      }
-    });
+    }
   }
 
   SaveCommunityFinal(model, userID) {
+
+
     this._communityService.SaveCommunity(model, userID)
       .subscribe(sub => {
         this.id = sub;
 
         this.navCtrl.push(UserSearchComponent, { communityID: this.id });
       })
+
   }
 
-  fileChange(event) {
 
-    this.isUploadingImage = true;
-
-    let fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData: FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
+  mediaSelectedForPosting(data) {
 
 
-      this._mediaPost.postImage(formData, 'Community').subscribe(sub => {
+    if (data != null) {
+      console.log("Got Data: " + JSON.stringify(data));
+      var url = "";
+
+      data.imageList.forEach(element => {
         this.uploaded = true;
-        this.isUploadingImage = false;
-        this.loadCommunity();
-
-        this.communityImage = sub;
+        this.communityImage = element.fileName;
       });
     }
   }
+
 
   loadCommunity() {
     if (this.id > 0) {
@@ -156,10 +168,12 @@ export class CommunityPage implements OnInit {
   }
 
   locateMe() {
+
     this._geolocation.getCurrentPosition().then((resp) => {
 
       this.location = { lat: resp.coords.latitude, lng: resp.coords.longitude };
 
+      this.gotLocationEntry = true;
     }).catch((error) => {
       console.log('Error getting location', error);
     });

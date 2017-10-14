@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
@@ -19,11 +19,18 @@ import { LoadingController } from 'ionic-angular';
   templateUrl: 'local-gallery-upload.html',
   providers: [File]
 })
-export class LocalGalleryUploadComponent {
+export class LocalGalleryUploadComponent implements OnInit {
+  
+  ngOnInit(): void {
+    if(this.Type == ""){
+      this.Type = "Story";
+    }
+  }
 
   private file_transfer: FileTransferObject = this.transfer.create();
 
 
+  @Input() Type: string = "";
   @Output() OnFileSaved = new EventEmitter();
 
   constructor(
@@ -87,7 +94,7 @@ export class LocalGalleryUploadComponent {
 
         loading.present();
 
-        let url = BaseLinkProvider.GetBaseUrl() + "/Image?type=Story";
+        let url = BaseLinkProvider.GetBaseUrl() + "/Image?type=" + this.Type;
         this.file_transfer.upload(
           encodeURI(uri),
           encodeURI(url),
