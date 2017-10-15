@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Login} from '../login/login';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { Login } from '../login/login';
 import { Storage } from '@ionic/storage';
+
+import { UserLocation } from '../user-location/user-location';
+
 
 /**
  * Generated class for the SettingsPage page.
@@ -16,17 +19,27 @@ import { Storage } from '@ionic/storage';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private storage: Storage,
+    public modalCtrl: ModalController
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
   }
 
-  SignOut(){
+  SignOut() {
     this.storage.clear();
     //sessionStorage.setItem('userID', null);    
     this.navCtrl.push(Login);
+  }
+
+  launchUpdateLocation() {
+    let userLocationModal = this.modalCtrl.create(UserLocation, {launchType:"Settings"} , { showBackdrop: true, enableBackdropDismiss: true });
+    userLocationModal.present();
   }
 
 }
