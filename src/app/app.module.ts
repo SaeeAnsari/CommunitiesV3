@@ -14,6 +14,8 @@ import {Facebook} from '@ionic-native/facebook';
 import {ImagePicker} from '@ionic-native/image-picker';
 import {Keyboard} from '@ionic-native/keyboard';
 
+import {Firebase} from '@ionic-native/firebase';
+
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -165,7 +167,8 @@ const cloudSettings: CloudSettings = {
     FileTransfer,
     File,
     CameraPluginProvider,
-    HelperProvider
+    HelperProvider,
+    Firebase
   ]
 })
 export class AppModule { }

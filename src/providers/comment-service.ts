@@ -3,12 +3,17 @@ import { Injectable } from '@angular/core';
 import { StoryComment } from '../interfaces/story-comment';
 
 
-import {BaseLinkProvider} from '../providers/base-link/base-link';
+import { BaseLinkProvider } from '../providers/base-link/base-link';
 
 
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
+
+
+import { FirebaseMessagingProvider} from '../providers/firebase-messaging/firebase-messaging';
+import { UserService } from '../providers/user-service';
+
 
 // Observable class extensions
 import 'rxjs/add/observable/of';
@@ -38,7 +43,11 @@ export class CommentService {
 
   options: RequestOptions;
 
-  constructor(private _http: Http) {
+  constructor(
+    private _http: Http,
+    private userService: UserService,
+    private messaging: FirebaseMessagingProvider
+  ) {
     this.headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'q=0.8;application/json;q=0.9'
@@ -57,7 +66,14 @@ export class CommentService {
 
     let data = new URLSearchParams();
 
+    let userName: string = "";
+    this.userService.getLoggedinInUser().subscribe(s => {
+      if(s!= null){
+        userName = s.firstName + " " + s.lastName;
 
+        this.messaging.SendNotificationToTopic(storyID, "<b>" + userName + "</b>" + "posted, " + comment)
+      }
+    });
 
     return this._http.post(this._url,
       JSON.stringify({

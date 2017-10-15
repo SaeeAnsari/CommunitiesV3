@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { StoryService } from '../../providers/story-service';
 import { UserService } from '../../providers/user-service';
 import { UserCommentsComponent } from '../user-comments-component/user-comments-component';
+import { Firebase } from '@ionic-native/firebase'
 
 import { PopoverController } from 'ionic-angular';
 
@@ -38,7 +39,8 @@ export class UserPostActionComponent implements OnInit {
 
   constructor(private _storyService: StoryService,
     private _userService: UserService,
-    public popoverCtrl: PopoverController) { }
+    public popoverCtrl: PopoverController,
+    private firebase: Firebase) { }
 
   ngOnInit() {
     if (this.FeedType == "") {
@@ -52,11 +54,13 @@ export class UserPostActionComponent implements OnInit {
 
       let userID = s.ID;
 
-      this._storyService.SetLike(storyID, userID).subscribe(sub => {
-        if (sub != undefined && sub == true) {
-          this.LikeCount++;
-        }
-      });
+      this.firebase.subscribe(storyID.toString()).then(data => {
+        this._storyService.SetLike(storyID, userID).subscribe(sub => {
+          if (sub != undefined && sub == true) {
+            this.LikeCount++;
+          }
+        });
+      });      
     });
   }
 
@@ -93,7 +97,7 @@ export class UserPostActionComponent implements OnInit {
       });
 
     }
-    else if(this.FeedType == "Story") {
+    else if (this.FeedType == "Story") {
 
       //Call to get StoryDetails by ID
 
@@ -123,10 +127,10 @@ export class UserPostActionComponent implements OnInit {
     console.log("Media TYpe: " + this.MediaType)
   }
 
-  triggerAnimation(){
+  triggerAnimation() {
     this.likeClicked = true;
-    setTimeout(()=>{
+    setTimeout(() => {
       this.likeClicked = false;
-    },1000);
+    }, 1000);
   }
 }

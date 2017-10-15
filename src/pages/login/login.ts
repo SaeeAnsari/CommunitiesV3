@@ -1,17 +1,15 @@
-import { Component } from '@angular/core';
-
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-
 import { TabsPage } from '../tabs/tabs';
-
 import { FacebookAuth, AuthLoginResult, Auth } from '@ionic/cloud-angular';
-
+import { Platform, AlertController } from 'ionic-angular';
 import { LoginComponent } from '../../components/login-component/login-component';
 import { RegisterUserComponent } from '../../components/register-user-component/register-user-component';
 import { UserLocation } from '../user-location/user-location';
 import { UserService } from '../../providers/user-service';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import {Firebase} from '@ionic-native/firebase';
 
 import { ErrorLogServiceProvider } from '../../providers/error-log-service/error-log-service';
 
@@ -31,7 +29,7 @@ import { User } from '../../interfaces/User';
   templateUrl: 'login.html',
   providers: [UserService, Facebook, ErrorLogServiceProvider]
 })
-export class Login {
+export class Login{
 
   loginDetails: AuthLoginResult;
 
@@ -44,11 +42,30 @@ export class Login {
     public modalCtrl: ModalController,
     private _userService: UserService,
     private fb: Facebook,
-    private err: ErrorLogServiceProvider
+    private err: ErrorLogServiceProvider,
+    private platform: Platform,
+    private alert: AlertController,
+    private firebase: Firebase,
+    private toastCtrl: ToastController
   ) {
+    this.onNotification();
   }
 
+  async onNotification() {
+    try {
 
+      await this.platform.ready();
+      
+      this.firebase.onNotificationOpen().subscribe(sub=>{
+        console.log("Notification Opened");
+        console.log(sub);
+      });
+    }
+    catch (e) {
+      console.log('erroring');
+      console.log(e)
+    }
+  }
 
   facebookLogin() {
 
@@ -203,7 +220,7 @@ export class Login {
             this.navCtrl.push(UserLocation);
           }
           else {
-            
+
             let communityID = s.DefaultCommunityID;
             this.navCtrl.push(TabsPage, { communityID: communityID });
           }

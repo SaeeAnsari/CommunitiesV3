@@ -5,7 +5,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { CommentService } from '../../providers/comment-service';
 import { UserService } from '../../providers/user-service';
 import { StoryService } from '../../providers/story-service';
-
+import {FirebaseMessagingProvider} from '../../providers/firebase-messaging/firebase-messaging';
 import { ViewController, NavParams, NavController } from 'ionic-angular';
 
 
@@ -18,7 +18,7 @@ import { ViewController, NavParams, NavController } from 'ionic-angular';
 @Component({
   selector: 'app-user-comments',
   templateUrl: 'user-comments-component.html',
-  providers: [UserService, CommentService, StoryService, InAppBrowser]
+  providers: [UserService, CommentService, StoryService, InAppBrowser, FirebaseMessagingProvider]
 })
 export class UserCommentsComponent implements OnInit {
 
@@ -141,11 +141,9 @@ export class UserCommentsComponent implements OnInit {
         this._commentService.PostComment(this.storyID, userID, this.commentPost).subscribe(ret => {
 
           this.loadComments();
+          this.commentPost ="";
         });
       });
     }
   }
-
-
-
 }
