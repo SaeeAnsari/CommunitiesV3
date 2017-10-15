@@ -10,9 +10,11 @@
 <ion-content padding>
 
   <div class="containerlocation">
-    <h2>
-      Almost done!
-    </h2>
+    <div *ngIf="LaunchType=='Registration'">
+      <h2>
+        Almost done!
+      </h2>
+    </div>
     <div>
 
       Press the <i>"Locate Me"</i> button so that we can show you everything that is happening around you
@@ -26,4 +28,5 @@
   <div *ngIf="completed">
     <button ion-button class="nextButton" (click)="SendUserToApp()"><i class="checkMark  fa fa-check-circle fa-2x" aria-hidden="true"></i>&nbsp; All Done</button>
   </div>
+  
 </ion-content>
