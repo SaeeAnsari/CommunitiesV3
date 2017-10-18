@@ -1,5 +1,5 @@
 <div class="feed_post_content md-no-style">
-  <div class="feed_post_message" [innerHTML]="PostMessage"></div>
+  <div class="feed_post_message" [innerHTML]="PostMessage" *ngIf="PostMessage.Length>1"></div>
   <div *ngIf="MediaType=='Image'">
     <div *ngFor="let img of fixedImagesforStory">      
       <img src="{{img.ImageURL}}" (click)="openComments('Image')">
