@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import {BaseLinkProvider} from '../providers/base-link/base-link';
 
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 // Observable class extensions
 import 'rxjs/add/observable/of';

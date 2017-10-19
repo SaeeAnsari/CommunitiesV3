@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import {BaseLinkProvider} from '../base-link/base-link';
 
 
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -45,8 +45,6 @@ export class ErrorLogServiceProvider {
 
   
   public logError(errorMessage:string): Observable<any> {
-
-    let data = new URLSearchParams();
 
     return this._http.post(this._url + "?errorMessage=" + errorMessage,
       null,

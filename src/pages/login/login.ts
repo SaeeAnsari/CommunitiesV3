@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
-import { FacebookAuth, AuthLoginResult, Auth } from '@ionic/cloud-angular';
-import { Platform, AlertController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { LoginComponent } from '../../components/login-component/login-component';
 import { RegisterUserComponent } from '../../components/register-user-component/register-user-component';
 import { UserLocation } from '../user-location/user-location';
@@ -31,12 +30,10 @@ import { User } from '../../interfaces/User';
 })
 export class Login{
 
-  loginDetails: AuthLoginResult;
+  
 
   constructor(
     private storage: Storage,
-    public auth: Auth,
-    private facebook: FacebookAuth,
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
@@ -44,9 +41,7 @@ export class Login{
     private fb: Facebook,
     private err: ErrorLogServiceProvider,
     private platform: Platform,
-    private alert: AlertController,
-    private firebase: Firebase,
-    private toastCtrl: ToastController
+    private firebase: Firebase
   ) {
     this.onNotification();
   }

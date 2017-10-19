@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+
 
 /*
   Generated class for the BaseLinkProvider provider.
@@ -12,7 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class BaseLinkProvider {
 
-  constructor(public http: Http) {
+  constructor() {
     
   }
 

@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { UserCommentsComponent } from '../user-comments-component/user-comments-component';
 
-import { ModalController, NavParams } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 /**
  * Generated class for the UserPostsComponent component.
  *
@@ -35,9 +35,8 @@ export class UserPostsComponent implements OnInit {
   ngOnInit() {
     if (this.StoryImages.length > 0) {
       this.fixedImagesforStory = this.StoryImages[0];
-      
-    }
-    console.log(this.StoryImages);
+      console.log(this.PostMessage);
+    }    
   }
 
   viewCommentsClicked() {

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {UserService} from '../../providers/user-service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { UserService } from '../../providers/user-service';
 
 /**
  * Generated class for the UserSearchItemComponent component.
@@ -12,7 +12,7 @@ import {UserService} from '../../providers/user-service';
   templateUrl: 'user-search-item-component.html',
   providers: [UserService]
 })
-export class UserSearchItemComponent implements OnInit{
+export class UserSearchItemComponent {
 
   @Input() ID = 0;
   @Input() Name = "";
@@ -27,10 +27,6 @@ export class UserSearchItemComponent implements OnInit{
 
   constructor(private _userService: UserService) {
 
-  
-  }
-
-  ngOnInit() {
 
   }
 
@@ -48,35 +44,31 @@ export class UserSearchItemComponent implements OnInit{
   }
 
 
-  addUserToCommunity(){
+  addUserToCommunity() {
 
-    if(+this.CommunityID > 0){
-       this._userService.getLoggedinInUser().subscribe(sub => {
+    if (+this.CommunityID > 0) {
+  
 
-      let userID: number = sub.ID;
+        this._userService.AddUsertoCommunity(this.ID, this.CommunityID).subscribe(sub => {
+          this.UserAction.emit();
+        });
+      
+    }
 
-      this._userService.AddUsertoCommunity(this.ID, this.CommunityID).subscribe(sub => {        
+    return false;
+
+  }
+
+  removeUserFromCommunity() {
+    if (+this.CommunityID > 0) {
+
+
+      this._userService.RemoveUserFromCommunity(this.ID, this.CommunityID).subscribe(sub => {
         this.UserAction.emit();
       });
-    });
-  }
-  
-  return false;
 
-  }
+    }
 
-  removeUserFromCommunity(){
-    if(+this.CommunityID > 0){
-       this._userService.getLoggedinInUser().subscribe(sub => {
-
-      let userID: number = sub.ID;
-
-      this._userService.RemoveUserFromCommunity(this.ID, this.CommunityID).subscribe(sub => {        
-        this.UserAction.emit();
-      });
-    });
-  }
-  
-  return false;
+    return false;
   }
 }

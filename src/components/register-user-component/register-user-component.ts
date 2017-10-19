@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 
@@ -24,7 +24,6 @@ export class RegisterUserComponent {
 
   public registerationForm: FormGroup;
   private id: number;
-  private uploadMessage: string = "Take a Selfie!";
   private isUploadingImage: boolean = false;
   private uploaded: boolean = false;
   private selfieURL: string = "";

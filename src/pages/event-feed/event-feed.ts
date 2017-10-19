@@ -24,10 +24,7 @@ export class EventFeedPage implements OnInit {
 
   private userID: number;
   private posts = [];
-  private subscription;
-  private communityID: number = 0;
   private nextPageIndex: number = 0;
-  private communityName: string = "";
 
   constructor(
     public navCtrl: NavController,

@@ -1,4 +1,4 @@
-import { Component , OnInit, Input} from '@angular/core';
+import { Component , Input} from '@angular/core';
 
 /**
  * Generated class for the UserTagComponent component.
@@ -10,7 +10,7 @@ import { Component , OnInit, Input} from '@angular/core';
   selector: 'app-user-tag',
   templateUrl: 'user-tag-component.html'
 })
-export class UserTagComponent implements OnInit {
+export class UserTagComponent  {
 
   @Input() ID: number;
   @Input() PostDate:Date;
@@ -19,12 +19,6 @@ export class UserTagComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-
-    console.log(this.ID);
-    console.log(this.ImageURL);
-    
-  }
 
   externalLoadUser(userID: number, displayName: string, ImageURL: string){
     this.ID = userID;

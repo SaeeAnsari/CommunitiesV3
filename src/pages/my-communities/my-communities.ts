@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CommunityService } from '../../providers/community-service';
 import { UserService } from '../../providers/user-service';
 import { Community } from '../../interfaces/community';
-import { FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 
 import { CommunityPage } from '../../pages/community/community';

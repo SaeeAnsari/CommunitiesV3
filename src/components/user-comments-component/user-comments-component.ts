@@ -127,7 +127,7 @@ export class UserCommentsComponent implements OnInit {
   launch(){
 
     if(this.storyExternalURL != ""){
-      const browser = this.iab.create(this.storyExternalURL);
+      this.iab.create(this.storyExternalURL);
     }
   }
 

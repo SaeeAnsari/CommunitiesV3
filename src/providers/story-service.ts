@@ -1,15 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-
-
+import { Http,  Headers, URLSearchParams } from '@angular/http';
 import { BaseLinkProvider } from '../providers/base-link/base-link';
-
-
-
-import { UserPost } from '../interfaces/user-post';
-import { Story } from '../interfaces/story';
-
-
 import { Observable } from 'rxjs/Observable';
 
 // Observable class extensions
@@ -36,7 +27,6 @@ import 'rxjs/add/operator/switchMap';
 export class StoryService {
 
   private _url = BaseLinkProvider.GetBaseUrl() + '/Story';
-  private _uploadURL = BaseLinkProvider.GetMediaURL();
   headers: Headers;
 
   constructor(private _http: Http) {
@@ -95,7 +85,7 @@ export class StoryService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    let id: number;
+   
     let videoTag;
     let imageURL = '';
 

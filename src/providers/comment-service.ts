@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
-
-import { StoryComment } from '../interfaces/story-comment';
-
-
 import { BaseLinkProvider } from '../providers/base-link/base-link';
-
-
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
-
 import { FirebaseMessagingProvider} from '../providers/firebase-messaging/firebase-messaging';
 import { UserService } from '../providers/user-service';
 
@@ -63,8 +54,6 @@ export class CommentService {
   }
 
   public PostComment(storyID: number, userID: number, comment: string): Observable<any> {
-
-    let data = new URLSearchParams();
 
     let userName: string = "";
     this.userService.getLoggedinInUser().subscribe(s => {

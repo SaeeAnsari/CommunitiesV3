@@ -1,19 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { BaseLinkProvider } from '../../providers/base-link/base-link';
+import { FormGroup, FormControl } from '@angular/forms';
 
 import { StoryService } from '../../providers/story-service';
 
 
-import { UserPost } from '../interfaces/user-post';
 import { User } from '../interfaces/user';
 import { MediaPostService } from '../../providers/media-post-service';
 import { CommunityService } from '../../providers/community-service';
 import { UserService } from "../../providers/user-service";
 
 import { CameraPluginProvider } from '../../providers/camera-plugin/camera-plugin';
-import { HelperProvider } from '../../providers/helper/helper';
-import { UploadImage } from '../../interfaces/upload-image';
 
 
 import { ViewController, NavParams, NavController } from 'ionic-angular';
@@ -26,12 +22,9 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/observable/fromEvent';
 
-
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 
-
-import * as xml2js from 'xml2js';
 
 
 
@@ -71,7 +64,6 @@ export class NewCommentComponent implements OnInit {
   private graphDescription: string = "";
   private graphTitle: string = "";
   private graphImage: string = "";
-  private graphVideo: string = "";
   private graphExternalURL: string = "";
 
   private createNewEvent: boolean = false;
@@ -80,15 +72,10 @@ export class NewCommentComponent implements OnInit {
 
   private keyboardShowing: boolean;
 
-  private firebaseToken = "";
 
-  private captureDataUrl: string = "";
-
-  private file_transfer: FileTransferObject = this.transfer.create();
 
 
   constructor(
-    private _fb: FormBuilder,
     private _userService: UserService,
     private _storyService: StoryService,
     private _mediaPost: MediaPostService,
@@ -168,7 +155,6 @@ export class NewCommentComponent implements OnInit {
               this.graphDescription = sub.hybridGraph.description;
               this.graphTitle = sub.hybridGraph.title;
               this.graphImage = sub.hybridGraph.image;
-              //this.graphVideo = sub.hybridGraph.url;
               this.graphFound = true;
               this.graphExternalURL = sub.hybridGraph.url;
 

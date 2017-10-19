@@ -21,8 +21,6 @@ export class LoginComponent {
 
   text: string;
 
-  private email: string;
-  private password: string;
   public loginForm: FormGroup;
 
 

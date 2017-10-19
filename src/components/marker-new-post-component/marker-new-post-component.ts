@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../../providers/user-service';
 import { NewCommentComponent } from '../new-comment-component/new-comment-component';
-import { NewEventComponent } from '../new-event/new-event';
 
 
 
-import { ModalController, NavParams } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 
 
 /**

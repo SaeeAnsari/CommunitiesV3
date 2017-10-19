@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 // Observable class extensions
 import 'rxjs/add/observable/of';
@@ -45,8 +45,6 @@ export class EventProvider {
 
   public PostEvent(id: number, name: string, description: string, imageURL: string, active: boolean, ownerID: number, address: string,
     city: string, postalZip: string, country: string, link: string, eventStartDate: any, eventEndDate: any): Observable<any> {
-
-    let data = new URLSearchParams();
 
     return this._http.post(this._url,
       JSON.stringify({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Community } from '../interfaces/community';
 
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 import {BaseLinkProvider} from '../providers/base-link/base-link';
 
@@ -35,7 +35,6 @@ export class CommunityService {
   private _url = this._baseURL + '/Community';
   private _imageUploadURL = BaseLinkProvider.GetMediaURL();
 
-  private _communities: Community[] = [];
   headers: Headers;
   options: RequestOptions;
 
@@ -72,7 +71,6 @@ export class CommunityService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    let id: number;
 
     let data = {
         Name: community.name,

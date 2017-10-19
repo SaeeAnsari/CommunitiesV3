@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -14,7 +13,6 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 export class CameraPluginProvider {
 
   constructor(
-    public http: Http,
     private camera: Camera
   ) {
 

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Community } from '../../interfaces/community';
+import { NavController, NavParams } from 'ionic-angular';
 import { UserService } from '../../providers/user-service';
 import { TabsPage } from '../../pages/tabs/tabs';
 /**

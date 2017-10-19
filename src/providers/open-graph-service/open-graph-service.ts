@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Community } from '../interfaces/community';
 
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 // Observable class extensions
@@ -56,7 +55,6 @@ export class OpenGraphServiceProvider {
 
   public checkIfURLExist(text: string){
     let uri = '';
-    let word = '';
     text.split(' ').forEach(function(obj){
       if(obj.trim().toLowerCase().indexOf("http://")> -1){
         uri = obj.trim();

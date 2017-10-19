@@ -56,11 +56,7 @@
                   <br>
                 </div>
                 <div *ngIf="!uploaded">
-                  <!--
-                  <div class="fileUpload btn btn-outline-info" *ngIf="!imageSelected" (click)="launchCamera()">
-                    <span><i class="fa fa-video-camera fa-3x" aria-hidden="true"></i><i  class="fa fa-camera fa-3x user-right" aria-hidden="true"></i></span>
-                  </div>
-                  -->
+                  
                   <local-gallery-upload (OnFileSaved)="mediaSelectedForPosting($event)"></local-gallery-upload>
                   <video-upload (OnFileSaved)="mediaSelectedForPosting($event)"></video-upload>
                   <image-upload ImageCategory="Story" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>

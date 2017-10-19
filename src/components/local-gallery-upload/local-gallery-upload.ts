@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 
-import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 
 import { BaseLinkProvider } from '../../providers/base-link/base-link';

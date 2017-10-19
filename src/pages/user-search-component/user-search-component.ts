@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserService } from '../../providers/user-service';
 import { User } from '../../interfaces/user';
-import { Community } from '../../interfaces/community';
-import { CommunityService } from '../../providers/community-service';
 
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, RouterModule, Router } from '@angular/router';
-import { FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms'
+import { FormGroup, FormControl } from '@angular/forms'
 
 
 
@@ -41,7 +38,7 @@ import 'rxjs/add/operator/switchMap';
 export class UserSearchComponent implements OnInit {
 
   private communityID: number = -1;
-  private subscription;
+
   private userItems: User[] = [];
   searchVal: string;
   searchInput = new FormControl();

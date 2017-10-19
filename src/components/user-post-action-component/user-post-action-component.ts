@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { StoryService } from '../../providers/story-service';
 import { UserService } from '../../providers/user-service';
-import { UserCommentsComponent } from '../user-comments-component/user-comments-component';
 import { Firebase } from '@ionic-native/firebase'
 
 import { PopoverController } from 'ionic-angular';

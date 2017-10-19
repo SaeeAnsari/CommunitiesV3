@@ -1,14 +1,13 @@
-import { Component, OnInit, Pipe } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 
 
 import { OpenGraphServiceProvider } from '../../providers/open-graph-service/open-graph-service';
 import { MediaPostService } from '../../providers/media-post-service';
-import { BaseLinkProvider } from '../../providers/base-link/base-link';
 import { UserService } from "../../providers/user-service";
 import { EventProvider } from '../../providers/event/event';
 
-import { LoadingController, ViewController, NavParams, NavController } from 'ionic-angular';
+import { LoadingController, ViewController, NavController } from 'ionic-angular';
 
 
 /**
@@ -27,13 +26,11 @@ export class NewEventComponent implements OnInit {
   public newEventForm: FormGroup;
 
   private postText: string = "";
-  private mediaName: string = "";
   private uploadedMediaURL: string = "";
 
   private user;
 
   private imageReady: true;
-  private graphImage: string = "";
 
   private datesValidated: boolean = true;
   private cityExists: boolean = true;
@@ -68,7 +65,6 @@ export class NewEventComponent implements OnInit {
     private _fb: FormBuilder,
     private _userService: UserService,
     private _openGraphApi: OpenGraphServiceProvider,
-    private _mediaPost: MediaPostService,
     public loadingCtrl: LoadingController,
     private _eventService: EventProvider,
     public nav: NavController,

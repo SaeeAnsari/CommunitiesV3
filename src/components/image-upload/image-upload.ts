@@ -1,11 +1,10 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { UploadImage } from '../../interfaces/upload-image';
 import { BaseLinkProvider } from '../../providers/base-link/base-link';
 
 import { LoadingController } from 'ionic-angular';
 
 
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 
 import { CameraPluginProvider } from '../../providers/camera-plugin/camera-plugin';

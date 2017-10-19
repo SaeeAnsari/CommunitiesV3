@@ -1,10 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-
-import { UserCommentsComponent } from '../user-comments-component/user-comments-component';
-
-import { ModalController, NavParams } from 'ionic-angular';
-
-
+import { Component,  Input } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 /**
@@ -18,7 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   templateUrl: 'event-post.html',
   providers: [InAppBrowser]
 })
-export class EventPostComponent implements OnInit {
+export class EventPostComponent {
   
    @Input() Address: string;
    @Input() City: string;
@@ -33,15 +27,10 @@ export class EventPostComponent implements OnInit {
   
     
   constructor(
-    public modalCtrl: ModalController,
     private iab: InAppBrowser
   ) { }
 
   
-  ngOnInit() {
-   
-  }
-
   viewCommentsClicked() {
     
   }
@@ -50,7 +39,7 @@ export class EventPostComponent implements OnInit {
   //Type : Video or Image
   openComments() {
     if(this.StoryExternalURL != ""){
-      const browser = this.iab.create(this.StoryExternalURL);
+      this.iab.create(this.StoryExternalURL);
     }
   }
 }

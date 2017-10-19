@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+
 
 import { Observable } from 'rxjs/Rx';
 import { CommunityService } from '../../providers/community-service';
@@ -37,8 +37,6 @@ export class CommunityPage implements OnInit {
 
   private id: number;
   name: string;
-  private subscription;
-  private isUploadingImage = false;
   private communityImage: string = '';
   private uploadMessage: string = '';
   private uploaded: boolean = false;
@@ -51,7 +49,6 @@ export class CommunityPage implements OnInit {
     public navCtrl: NavController,
     public navParams: NavParams,
     private _communityService: CommunityService,
-    private _mediaPost: MediaPostService,
     private _userService: UserService,
     private _geoService: GeoProviderServiceProvider,
     private _geolocation: Geolocation
@@ -143,7 +140,6 @@ export class CommunityPage implements OnInit {
 
     if (data != null) {
       console.log("Got Data: " + JSON.stringify(data));
-      var url = "";
 
       data.imageList.forEach(element => {
         this.uploaded = true;

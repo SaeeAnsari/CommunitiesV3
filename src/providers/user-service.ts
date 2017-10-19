@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http,  Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 
 import {BaseLinkProvider} from '../providers/base-link/base-link';
@@ -41,10 +41,8 @@ export class UserService {
       .map(ret => ret.json());
   }
 
-  private isUploadingImage = false;
   private _url = BaseLinkProvider.GetBaseUrl() + '/User';
   private _imageUploadURL = BaseLinkProvider.GetMediaURL();;
-  private _users: User[] = [];
   headers: Headers;
 
   options: RequestOptions;
@@ -177,12 +175,6 @@ export class UserService {
 
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
-    let data = {
-      userID: userId,
-      latitude: lattitude,
-      longitude: longitude
-    };
 
     return this._http.post(
       this._url + '/SaveUserLocation?userID=' + userId + '&latitude=' + lattitude + '&longitude=' + longitude,

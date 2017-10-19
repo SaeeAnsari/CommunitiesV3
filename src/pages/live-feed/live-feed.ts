@@ -30,9 +30,7 @@ import { UserSearchComponent } from '../user-search-component/user-search-compon
 })
 export class LiveFeed implements OnInit {
 
-  private userID: number;
   private posts = [];
-  private subscription;
   private communityID: number = 0;
   private nextPageIndex: number = 0;
   private communityName: string = "";
