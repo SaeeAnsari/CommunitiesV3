@@ -62,10 +62,11 @@ export class EventFeedPage implements OnInit {
             storyExternalURL: element.Link,
             mediaType: element.MediaType,
             address: element.Address,
-            city: element.City
+            city: element.City,
+            eventStartDate: element.EventStartDate,
+            eventEndDate: element.EventEndDate
           });
         });
-
       });
   }
 

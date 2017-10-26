@@ -1,4 +1,4 @@
-import { Component,  Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 /**
@@ -12,34 +12,60 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   templateUrl: 'event-post.html',
   providers: [InAppBrowser]
 })
-export class EventPostComponent {
+export class EventPostComponent implements OnInit {
   
-   @Input() Address: string;
-   @Input() City: string;
-    @Input() PostMessage: string;
-    @Input() PostMediaURL: string;
-    @Input() EventID: number;
-    @Input() UserID: number;
-    @Input() StoryExternalURL: string;
-    @Input() ImageURL;
-  
-    public fixedImagesforStory;
-  
+  ngOnInit(): void {
     
+    if(this.EventStartDate != ""){
+      if(this.EventEndDate == this.EventStartDate || this.EventEndDate == ""){
+                
+        let dtStart= new Date(this.EventStartDate);        
+        this.dateString = dtStart.getMonth() + '/' + dtStart.getDate() + '/' + dtStart.getFullYear();        
+      }
+
+      else if(this.EventStartDate != this.EventEndDate && this.EventEndDate != ""){
+        let dtStart= new Date(this.EventStartDate);
+        let dtEnd = new Date(this.EventEndDate);
+        
+        this.dateString = dtStart.getMonth() + '/' + dtStart.getDate() + '/' + dtStart.getFullYear() + ' to ' + dtEnd.getMonth() + '/' + dtEnd.getDate()  + '/' + dtEnd.getFullYear();
+      }      
+    }
+
+  }
+
+  @Input() Address: string;
+  @Input() City: string;
+  @Input() PostMessage: string;
+  @Input() PostMediaURL: string;
+  @Input() EventID: number;
+  @Input() UserID: number;
+  @Input() StoryExternalURL: string;
+  @Input() ImageURL;
+  @Input() EventStartDate;
+  @Input() EventEndDate;
+
+  public fixedImagesforStory;
+
+  public dateString: string = "";
+
+
   constructor(
     private iab: InAppBrowser
   ) { }
 
-  
+
   viewCommentsClicked() {
-    
   }
 
 
   //Type : Video or Image
   openComments() {
-    if(this.StoryExternalURL != ""){
+    if (this.StoryExternalURL != "") {
       this.iab.create(this.StoryExternalURL);
     }
+  }
+
+  launchMaps(){
+    window.open("http://maps.google.com?daddr=" + this.Address + "+" + this.City);
   }
 }

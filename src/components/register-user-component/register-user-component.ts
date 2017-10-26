@@ -41,8 +41,8 @@ export class RegisterUserComponent {
       firstName: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
       lastName: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
       email: ['', [<any>Validators.required]],
-      password: ['', [<any>Validators.required]],
-      confirmPassword: ['', [Validators.required]]
+      password: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, <any>Validators.minLength(6)]]
     });
   }
 

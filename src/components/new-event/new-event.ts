@@ -38,6 +38,8 @@ export class NewEventComponent implements OnInit {
   private userCountry:string="";
   public submitted: boolean = false;
 
+  public loading: any;
+
 
   ngOnInit() {
     this._userService.getLoggedinInUser().subscribe(sub => {
@@ -57,6 +59,11 @@ export class NewEventComponent implements OnInit {
     this.newEventForm.controls["startDate"].setValue(dateVal);
     
     this.newEventForm.controls["endDate"].setValue(dateVal);
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Parsing...',
+      spinner: 'dots'
+    });
     
   }
 
@@ -97,12 +104,12 @@ export class NewEventComponent implements OnInit {
     let uri = this._openGraphApi.checkIfURLExist(this.postText);
 
     if (uri != "") {
-      let loading = this.loadingCtrl.create({
-        content: 'Parsing...',
-        spinner: 'dots'
-      });
   
-      loading.present();
+      this.loading.present()
+
+      setTimeout(()=>{
+        this.loading.dismiss();
+      }, 15000);
 
       this._openGraphApi.GetOpenGraphDetails(uri).subscribe(sub => {
         if (sub.hybridGraph) {
@@ -114,7 +121,7 @@ export class NewEventComponent implements OnInit {
           this.newEventForm.controls['name'].setValue(name.slice(0, 20));
           this.newEventForm.controls['description'].setValue(sub.hybridGraph.description);
         }
-        loading.dismiss();
+        this.loading.dismiss();
       });
     }
   }

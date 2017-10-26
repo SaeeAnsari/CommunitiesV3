@@ -177,4 +177,11 @@ export class StoryService {
       .catch(this.handleError);
   }
 
+  GetEventAddressByStoryID(storyID:number): Observable<any> {
+    
+        return this._http.get(this._url + '/GetEventAddressByStoryID' + '?storyID=' + storyID)
+          .map(post => post.json())
+          .catch(this.handleError);
+      }
+
 }

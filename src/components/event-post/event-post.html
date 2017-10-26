@@ -12,11 +12,27 @@
   </div>
 
   <h4>
-    <div class="addressSection customWell">
+    <div class="addressSection customWell" >
       <address>
-        <h2><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<b>Location:</b></h2>
-        <div class="location">{{Address}}, {{City}}</div>
+        <div class="address float-left" (click)="launchMaps()">
+          <h2>
+            <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;
+            <b>Location:</b>
+          </h2>
+          <div class="location">{{Address}}, {{City}}</div>
+        </div>
+        <div class="event-date-section float-left">
+          <h2>
+            <i class="fa fa-calendar-o">&nbsp;
+              <b>On: </b>
+            </i>
+          </h2>
+          <div class="start-end-dates float-left">
+            <span>{{dateString}}</span>
+          </div>
+        </div>
       </address>
+
     </div>
   </h4>
 </div>
