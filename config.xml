@@ -106,4 +106,19 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.0" />
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="cordova-plugin-buildinfo" spec="^2.0.1" />
+    <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
+    <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
+    <plugin name="cordova-plugin-customurlscheme" spec="^4.3.0">
+        <variable name="URL_SCHEME" value="com.ionicframework.communities54283" />
+        <variable name="ANDROID_SCHEME" value=" " />
+        <variable name="ANDROID_HOST" value=" " />
+        <variable name="ANDROID_PATHPREFIX" value="/" />
+    </plugin>
+    <universal-links>
+        <host name="DYNAMIC_LINK_DOMAIN" scheme="https://g2pyn.app.goo.gl/eNh4" />
+        <host name="AUTH_DOMAIN" scheme="communities-386e8.firebaseapp.com">
+            <path url="/__/auth/callback" />
+        </host>
+    </universal-links>
 </widget>

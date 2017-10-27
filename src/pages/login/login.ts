@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
 import { Platform } from 'ionic-angular';
@@ -8,11 +8,13 @@ import { RegisterUserComponent } from '../../components/register-user-component/
 import { UserLocation } from '../user-location/user-location';
 import { UserService } from '../../providers/user-service';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import {Firebase} from '@ionic-native/firebase';
+import { Firebase } from '@ionic-native/firebase';
 
 import { ErrorLogServiceProvider } from '../../providers/error-log-service/error-log-service';
 
 import { User } from '../../interfaces/User';
+
+import firebase from 'firebase';
 
 
 
@@ -28,9 +30,8 @@ import { User } from '../../interfaces/User';
   templateUrl: 'login.html',
   providers: [UserService, Facebook, ErrorLogServiceProvider]
 })
-export class Login{
+export class Login {
 
-  
 
   constructor(
     private storage: Storage,
@@ -41,17 +42,79 @@ export class Login{
     private fb: Facebook,
     private err: ErrorLogServiceProvider,
     private platform: Platform,
-    private firebase: Firebase
+    private firebaseIonic: Firebase
   ) {
     this.onNotification();
+
+   
+    
+    if(firebase.apps.length ==0)
+    {
+      var config = {
+        apiKey: "AIzaSyCezp8wNVyV1qdygpnGuYLpys85-WcHVKo",
+        authDomain: "communities-386e8.firebaseapp.com",
+        databaseURL: "https://communities-386e8.firebaseio.com",
+        projectId: "communities-386e8",
+        storageBucket: "communities-386e8.appspot.com",
+        messagingSenderId: "634674165562"
+      };
+      firebase.initializeApp(config);
+    }
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+
+        console.log("Google Logged in User");
+
+        let _googleID = user.uid;
+        let name = user.displayName;
+        let email = user.email;
+        let photo = user.photoURL;
+
+        let firstname = name.split(' ')[0].trim();
+        let lastName = name.replace(firstname, "").trim();
+
+        this._userService.AuthenticateThirdPartyUser(_googleID).subscribe(sub => {
+          console.log("RAW got : " + sub);
+
+          if (sub != null && +sub > 0) {
+            console.log("Found the User : " + sub);
+            this.storage.set('userID', sub);
+            this.ionViewDidLoad();
+          }
+          else {
+
+            var user: User = {
+              id: -1,
+              firstName: firstname,
+              lastName: lastName,
+              gender: null,
+              email: email,
+              imageURL: photo,
+              thirdPartyAuthID: _googleID,
+              authenticationPortalID: 3,
+              active: true
+            }
+
+            console.log(user);
+
+            this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
+              console.log("loaded :" + sub);
+              this.storage.set('userID', sub);
+              this.ionViewDidLoad();
+            });
+          }
+        });
+      }
+    });
   }
 
   async onNotification() {
     try {
 
       await this.platform.ready();
-      
-      this.firebase.onNotificationOpen().subscribe(sub=>{
+
+      this.firebaseIonic.onNotificationOpen().subscribe(sub => {
         console.log("Notification Opened");
         console.log(sub);
       });
@@ -228,4 +291,13 @@ export class Login{
     console.log('ionViewDidLoad Login');
   }
 
+  googleLogin() {
+    console.log("Google Auth");
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithRedirect(provider).then(result => () => {
+
+      console.log("Google logged in")
+      //The on Change Method in the constructor will get the user to us
+    });
+  }
 }

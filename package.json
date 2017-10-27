@@ -40,9 +40,12 @@
         "com.synconset.imagepicker": "~2.1.8",
         "cordova-android": "^6.2.3",
         "cordova-browser": "^4.1.0",
+        "cordova-plugin-browsertab": "^0.2.0",
+        "cordova-plugin-buildinfo": "^2.0.1",
         "cordova-plugin-camera": "^2.4.1",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.5",
+        "cordova-plugin-customurlscheme": "^4.3.0",
         "cordova-plugin-device": "^1.1.4",
         "cordova-plugin-facebook4": "^1.9.1",
         "cordova-plugin-file": "^4.0.0",
@@ -57,6 +60,7 @@
         "cordova-plugin-whitelist": "^1.3.1",
         "cordova-plugin-x-socialsharing": "^5.2.0",
         "cordova-sqlite-storage": "^2.0.4",
+        "cordova-universal-links-plugin": "^1.2.1",
         "es6-promise-plugin": "^4.1.0",
         "ionic-angular": "3.5.0",
         "ionic-plugin-keyboard": "^2.2.1",
@@ -99,6 +103,15 @@
             "cordova-plugin-x-socialsharing": {},
             "com.synconset.imagepicker": {
                 "PHOTO_LIBRARY_USAGE_DESCRIPTION": "Communities Media Upload"
+            },
+            "cordova-plugin-buildinfo": {},
+            "cordova-universal-links-plugin": {},
+            "cordova-plugin-browsertab": {},
+            "cordova-plugin-customurlscheme": {
+                "URL_SCHEME": "com.ionicframework.communities54283",
+                "ANDROID_SCHEME": " ",
+                "ANDROID_HOST": " ",
+                "ANDROID_PATHPREFIX": "/"
             }
         },
         "platforms": [
