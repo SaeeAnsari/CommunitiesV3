@@ -67,8 +67,6 @@ import { VideoUploadComponent } from '../components/video-upload/video-upload';
 import { LocalGalleryUploadComponent } from '../components/local-gallery-upload/local-gallery-upload';
 import { SocialSharingPopoverComponent } from '../components/social-sharing-popover/social-sharing-popover';
 import { EventPostComponent } from '../components/event-post/event-post';
-import { ComponentAccessProvider } from '../providers/component-access/component-access';
-
 
 
 
@@ -168,8 +166,7 @@ const cloudSettings: CloudSettings = {
     File,
     CameraPluginProvider,
     HelperProvider,
-    Firebase,
-    ComponentAccessProvider
+    Firebase
   ]
 })
 export class AppModule { }

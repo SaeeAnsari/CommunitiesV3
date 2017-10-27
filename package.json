@@ -23,7 +23,6 @@
         "@angular/platform-browser-dynamic": "4.1.3",
         "@ionic-native/camera": "^3.14.0",
         "@ionic-native/core": "3.12.1",
-        "@ionic-native/diagnostic": "^4.3.2",
         "@ionic-native/facebook": "^3.14.0",
         "@ionic-native/file": "^4.0.0",
         "@ionic-native/file-transfer": "^4.0.0",
@@ -58,7 +57,6 @@
         "cordova-plugin-whitelist": "^1.3.1",
         "cordova-plugin-x-socialsharing": "^5.2.0",
         "cordova-sqlite-storage": "^2.0.4",
-        "cordova.plugins.diagnostic": "^3.7.1",
         "es6-promise-plugin": "^4.1.0",
         "ionic-angular": "3.5.0",
         "ionic-plugin-keyboard": "^2.2.1",
@@ -101,8 +99,7 @@
             "cordova-plugin-x-socialsharing": {},
             "com.synconset.imagepicker": {
                 "PHOTO_LIBRARY_USAGE_DESCRIPTION": "Communities Media Upload"
-            },
-            "cordova.plugins.diagnostic": {}
+            }
         },
         "platforms": [
             "android",
