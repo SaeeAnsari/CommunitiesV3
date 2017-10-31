@@ -100,20 +100,24 @@ export class NewEventComponent implements OnInit {
 
   listenToGraph() {
     
+    console.log("Graph - Checking URL exists");
 
     let uri = this._openGraphApi.checkIfURLExist(this.postText);
+
+    console.log("uri: " + uri );
 
     if (uri != "") {
   
       this.loading.present()
-
+      console.log("Showing Loading");
       setTimeout(()=>{
+        console.log("dismissing loading");
         this.loading.dismiss();
       }, 15000);
 
       this._openGraphApi.GetOpenGraphDetails(uri).subscribe(sub => {
         if (sub.hybridGraph) {
-
+          console.log("inside the graph");
           let name: string = sub.hybridGraph.title;
           
           this.uploadedMediaURL = sub.hybridGraph.image;

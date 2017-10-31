@@ -61,6 +61,7 @@ export class Login {
       firebase.initializeApp(config);
     }
 
+    
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
 
@@ -294,9 +295,10 @@ export class Login {
   googleLogin() {
     console.log("Google Auth");
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider).then(result => () => {
+    firebase.auth().signInWithRedirect(provider).then((result) =>  {
 
       console.log("Google logged in")
+      console.log(result);
       //The on Change Method in the constructor will get the user to us
     });
   }

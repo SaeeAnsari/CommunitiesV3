@@ -32,7 +32,7 @@ export class LiveFeed implements OnInit {
 
   private posts = [];
   private communityID: number = 0;
-  private nextPageIndex: number = 0;
+  private pageIndex: number = 1;
   private communityName: string = "";
 
   constructor(
@@ -57,12 +57,12 @@ export class LiveFeed implements OnInit {
   }
 
   loadStories() {
-    this.nextPageIndex = 0;
+    this.pageIndex = 1;
     this.posts = [];
-    this._storyService.GetStoriesByCommunity(this.communityID, this.nextPageIndex)
+    this._storyService.GetStoriesByCommunity(this.communityID, this.pageIndex)
       .subscribe(postS => {
         if (postS.length > 0)
-          this.nextPageIndex = this.nextPageIndex + 1;
+          this.pageIndex = this.pageIndex + 1;
 
         postS.forEach(element => {
 
@@ -134,11 +134,11 @@ export class LiveFeed implements OnInit {
     return new Promise((resolve) => {
       setTimeout(() => {
 
-        this._storyService.GetStoriesByCommunity(this.communityID, this.nextPageIndex)
+        this._storyService.GetStoriesByCommunity(this.communityID, this.pageIndex)
           .subscribe(postS => {
 
             if (postS.length > 0) {
-              this.nextPageIndex = this.nextPageIndex + 1;
+              this.pageIndex = this.pageIndex + 1;
             }
 
             postS.forEach(element => {

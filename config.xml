@@ -22,6 +22,7 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
+    <preference name="AndroidLaunchMode" value="singleTask" />
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="loadUrlTimeoutValue" value="700000" />
@@ -116,8 +117,8 @@
         <variable name="ANDROID_PATHPREFIX" value="/" />
     </plugin>
     <universal-links>
-        <host name="DYNAMIC_LINK_DOMAIN" scheme="https://g2pyn.app.goo.gl/eNh4" />
-        <host name="AUTH_DOMAIN" scheme="communities-386e8.firebaseapp.com">
+        <host name="g2pyn.app.goo.gl/eNh4" scheme="https" />
+        <host name="communities-386e8.firebaseapp.com" scheme="https">
             <path url="/__/auth/callback" />
         </host>
     </universal-links>
