@@ -7,10 +7,12 @@
 }
 
 .feed_post_message {
-  color: #3b3b3b;
-  font-size: 15px;
+  //color: #3b3b3b;
+  
+  
+  font-size: 12px;
   font-weight: 300;
-  line-height: 20px;
+  line-height: 15px;
   padding-left: 10px;
   padding-bottom: 5px;
   padding-top: 10px;
@@ -20,18 +22,16 @@
    white-space: normal;
 }
 
-
 .feed_post_content img {
   /*border: 1px solid #dcdcdc;
   /*border-radius: 5px;*/
-  height: auto;
+  width: auto;
   
-  max-height: 600px; 
+  max-height: 480px; 
 }
 
 .feed_post_content video {
-  /*border: 5px solid #dcdcdc;
-  border-radius: 5px;*/
+  
   height: auto;
   width: 100%;
   max-height: 600px; 

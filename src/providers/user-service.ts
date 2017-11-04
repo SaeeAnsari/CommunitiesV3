@@ -61,6 +61,12 @@ export class UserService {
       .map(ret => ret.json());
   }
 
+  public EmailUserForgetPassword(email:string){
+    return this._http.get(this._url+ '/UserForgetPassword?email=' + email )
+    .map(ret=> ret.json())
+    .catch(this.handleError);
+  }
+
   public AddUsertoCommunity(userID: number, communityID: number): Observable<any> {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

@@ -4,7 +4,11 @@ import { ViewController, NavParams, NavController, ToastController } from 'ionic
 import { Storage } from '@ionic/storage';
 import { UserService } from '../../providers/user-service';
 
+
 import { TabsPage } from '../../pages/tabs/tabs';
+
+import { PopoverController } from 'ionic-angular';
+
 
 /**
  * Generated class for the LoginComponent component.
@@ -31,7 +35,8 @@ export class LoginComponent {
     public nav: NavController,
     public vc: ViewController,
     public navParams: NavParams,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    public popoverCtrl: PopoverController) {
 
     this.loginForm = this._fb.group({
       email: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
@@ -84,4 +89,12 @@ export class LoginComponent {
     toast.present();
   }
 
+
+  forgetPassword(event){
+    
+    let data = {
+      forgetPassword: true
+    };
+    this.vc.dismiss(data);
+  }
 }

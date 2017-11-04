@@ -67,6 +67,7 @@ import { VideoUploadComponent } from '../components/video-upload/video-upload';
 import { LocalGalleryUploadComponent } from '../components/local-gallery-upload/local-gallery-upload';
 import { SocialSharingPopoverComponent } from '../components/social-sharing-popover/social-sharing-popover';
 import { EventPostComponent } from '../components/event-post/event-post';
+import { ForgetPasswordComponent } from '../components/forget-password/forget-password';
 
 
 
@@ -114,7 +115,8 @@ const cloudSettings: CloudSettings = {
     VideoUploadComponent,
     LocalGalleryUploadComponent,
     SocialSharingPopoverComponent,
-    EventPostComponent
+    EventPostComponent,
+    ForgetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -143,7 +145,8 @@ const cloudSettings: CloudSettings = {
     MyCommunitiesPage,
     CommunityItemComponent,
     SettingsPage,
-    EventFeedPage
+    EventFeedPage,
+    ForgetPasswordComponent
   ],
   providers: [
     StatusBar,

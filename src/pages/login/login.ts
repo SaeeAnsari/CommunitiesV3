@@ -17,6 +17,9 @@ import { User } from '../../interfaces/User';
 import firebase from 'firebase';
 
 
+import { ForgetPasswordComponent } from '../../components/forget-password/forget-password';
+
+
 
 /**
  * Generated class for the Login page.
@@ -31,7 +34,7 @@ import firebase from 'firebase';
   providers: [UserService, Facebook, ErrorLogServiceProvider]
 })
 export class Login {
-
+  
 
   constructor(
     private storage: Storage,
@@ -238,6 +241,13 @@ export class Login {
 
   }
 
+  loadForgetPasswordModal(){
+
+    let forgetPasswordModal = this.modalCtrl.create(ForgetPasswordComponent, null, { showBackdrop: true, enableBackdropDismiss: true });
+    forgetPasswordModal.present();
+  }
+
+
   loginClicked() {
 
     let loginRegisterModal = this.modalCtrl.create(LoginComponent, null, { showBackdrop: true, enableBackdropDismiss: true });
@@ -247,6 +257,9 @@ export class Login {
       if (data) {
         if (data.isRegistering) {
           this.loadRegistrationModal();
+        }
+        else if(data.forgetPassword){
+          this.loadForgetPasswordModal();
         }
       }
     });
