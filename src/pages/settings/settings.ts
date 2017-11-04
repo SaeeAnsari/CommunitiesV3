@@ -33,7 +33,8 @@ export class SettingsPage {
 
   SignOut() {
     this.storage.clear();
-    //sessionStorage.setItem('userID', null);    
+    sessionStorage.setItem('userID', null);    
+    this.storage.set("userID", null);
     this.navCtrl.push(Login);
   }
 

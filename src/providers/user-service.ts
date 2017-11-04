@@ -42,7 +42,6 @@ export class UserService {
   }
 
   private _url = BaseLinkProvider.GetBaseUrl() + '/User';
-  private _imageUploadURL = BaseLinkProvider.GetMediaURL();;
   headers: Headers;
 
   options: RequestOptions;
@@ -119,7 +118,7 @@ export class UserService {
       FirstName: user.firstName,
       LastName: user.lastName,
       Email: user.email,
-      ImageURL: this._imageUploadURL + '/MediaUpload/User/' + user.imageURL,
+      ImageURL: user.imageURL,
       AuthPortal: user.authenticationPortalID,
       Password: user.password
     }

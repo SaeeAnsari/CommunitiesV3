@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit} from '@angular/core';
 import { BaseLinkProvider } from '../../providers/base-link/base-link';
 
 import { LoadingController } from 'ionic-angular';
@@ -20,12 +20,18 @@ import { CameraPluginProvider } from '../../providers/camera-plugin/camera-plugi
   templateUrl: 'image-upload.html',
   providers: [CameraPluginProvider]
 })
-export class ImageUploadComponent {
+export class ImageUploadComponent implements OnInit {
+  
+  
+
 
   private file_transfer: FileTransferObject = this.transfer.create();
   public uploaded: boolean = false;
   public mediaType: string = "";
+  public cloudFileURL: string = "";
+  public replaceIconWithImage: boolean = false;
 
+  @Input() UpdateIconImageOnUpload: string="";
   @Input() ImageCategory: string;
 
   @Output() OnFileSaved = new EventEmitter();
@@ -38,6 +44,13 @@ export class ImageUploadComponent {
   ) {
   }
 
+  ngOnInit(): void {
+      this.SetImageReplaceParam();
+  }
+
+    private SetImageReplaceParam() {
+        this.replaceIconWithImage = this.UpdateIconImageOnUpload == "true" && this.cloudFileURL.length > 0;
+    }
 
   public async launchCamera() {
 
@@ -116,14 +129,7 @@ export class ImageUploadComponent {
         var parsingString = result.response;
         console.log("Parsing String: " + parsingString);
         
-        /*var fileName = parsingString.split("FileName")[parsingString.split("FileName").length - 2].replace(">", "").replace("<", "").replace("/", "");
-        fileName = fileName.slice(0, -1);//comes with a / in the end. Slice will remove the /
-
-        console.log("XML PArsed loosk like: " + JSON.stringify(this.xmlToJson(parsingString)));
-
-        console.log("Full NAme: " + fileName);
-        */
-
+   
         var fileName = parsingString.substring(parsingString.indexOf("<FileName>"), parsingString.indexOf("</FileName>")).replace("<FileName>", "");
         var publicID = parsingString.substring(parsingString.indexOf("<PublicID>"), parsingString.indexOf("</PublicID>")).replace("<PublicID>", "");
         var versionID = parsingString.substring(parsingString.indexOf("<VersionID>"), parsingString.indexOf("</VersionID>")).replace("<VersionID>", "")
@@ -133,7 +139,13 @@ export class ImageUploadComponent {
         this.uploaded = true;
         this.mediaType = "Image";
 
+        
+        this.cloudFileURL = fileName;
+        this.SetImageReplaceParam();
+
         loading.dismiss();
+
+
         this.OnFileSaved.emit({
           mediaType: "Image",
           imageList: [{
@@ -156,44 +168,5 @@ export class ImageUploadComponent {
       console.log("Error : " + JSON.stringify(e));
 
     }
-  }
-
-  // Changes XML to JSON
-  public xmlToJson(xml) {
-
-    // Create the return object
-    var obj = {};
-
-    if (xml.nodeType == 1) { // element
-      // do attributes
-      if (xml.attributes.length > 0) {
-        obj["@attributes"] = {};
-        for (var j = 0; j < xml.attributes.length; j++) {
-          var attribute = xml.attributes.item(j);
-          obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-        }
-      }
-    } else if (xml.nodeType == 3) { // text
-      obj = xml.nodeValue;
-    }
-
-    // do children
-    if (xml.hasChildNodes()) {
-      for (var i = 0; i < xml.childNodes.length; i++) {
-        var item = xml.childNodes.item(i);
-        var nodeName = item.nodeName;
-        if (typeof (obj[nodeName]) == "undefined") {
-          obj[nodeName] = this.xmlToJson(item);
-        } else {
-          if (typeof (obj[nodeName].push) == "undefined") {
-            var old = obj[nodeName];
-            obj[nodeName] = [];
-            obj[nodeName].push(old);
-          }
-          obj[nodeName].push(this.xmlToJson(item));
-        }
-      }
-    }
-    return obj;
   }
 }

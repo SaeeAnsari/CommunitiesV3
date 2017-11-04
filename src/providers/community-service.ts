@@ -33,7 +33,6 @@ export class CommunityService {
 
   private _baseURL = BaseLinkProvider.GetBaseUrl();
   private _url = this._baseURL + '/Community';
-  private _imageUploadURL = BaseLinkProvider.GetMediaURL();
 
   headers: Headers;
   options: RequestOptions;
@@ -75,7 +74,7 @@ export class CommunityService {
     let data = {
         Name: community.name,
         Description: community.description,
-        ImageURL: this._imageUploadURL + '/MediaUpload/Community/Thumb/' + community.imageURL,
+        ImageURL: community.imageURL,
         OwnerID: userID,
         Type: 2,
         ID: community.id,

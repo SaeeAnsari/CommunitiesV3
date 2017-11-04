@@ -81,13 +81,27 @@
     </platform>
     <allow-navigation href="http://169.254.184.163:8101" />
     <allow-navigation href="http://192.168.2.10:8100" />
+    <universal-links>
+        <host name="g2pyn.app.goo.gl/eNh4" scheme="https" />
+        <host name="communities-386e8.firebaseapp.com" scheme="https">
+            <path url="/__/auth/callback" />
+        </host>
+    </universal-links>
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
     <plugin name="com.synconset.imagepicker" spec="~2.1.8">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Communities Media Upload" />
     </plugin>
+    <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
+    <plugin name="cordova-plugin-buildinfo" spec="^2.0.1" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
+    <plugin name="cordova-plugin-customurlscheme" spec="^4.3.0">
+        <variable name="URL_SCHEME" value="com.ionicframework.communities54283" />
+        <variable name="ANDROID_SCHEME" value=" " />
+        <variable name="ANDROID_HOST" value=" " />
+        <variable name="ANDROID_PATHPREFIX" value="/" />
+    </plugin>
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="1863707417227215" />
@@ -106,20 +120,6 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.0" />
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
-    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="cordova-plugin-buildinfo" spec="^2.0.1" />
     <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
-    <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
-    <plugin name="cordova-plugin-customurlscheme" spec="^4.3.0">
-        <variable name="URL_SCHEME" value="com.ionicframework.communities54283" />
-        <variable name="ANDROID_SCHEME" value=" " />
-        <variable name="ANDROID_HOST" value=" " />
-        <variable name="ANDROID_PATHPREFIX" value="/" />
-    </plugin>
-    <universal-links>
-        <host name="g2pyn.app.goo.gl/eNh4" scheme="https" />
-        <host name="communities-386e8.firebaseapp.com" scheme="https">
-            <path url="/__/auth/callback" />
-        </host>
-    </universal-links>
+    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
 </widget>
