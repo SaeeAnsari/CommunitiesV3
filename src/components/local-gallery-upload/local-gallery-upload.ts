@@ -25,13 +25,27 @@ export class LocalGalleryUploadComponent implements OnInit {
     if(this.Type == ""){
       this.Type = "Story";
     }
+
+    this.SetImageReplaceParam();
   }
+
+  
+  
+
+  private SetImageReplaceParam() {
+      this.replaceIconWithImage = this.UpdateIconImageOnUpload == "true" && this.cloudFileURL.length > 0;
+  }
+
 
   private file_transfer: FileTransferObject = this.transfer.create();
 
 
   @Input() Type: string = "";
+  @Input() UpdateIconImageOnUpload: string="";
   @Output() OnFileSaved = new EventEmitter();
+
+  public replaceIconWithImage: boolean = false;
+  public cloudFileURL: string = "";
 
   constructor(
     private imagePicker: ImagePicker,
@@ -108,6 +122,9 @@ export class LocalGalleryUploadComponent implements OnInit {
 
           console.log("FileName: " + fileName + ", publicID: " + publicID + ", versionID: " + versionID);
 
+          this.cloudFileURL = fileName;
+          this.SetImageReplaceParam();
+          
           loading.dismiss();
          
           this.OnFileSaved.emit({

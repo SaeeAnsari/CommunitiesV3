@@ -44,24 +44,27 @@ import 'rxjs/add/operator/switchMap';
 export class MyCommunitiesPage implements OnInit {
 
 
-  searchVal: string;
+  public searchVal: string = "";
+  public communitiesLoadedEmptySearh: boolean = false;
+  public lastSearchVal: string = "";
   searchItems = [];
   searchInput = new FormControl();
 
-  private nextPageIndex: number = 0;
+  private pageIndex: number = 0;
 
 
 
 
   ngOnInit(): void {
-    this.initialBindCommunitiesList();
-    
+
+
+    console.log("My Communities Initializing");
   }
 
 
   public initialBindCommunitiesList() {
 
-    this.searchItems = [];
+    //this.searchItems = [];
 
     if (this.searchVal == undefined)
       this.searchVal = '';
@@ -69,14 +72,14 @@ export class MyCommunitiesPage implements OnInit {
     this._userService.getLoggedinInUser().subscribe(s => {
       let userID = s.ID;
 
-      this._searchService.GetAllCommunities(this.searchVal, userID, this.nextPageIndex)
+      this._searchService.GetAllCommunities(this.searchVal, userID, this.pageIndex)
         .subscribe(sub => {
 
-          this.nextPageIndex = this.nextPageIndex +1;
+          this.pageIndex = this.pageIndex + 1;
 
           sub.forEach(element => {
 
-            
+
             var community = {
               id: element.ID,
               name: element.Name,
@@ -104,7 +107,9 @@ export class MyCommunitiesPage implements OnInit {
     return new Promise((resolve) => {
       setTimeout(() => {
 
-        this.searchItems = [];
+        //this.searchItems = [];
+
+
 
         if (this.searchVal == undefined)
           this.searchVal = '';
@@ -112,35 +117,36 @@ export class MyCommunitiesPage implements OnInit {
         this._userService.getLoggedinInUser().subscribe(s => {
           let userID = s.ID;
 
-          this._searchService.GetAllCommunities(this.searchVal, userID, this.nextPageIndex)
+          this._searchService.GetAllCommunities(this.searchVal, userID, this.pageIndex)
             .subscribe(sub => {
 
               if (sub.length > 0) {
-                this.nextPageIndex = this.nextPageIndex + 1;
-              }
-              //reset back to zero when all items are exhausted
-              else if (sub.length == 0 && this.nextPageIndex > 0){
-                this.nextPageIndex = 0;
-                this.initialBindCommunitiesList();
-              }
+                this.pageIndex = this.pageIndex + 1;
 
-              sub.forEach(element => {
-                var community = {
-                  id: element.ID,
-                  name: element.Name,
-                  description: element.Description,
-                  ownerID: element.OwnerID,
-                  ownerName: element.OwnerName,
-                  typeID: 1,
-                  typeName: 'City',
-                  imageURL: element.ImageURL,
-                  lastUpdate: null,
-                  isMember: element.isMember,
-                  userCount: element.UserCount
-                };
+                //reset back to zero when all items are exhausted
+                /*else if (sub.length == 0 && this.pageIndex > 0){
+                  this.pageIndex = 0;
+                  this.initialBindCommunitiesList();
+                }*/
 
-                this.searchItems.push(community);
-              });
+                sub.forEach(element => {
+                  var community = {
+                    id: element.ID,
+                    name: element.Name,
+                    description: element.Description,
+                    ownerID: element.OwnerID,
+                    ownerName: element.OwnerName,
+                    typeID: 1,
+                    typeName: 'City',
+                    imageURL: element.ImageURL,
+                    lastUpdate: null,
+                    isMember: element.isMember,
+                    userCount: element.UserCount
+                  };
+
+                  this.searchItems.push(community);
+                });
+              }
             });
         });
 
@@ -169,16 +175,40 @@ export class MyCommunitiesPage implements OnInit {
   ) {
   }
 
+  ionViewDidEnter() {
+
+    this.searchItems = [];
+    this.pageIndex = 0;
+    this.lastSearchVal = "";
+    this.searchVal = "";
+
+
+    if (this.searchVal == "") {//handling first load
+      this.initialBindCommunitiesList();      
+    }
+  }
+
   ionViewDidLoad() {
+
+    
     this.searchInput.valueChanges
-      .debounceTime(1000)
-      .distinctUntilChanged()
-      .subscribe(va => {
+    .debounceTime(1000)
+    .distinctUntilChanged()
+    .subscribe(va => {
 
-        this.nextPageIndex = 0;
+      if ( this.lastSearchVal != va) {
+        this.lastSearchVal = va;
+        this.searchItems = [];
+        this.pageIndex = 0;
         this.initialBindCommunitiesList();
+        this.communitiesLoadedEmptySearh = false;
+      }
 
-      });
+    });
+
+    console.log("My Communities View Loaded");
+
+
   }
 
   addCommunities() {

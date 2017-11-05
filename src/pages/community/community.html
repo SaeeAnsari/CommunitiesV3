@@ -38,13 +38,13 @@
       </ion-item>
       <ion-item>
         <div class="community-image-upload" no-lines>
-          <local-gallery-upload (OnFileSaved)="mediaSelectedForPosting($event)" Type="Community"></local-gallery-upload>
+          <local-gallery-upload UpdateIconImageOnUpload="true" (OnFileSaved)="mediaSelectedForPosting($event)" Type="Community"></local-gallery-upload>
           <div *ngIf="uploaded">Image Uploaded!</div>
         </div>
       </ion-item>
-      <ion-item no-lines>
+     <ion-item no-lines>
         <div class="community-location">
-          <div class="pull-left zip-postal-text">
+         <div class="pull-left zip-postal-text">
             <div class="input-group input-group-lg" *ngIf="location== null">
               <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></span>
               <input type="text" class="form-control" placeholder="Zip or Postal" aria-describedby="sizing-addon1" formControlName="zip_postal">

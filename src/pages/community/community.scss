@@ -35,9 +35,9 @@ header .container {
 
 }
 
-.community-locate-me span{
+.community-locate-me div{
    font-size: 10pt;
-    
+   
 }
 
 .zip-postal-text{
@@ -266,5 +266,7 @@ header .container {
     }
 
     .community-location{
+
+        margin-top:10px;
         display: inline-table;
     }
