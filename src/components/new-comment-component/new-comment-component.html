@@ -1,15 +1,18 @@
 <ion-header>
   <ion-navbar transparent>
-    <ul id="header">
-      <li>
-        <button ion-button (click)="closeModal()" icon-left>
-          <ion-icon name="return-left"></ion-icon>Back
-        </button>
-      </li>
-      <li>
-        <ion-title>New Comments</ion-title>
-      </li>
-    </ul>
+
+    <ion-buttons left>
+      <button ion-button color="primary" block (click)="closeModal()" icon-left>
+        <ion-icon name="return-left"></ion-icon>Back
+      </button>
+    </ion-buttons>
+    <ion-title>New Comments</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="post()" color="primary">
+        <b>Post</b>
+      </button>
+    </ion-buttons>
+
 
 
   </ion-navbar>
@@ -30,17 +33,12 @@
 
 
 
-          <div *ngIf="!createNewEvent">
+          <div>
             <div class="form-group">
-              <div class="post-or-event" *ngIf="!hideEventsSection">
-                <ion-item no-lines>
-                  <ion-label>Want to post a New Event?</ion-label>
-                  <ion-toggle [(ngModel)]="createNewEvent" checked="false"></ion-toggle>
-                </ion-item>
-              </div>
 
               <ion-item>
-                <ion-label><i class="fa fa-users"></i> Communities</ion-label>
+                <ion-label>
+                  <i class="fa fa-users"></i> Communities</ion-label>
                 <ion-select [(ngModel)]="optionsModel" multiple="true">
                   <ion-option *ngFor="let item of userCommunities" value="{{item.id}}" [selected]="item.id == activeCommunity">{{item.name}}</ion-option>
                 </ion-select>
@@ -51,47 +49,31 @@
             <div class="form-group">
               <div *ngIf="graphFound == false">
 
-                <div *ngIf="uploaded && !keyboardShowing">
+                <div *ngIf="uploaded">
                   <uploaded-media-post PostMediaURL="{{uploadedMediaURL}}" Type="{{mediaType}}"></uploaded-media-post>
                   <br>
                 </div>
                 <div *ngIf="!uploaded">
-                  
                   <local-gallery-upload (OnFileSaved)="mediaSelectedForPosting($event)"></local-gallery-upload>
                   <video-upload (OnFileSaved)="mediaSelectedForPosting($event)"></video-upload>
                   <image-upload ImageCategory="Story" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
                 </div>
               </div>
 
-              <div *ngIf="!uploaded">
-                <div class="post-body">
-                  <textarea [ngClass]="{textAreaSmall: graphFound == true}" rows="3" placeholder="Whats on your mind?" [(ngModel)]="postText"
-                    [formControl]="PostTextControl">
-            </textarea>
 
-                  <div *ngIf="graphFound == true">
-                    <div class="newMedia">
-                      <img class="d-flex mr-3" src="{{graphImage}}" alt="Generic placeholder image">
-                    </div>
+              <div class="post-body">
+
+                <div *ngIf="graphFound == true">
+                  <div class="newMedia">
+                    <img class="d-flex mr-3" src="{{graphImage}}" alt="Generic placeholder image">
                   </div>
                 </div>
 
-                <div class="fileUpload float-right">
-                  <button type="submit" class="btn btn-success Go-Button-New-Comp" [disabled]="isUploadingImage" (click)="post()">Go <i class="fa fa-check " aria-hidden="true"></i></button>
-                </div>
+                <textarea [ngClass]="{textAreaSmall: graphFound == true}" rows="3" placeholder="Whats on your mind?" [(ngModel)]="postText"
+                  [formControl]="PostTextControl">
+                  </textarea>
               </div>
-              <div *ngIf="uploaded">
-                <div class="row ">
-                  <div class="div-post-uploaded">
-                    <div class="input-group">
-                      <input type="text" class="newCommentPostTextBox" placeholder="Whats on your mind?" [(ngModel)]="postTextUploaded">
-                      <span class="input-group-btn">
-                      <button class="btn btn-success" type="submit" (click)="post()">Go!</button>
-                    </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
           <div *ngIf="createNewEvent">

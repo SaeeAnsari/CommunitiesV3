@@ -1,17 +1,14 @@
 <ion-header>
 
   <ion-navbar transparent>
-    <ul id="header">
-      <li>
-        <button ion-button (click)="closeModal()" icon-left>
-          <ion-icon name="return-left"></ion-icon>Back
-        </button>
-      </li>
-      <li>
-        <ion-title>Comments</ion-title>
-      </li>
-    </ul>
 
+
+    <ion-buttons left>
+      <button ion-button color="primary" block (click)="closeModal()" icon-left>
+        <ion-icon name="return-left"></ion-icon>Back
+      </button>
+    </ion-buttons>
+    <ion-title>Comments</ion-title>
 
   </ion-navbar>
 </ion-header>
@@ -24,8 +21,8 @@
       <div class="input-group post-comment">
         <ion-input type="text" value="" placeholder="Get in the Conversation..." [(ngModel)]="commentPost"></ion-input>
         <span class="input-group-btn">
-        <button class="btn btn-primary" type="button" (click)="postComment()">Post</button>
-      </span>
+          <button class="btn btn-primary" type="button" (click)="postComment()">Post</button>
+        </span>
       </div>
     </div>
 
@@ -66,11 +63,14 @@
                 <strong>{{comment.user.displayName}}</strong> {{comment.comment}}
                 <div class="">
                   <ul class="comments_reply ">
-                    <li><button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)"> {{comment.actions.supportCount}} Like</button>
+                    <li>
+                      <button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)"> {{comment.actions.supportCount}} Like</button>
 
 
                       <li>
-                        <div class="text-botom"><a href="#">{{comment.timestamp | date:'medium'}}</a></div>
+                        <div class="text-botom">
+                          <a href="#">{{comment.timestamp | date:'medium'}}</a>
+                        </div>
                       </li>
                   </ul>
                 </div>

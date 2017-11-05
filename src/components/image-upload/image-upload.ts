@@ -76,6 +76,8 @@ export class ImageUploadComponent implements OnInit {
 
     this.uploaded = true;
 
+    this.cloudFileURL = fileName;
+    this.SetImageReplaceParam();
 
     this.OnFileSaved.emit({
       mediaType: "Image",

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../../providers/user-service';
 import { NewCommentComponent } from '../new-comment-component/new-comment-component';
-
+import {NewEventComponent} from '../new-event/new-event';
 
 
 import { ModalController } from 'ionic-angular';
@@ -42,6 +42,23 @@ export class MarkerNewPostComponent implements OnInit {
 
   redirecttoNewPost() {
 
+    if(this.FeedType == "Event"){
+
+      let eventsModal = this.modalCtrl.create(NewEventComponent, { storyID: this.StoryID, FeedType: this.FeedType }, 
+        { showBackdrop: true, enableBackdropDismiss: true });
+
+        eventsModal.onDidDismiss(data => {
+
+        if (data) {
+          this.StoryID = data.storyID;
+          this.OnStorySave.emit();
+        }
+      });
+      eventsModal.present();
+    }
+    else{
+
+    
     
       let commentsModal = this.modalCtrl.create(NewCommentComponent, { storyID: this.StoryID, FeedType: this.FeedType }, 
         { showBackdrop: true, enableBackdropDismiss: true });
@@ -54,7 +71,7 @@ export class MarkerNewPostComponent implements OnInit {
         }
       });
       commentsModal.present();
-    
+    }
   }
 
 }

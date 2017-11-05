@@ -66,9 +66,7 @@ export class NewCommentComponent implements OnInit {
   private graphImage: string = "";
   private graphExternalURL: string = "";
 
-  private createNewEvent: boolean = false;
 
-  private hideEventsSection: boolean = false;
 
   private keyboardShowing: boolean;
 
@@ -90,9 +88,7 @@ export class NewCommentComponent implements OnInit {
     private keyboard: Keyboard
   ) {
 
-    if(this.navParams.get('FeedType') && this.navParams.get('FeedType') == 'Event'){
-      this.createNewEvent = true;
-    }
+    
   }
 
   ngOnInit() {
@@ -210,7 +206,6 @@ export class NewCommentComponent implements OnInit {
 
       this.mediaType = data.mediaType;
       this.uploaded = true;
-      this.hideEventsSection = true;
     }
   }
 

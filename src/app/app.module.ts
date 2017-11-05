@@ -138,6 +138,7 @@ const cloudSettings: CloudSettings = {
     SocialSharingPopoverComponent,
     UserCommentsComponent,
     NewCommentComponent,
+    NewEventComponent,
     Login,
     LoginComponent,
     RegisterUserComponent,

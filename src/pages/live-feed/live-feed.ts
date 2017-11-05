@@ -107,6 +107,8 @@ export class LiveFeed implements OnInit {
       this._userService.getLoggedinInUser().subscribe(sub => {
 
         this.communityID = sub.DefaultCommunityID;        
+        this.BootstrapFeed();
+      
       });
     }
 
