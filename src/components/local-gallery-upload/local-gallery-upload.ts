@@ -26,6 +26,13 @@ export class LocalGalleryUploadComponent implements OnInit {
       this.Type = "Story";
     }
 
+    if(this.UploadedImage != ""){
+      this.cloudFileURL=this.UploadedImage;
+      
+    }
+
+    console.log("local upload image: " + this.cloudFileURL);
+
     this.SetImageReplaceParam();
   }
 
@@ -42,10 +49,13 @@ export class LocalGalleryUploadComponent implements OnInit {
 
   @Input() Type: string = "";
   @Input() UpdateIconImageOnUpload: string="";
+  @Input() UploadedImage:string="";
+
   @Output() OnFileSaved = new EventEmitter();
 
   public replaceIconWithImage: boolean = false;
   public cloudFileURL: string = "";
+
 
   constructor(
     private imagePicker: ImagePicker,

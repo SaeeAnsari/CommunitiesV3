@@ -37,7 +37,7 @@ export class CommunityPage implements OnInit {
 
   private id: number;
   name: string;
-  private communityImage: string = '';
+  public communityImage: string = '';
   private uploadMessage: string = '';
   private uploaded: boolean = false;
   private gotLocationEntry: boolean = false;
@@ -154,6 +154,8 @@ export class CommunityPage implements OnInit {
       this._communityService.GetCommunity(this.id).subscribe(sub => {
         this.communityForm.controls['name'].setValue(sub.Name);
         this.communityForm.controls['description'].setValue(sub.Description);
+        this.communityImage = sub.ImageURL;
+        console.log("Image: " + this.communityImage);
       });
 
       this.uploadMessage = "Update?";

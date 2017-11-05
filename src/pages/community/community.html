@@ -38,7 +38,7 @@
       </ion-item>
       <ion-item>
         <div class="community-image-upload" no-lines>
-          <local-gallery-upload UpdateIconImageOnUpload="true" (OnFileSaved)="mediaSelectedForPosting($event)" Type="Community"></local-gallery-upload>
+          <local-gallery-upload UpdateIconImageOnUpload="true" (OnFileSaved)="mediaSelectedForPosting($event)" Type="Community" UploadedImage="{{communityImage}}"></local-gallery-upload>
           <div *ngIf="uploaded">Image Uploaded!</div>
         </div>
       </ion-item>
