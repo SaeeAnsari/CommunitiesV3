@@ -70,7 +70,9 @@ export class EventFeedPage implements OnInit {
       });
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+  
+  ionViewDidEnter(){
 
     this._userService.getLoggedinInUser().subscribe(sub => {
 

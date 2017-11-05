@@ -90,6 +90,11 @@ export class LiveFeed implements OnInit {
 
   ngOnInit() {
 
+    
+  }
+
+  ionViewDidEnter(){
+    
     if (this.navParams.get('communityID')) {
       this.communityID = this.navParams.get('communityID');
 
@@ -101,8 +106,7 @@ export class LiveFeed implements OnInit {
     else {
       this._userService.getLoggedinInUser().subscribe(sub => {
 
-        this.communityID = sub.DefaultCommunityID;
-        this.BootstrapFeed();
+        this.communityID = sub.DefaultCommunityID;        
       });
     }
 
