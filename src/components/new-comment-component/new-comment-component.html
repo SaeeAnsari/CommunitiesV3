@@ -31,8 +31,6 @@
             <app-user-tag ID="{{user.id}}" ImageURL="{{user.imageURL}}" Name="{{user.displayName}}"></app-user-tag>
           </div>
 
-
-
           <div>
             <div class="form-group">
 
@@ -73,12 +71,8 @@
                   [formControl]="PostTextControl">
                   </textarea>
               </div>
-
             </div>
-          </div>
-          <div *ngIf="createNewEvent">
-            <new-event></new-event>
-          </div>
+          </div>         
         </div>
       </div>
     </section>

@@ -43,7 +43,7 @@ export class UserSearchComponent implements OnInit {
   searchVal: string;
   searchInput = new FormControl();
 
-  private nextPageIndex: number = 0;
+  private nextPageIndex: number = 1;
 
 
   constructor(private userService: UserService, public navCtrl: NavController, public navParams: NavParams) {
@@ -61,15 +61,11 @@ export class UserSearchComponent implements OnInit {
     if (this.searchVal == undefined)
       this.searchVal = '';
 
-
-
     this.userService.GetAllActiveUsers(this.searchVal, this.communityID, this.nextPageIndex)
       .subscribe(list => {
 
-        
-          this.nextPageIndex = this.nextPageIndex +1;
 
-
+        this.nextPageIndex = this.nextPageIndex + 1;
 
         list.forEach(element => {
 
@@ -88,7 +84,6 @@ export class UserSearchComponent implements OnInit {
         });
 
       });
-
   }
 
   reBindUserList() {
@@ -100,9 +95,9 @@ export class UserSearchComponent implements OnInit {
 
 
 
-    this.userService.GetAllActiveUsers(this.searchVal, this.communityID, this.nextPageIndex-1)
-      .subscribe(list => {    
 
+    this.userService.GetAllActiveUsers(this.searchVal, this.communityID, this.nextPageIndex - 1)
+      .subscribe(list => {
 
         list.forEach(element => {
 
@@ -119,9 +114,7 @@ export class UserSearchComponent implements OnInit {
 
           this.userItems.push(user);
         });
-
       });
-
   }
 
   bindUserList_Paging(): Promise<any> {
@@ -135,16 +128,15 @@ export class UserSearchComponent implements OnInit {
         if (this.searchVal == undefined)
           this.searchVal = '';
 
-
         this.userService.GetAllActiveUsers(this.searchVal, this.communityID, this.nextPageIndex)
           .subscribe(list => {
 
             if (list.length > 0) {
               this.nextPageIndex = this.nextPageIndex + 1;
             }
-            //reset back to zero when all items are exhausted
+            //reset back to 1  when all items are exhausted
             else if (list.length == 0 && this.nextPageIndex > 0) {
-              this.nextPageIndex = 0;
+              this.nextPageIndex = 1;
               this.initialBindUsers();
             }
 
@@ -172,7 +164,7 @@ export class UserSearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.nextPageIndex = 0;
+    this.nextPageIndex = 1;
     this.initialBindUsers();
 
   }
@@ -189,7 +181,7 @@ export class UserSearchComponent implements OnInit {
       .debounceTime(1000)
       .distinctUntilChanged()
       .subscribe(va => {
-        this.nextPageIndex = 0;
+        this.nextPageIndex = 1;
         this.initialBindUsers();
       });
   }
