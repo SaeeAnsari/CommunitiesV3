@@ -1,0 +1,27 @@
+
+<!--
+<div class="comunities-slider-container">
+-->
+  
+  <ion-slides class="community-slider-master">
+    <ion-slide *ngFor="let item of searchItems">
+      <div class="community-slider-item" (click)="goToCommunity(item.id)">
+          <div class="float-left chevron">
+              <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;
+          </div>          
+        <div class="community-slider-img">
+          <img src="{{item.imageURL}}">
+        </div>
+        <div class="community-slider-name">
+          <span>{{item.name}}</span>
+        </div>
+        <div class="float-left chevron">
+            &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>          
+      </div>
+    </ion-slide>
+  </ion-slides>
+  
+<!--
+</div>
+-->

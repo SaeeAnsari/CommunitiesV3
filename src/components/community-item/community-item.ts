@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { UserService } from '../../providers/user-service';
+import {CommunityService} from '../../providers/community-service';
 import { TabsPage } from '../../pages/tabs/tabs';
 /**
  * Generated class for the CommunityItemComponent component.
@@ -11,7 +12,7 @@ import { TabsPage } from '../../pages/tabs/tabs';
 @Component({
   selector: 'community-item',
   templateUrl: 'community-item.html',
-  providers: [UserService]
+  providers: [UserService, CommunityService]
 })
 export class CommunityItemComponent implements OnInit {
   ngOnInit(): void {
@@ -45,7 +46,8 @@ export class CommunityItemComponent implements OnInit {
   constructor(
     private _userService: UserService,
     public navCtrl: NavController,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    public _communityService: CommunityService) {
 
   }
 
@@ -75,6 +77,12 @@ export class CommunityItemComponent implements OnInit {
   }
 
   navigate() {
+
+    this._userService.getLoggedinInUser().subscribe(sub => {
+
+      let userID: number = sub.ID;
+      this._communityService.UpdateCommunityRank(this.ID, userID).subscribe();     
+    });
 
     if (this.Member == "true") {
       sessionStorage.setItem('activeCommunity', this.ID);

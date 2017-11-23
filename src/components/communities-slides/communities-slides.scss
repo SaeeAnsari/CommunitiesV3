@@ -1,0 +1,38 @@
+
+.community-slider-item{
+    display: inline-flex;
+    //border: 1px solid black;    
+}
+
+.community-slider-item .chevron{
+    color: #c2c2c2;
+    margin-top:12px;
+    
+}
+
+.community-slider-img img{
+    height: 50px;
+    width: auto;
+}
+
+.community-slider-img{
+    float: left;
+}
+
+.community-slider-name{
+padding-left: 10px;
+padding-top: 10px;
+}
+
+
+.comunities-slider-container{
+    display: inline-flex;
+
+}
+
+.community-slider-master{
+    background-color: #98F5FF;
+    border-radius: 5px;
+    padding: 10px 0px 10px 0px;
+    margin-top: 10px;
+}

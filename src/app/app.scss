@@ -26,17 +26,20 @@ ion-content{
 }
 .tabs-md .tab-button {
     color: #ffffff !important;
-   }
+       
+}
   
    //selected color
    .tabs-md .tab-button[aria-selected=true] {
      color: #ffffff !important;
-   }
+     
+    }
   
   .tab-button {
       color: white !important;
-      background-color: #8466f0; //#1a1a1a
-  }
+      background-color: #00C5CD  ; //#00C5CD; //#1a1a1a #8466f0
+    
+    }
 div {
     color: #141823; 
 }
@@ -45,3 +48,11 @@ div {
     background: rgba(255,255,255,0.45);
   }
 
+.tabs-container{
+    width:50%;
+}
+
+
+.tab-container{
+    display: inline-flex;
+}

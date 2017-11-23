@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Login } from '../login/login';
 import { Storage } from '@ionic/storage';
 
@@ -20,8 +20,9 @@ import { UserLocation } from '../user-location/user-location';
 export class SettingsPage {
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
+    //public navCtrl: NavController,
+    //public navParams: NavParams,
+    private app: App,
     private storage: Storage,
     public modalCtrl: ModalController
   ) {
@@ -35,7 +36,9 @@ export class SettingsPage {
     this.storage.clear();
     sessionStorage.setItem('userID', null);    
     this.storage.set("userID", null);
-    this.navCtrl.push(Login);
+    this.app.getActiveNav().push(Login);
+
+    //this.navCtrl.push(Login);
   }
 
   launchUpdateLocation() {

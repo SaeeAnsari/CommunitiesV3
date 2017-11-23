@@ -65,6 +65,16 @@ export class CommunityService {
   }
 
 
+  public UpdateCommunityRank(communityID: number, userID:number) {
+    return this._http.get(this._url + '/UpdateCommunityRank?communityID=' + communityID + '&userID=' + userID)
+      .map(ret => ret.json());
+  }
+
+  public GetUserRegisteredCommunities(userID:number) {
+    return this._http.get(this._url + '/GetUserRegisteredCommunities?userID=' + userID)
+      .map(ret => ret.json());
+  }
+
   public SaveCommunity(community: Community, userID:number): Observable<any> {
 
     var headers = new Headers();

@@ -68,6 +68,7 @@ import { LocalGalleryUploadComponent } from '../components/local-gallery-upload/
 import { SocialSharingPopoverComponent } from '../components/social-sharing-popover/social-sharing-popover';
 import { EventPostComponent } from '../components/event-post/event-post';
 import { ForgetPasswordComponent } from '../components/forget-password/forget-password';
+import { CommunitiesSlidesComponent } from '../components/communities-slides/communities-slides';
 
 
 
@@ -116,7 +117,8 @@ const cloudSettings: CloudSettings = {
     LocalGalleryUploadComponent,
     SocialSharingPopoverComponent,
     EventPostComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    CommunitiesSlidesComponent
   ],
   imports: [
     BrowserModule,
