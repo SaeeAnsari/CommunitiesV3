@@ -113,11 +113,16 @@ export class NewCommentComponent implements OnInit {
 
       this.activeCommunity = this.user.defaultCommunityID;
 
+      if(this.navParams.get("CommunityID")){
+        this.activeCommunity = this.navParams.get("CommunityID");
+      }
+
+      /*
       if (sessionStorage.getItem("activeCommunity") != null) {
 
         this.activeCommunity = sessionStorage.getItem("activeCommunity").toString();
       }
-
+      */
       this.optionsModel.push(this.activeCommunity);
 
       this._community.GetUserCommunities(this.user.id).subscribe(sub => {

@@ -69,6 +69,7 @@ import { SocialSharingPopoverComponent } from '../components/social-sharing-popo
 import { EventPostComponent } from '../components/event-post/event-post';
 import { ForgetPasswordComponent } from '../components/forget-password/forget-password';
 import { CommunitiesSlidesComponent } from '../components/communities-slides/communities-slides';
+import { CommunityTopicMarkerComponent } from '../components/community-topic-marker/community-topic-marker';
 
 
 
@@ -118,7 +119,8 @@ const cloudSettings: CloudSettings = {
     SocialSharingPopoverComponent,
     EventPostComponent,
     ForgetPasswordComponent,
-    CommunitiesSlidesComponent
+    CommunitiesSlidesComponent,
+    CommunityTopicMarkerComponent
   ],
   imports: [
     BrowserModule,

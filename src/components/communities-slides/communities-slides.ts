@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { UserService } from '../../providers/user-service';
 import { CommunityService } from '../../providers/community-service';
-import { TabsPage } from '../../pages/tabs/tabs';
+import { LiveFeed } from '../../pages/live-feed/live-feed';
 
 
 /**
@@ -71,8 +71,8 @@ export class CommunitiesSlidesComponent implements OnInit {
         this._searchService.UpdateCommunityRank(communityID, userID).subscribe();
       });
 
-      sessionStorage.setItem('activeCommunity', communityID);
-      this.navCtrl.push(TabsPage, { communityID: communityID });
+      //sessionStorage.setItem('activeCommunity', communityID);
+      this.navCtrl.push(LiveFeed, { communityID: communityID });
     }
   }
 

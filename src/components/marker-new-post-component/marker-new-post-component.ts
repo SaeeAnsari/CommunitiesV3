@@ -22,7 +22,7 @@ export class MarkerNewPostComponent implements OnInit {
 
   @Input() StoryID: number = 0;
   @Input() FeedType: string;
-
+  @Input() CommunityID: number = 0;
   @Output() OnStorySave = new EventEmitter();
 
   private user;
@@ -60,7 +60,7 @@ export class MarkerNewPostComponent implements OnInit {
 
     
     
-      let commentsModal = this.modalCtrl.create(NewCommentComponent, { storyID: this.StoryID, FeedType: this.FeedType }, 
+      let commentsModal = this.modalCtrl.create(NewCommentComponent, { storyID: this.StoryID, FeedType: this.FeedType ,CommunityID: this.CommunityID }, 
         { showBackdrop: true, enableBackdropDismiss: true });
 
       commentsModal.onDidDismiss(data => {

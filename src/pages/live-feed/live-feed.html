@@ -39,13 +39,16 @@
     <div class="container animated fadeInRight">
 
       <div class="feed-community-slides">
+        <communities-slides ></communities-slides>
+      </div>
 
-        <communities-slides></communities-slides>
+      <div>
+        <community-topic-marker CommunityID="{{communityID}}"></community-topic-marker>
       </div>
 
       <!-- New post Marker -->
       <div class="feed_post_header">
-        <app-marker-new-post (OnStorySave)="StorySaved()"></app-marker-new-post>
+        <app-marker-new-post (OnStorySave)="StorySaved()" CommunityID={{communityID}}></app-marker-new-post>
       </div>
 
 

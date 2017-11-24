@@ -94,15 +94,15 @@ export class LiveFeed implements OnInit {
   }
 
   ionViewDidEnter(){
-    
+  
     if (this.navParams.get('communityID')) {
       this.communityID = this.navParams.get('communityID');
 
     }
-    else if (sessionStorage.getItem('activeCommunity')) {
+    /*else if (sessionStorage.getItem('activeCommunity')) {
       this.communityID = parseInt(sessionStorage.getItem('activeCommunity'));
 
-    }
+    }*/
     else {
       this._userService.getLoggedinInUser().subscribe(sub => {
 
