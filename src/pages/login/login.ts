@@ -34,8 +34,9 @@ import { ForgetPasswordComponent } from '../../components/forget-password/forget
   providers: [UserService, Facebook, ErrorLogServiceProvider]
 })
 export class Login {
-  
 
+  private userLoaded: boolean = false; //Hack to make sure we only load the user once
+  
   constructor(
     private storage: Storage,
     public navCtrl: NavController,
@@ -49,10 +50,9 @@ export class Login {
   ) {
     this.onNotification();
 
-   
-    
-    if(firebase.apps.length ==0)
-    {
+
+
+    if (firebase.apps.length == 0) {
       var config = {
         apiKey: "AIzaSyCezp8wNVyV1qdygpnGuYLpys85-WcHVKo",
         authDomain: "communities-386e8.firebaseapp.com",
@@ -64,7 +64,7 @@ export class Login {
       firebase.initializeApp(config);
     }
 
-    
+
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
 
@@ -241,7 +241,7 @@ export class Login {
 
   }
 
-  loadForgetPasswordModal(){
+  loadForgetPasswordModal() {
 
     let forgetPasswordModal = this.modalCtrl.create(ForgetPasswordComponent, null, { showBackdrop: true, enableBackdropDismiss: true });
     forgetPasswordModal.present();
@@ -258,7 +258,7 @@ export class Login {
         if (data.isRegistering) {
           this.loadRegistrationModal();
         }
-        else if(data.forgetPassword){
+        else if (data.forgetPassword) {
           this.loadForgetPasswordModal();
         }
       }
@@ -281,34 +281,38 @@ export class Login {
     registerModal.present();
   }
 
+ 
+
   ionViewDidLoad() {
+    if (!this.userLoaded) {
+      if (this.storage.get('userID').then(id => {
+        sessionStorage.setItem("userID", id);//Temporary removeit later
+        this._userService.getLoggedinInUser().subscribe(s => {
+          if (s != null && s.ID > 0) {
 
-    if (this.storage.get('userID').then(id => {
-      sessionStorage.setItem("userID", id);//Temporary removeit later
-      this._userService.getLoggedinInUser().subscribe(s => {
-        if (s != null && s.ID > 0) {
+            if (s.DefaultCommunityID <= 0) {
+              this.navCtrl.push(UserLocation);
+            }
+            else {
 
-          if (s.DefaultCommunityID <= 0) {
-            this.navCtrl.push(UserLocation);
+              let communityID = s.DefaultCommunityID;
+              this.userLoaded = true;
+              this.navCtrl.push(TabsPage, { communityID: communityID });
+            }
           }
-          else {
+        });
+      }))
 
-            let communityID = s.DefaultCommunityID;
-            this.navCtrl.push(TabsPage, { communityID: communityID });
-          }
-        }
-      });
-    }))
+        this.err.logError('Login Loaded').subscribe();
 
-      this.err.logError('Login Loaded').subscribe();
-
-    console.log('ionViewDidLoad Login');
+      console.log('ionViewDidLoad Login');
+    }
   }
 
   googleLogin() {
     console.log("Google Auth");
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider).then((result) =>  {
+    firebase.auth().signInWithRedirect(provider).then((result) => {
 
       console.log("Google logged in")
       console.log(result);

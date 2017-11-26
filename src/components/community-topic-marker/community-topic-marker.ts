@@ -75,8 +75,10 @@ export class CommunityTopicMarkerComponent implements OnInit {
 
         if (data != null && data.CommunityID > 0) {
           this.communityCreated = true;
+          this.showDelete = false;
           setTimeout(() => {
             this.communityCreated = false;
+            this.showDelete = true;
           }, 5000);
         }
       })
