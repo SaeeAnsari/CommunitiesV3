@@ -70,6 +70,8 @@ import { EventPostComponent } from '../components/event-post/event-post';
 import { ForgetPasswordComponent } from '../components/forget-password/forget-password';
 import { CommunitiesSlidesComponent } from '../components/communities-slides/communities-slides';
 import { CommunityTopicMarkerComponent } from '../components/community-topic-marker/community-topic-marker';
+import { CreateTopicComponent } from '../components/create-topic/create-topic';
+import { ViewTopicsComponent } from '../components/view-topics/view-topics';
 
 
 
@@ -120,7 +122,9 @@ const cloudSettings: CloudSettings = {
     EventPostComponent,
     ForgetPasswordComponent,
     CommunitiesSlidesComponent,
-    CommunityTopicMarkerComponent
+    CommunityTopicMarkerComponent,
+    CreateTopicComponent,
+    ViewTopicsComponent
   ],
   imports: [
     BrowserModule,
@@ -140,6 +144,8 @@ const cloudSettings: CloudSettings = {
     UserSearchComponent,
     LiveFeed,
     SocialSharingPopoverComponent,
+    CreateTopicComponent,
+    ViewTopicsComponent,
     UserCommentsComponent,
     NewCommentComponent,
     NewEventComponent,

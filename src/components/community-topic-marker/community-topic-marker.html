@@ -1,4 +1,7 @@
-<div class="container-community-topic">
-  <div><button ion-button >Topics</button></div>
-  <div><button  ion-button color="secondary" (click)="createTopic()">Create Topic</button></div>
+<div class="container-community-topic" *ngIf="!hideButtons">
+  <div><button ion-button (click)="viewTopics($event)" >Topics</button></div>
+  <div><button  ion-button color="secondary" (click)="createTopic($event)" *ngIf="!hideCreate">Create Topic</button></div>
+  <div *ngIf="communityCreated" class="comunity-marker-check" color="secondary"><i class="fa fa-check-square-o fa-2x" aria-hidden="true"></i></div>
+  
 </div>
+<div id="rightTopic" *ngIf="showDelete"><button color="secondary" ion-button (click)="presentConfirmDelate()">Delete</button></div>

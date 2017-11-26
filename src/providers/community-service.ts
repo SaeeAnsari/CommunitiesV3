@@ -75,6 +75,24 @@ export class CommunityService {
       .map(ret => ret.json());
   }
 
+  public GetCommunityTopics(parentCommunityID:number){
+    return this._http.get(this._url + '/GetTopics?communityID=' + parentCommunityID)
+    .map(ret => ret.json())
+    .catch(this.handleError);
+  }
+
+  public CreateTopic(parentCommunityID: number, topicName:string){
+    return this._http.get(this._url + '/CreateTopic?parentCommunityID=' + parentCommunityID + '&topicName=' + topicName)
+    .map(ret => ret.json())
+    .catch(this.handleError);
+  }
+
+  public DeleteCommunity(communityID: number){
+    return this._http.get(this._url + '/DeactivateCommunity?communityID=' + communityID)
+    .map(ret => ret.json())
+    .catch(this.handleError);
+  }
+
   public SaveCommunity(community: Community, userID:number): Observable<any> {
 
     var headers = new Headers();

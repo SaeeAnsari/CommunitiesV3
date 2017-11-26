@@ -1,0 +1,19 @@
+<form [formGroup]="topicForm" novalidate (ngSubmit)="createTopic(topicForm.value, topicForm.valid)">
+    
+<ion-content>
+  <h4>Create New Topic</h4>
+
+  <div class="container-create-task">
+
+    <ion-item>
+      <ion-input formControlName="topicName" type="text" placeholder="What's the topic name" [(ngModel)]="topicName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button block color="primary" type="submit" [disabled]="!topicForm.valid">
+        <span>Create ></span>
+      </button>     
+    </ion-item>
+
+  </div>
+</ion-content>
+</form>

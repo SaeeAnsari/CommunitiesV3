@@ -89,8 +89,9 @@ export class LiveFeed implements OnInit {
   }
 
   ngOnInit() {
-
-    
+    if (this.navParams.get('communityID')) {
+      this.communityID = this.navParams.get('communityID');
+    }    
   }
 
   ionViewDidEnter(){
