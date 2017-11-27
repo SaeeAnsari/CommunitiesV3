@@ -74,7 +74,7 @@ import { CreateTopicComponent } from '../components/create-topic/create-topic';
 import { ViewTopicsComponent } from '../components/view-topics/view-topics';
 
 
-
+/*
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': 'bb16c680'
@@ -84,7 +84,7 @@ const cloudSettings: CloudSettings = {
       'scope': ['permission1', 'permission2']
     }
   }
-}
+}*/
 
 
 @NgModule({
@@ -130,7 +130,7 @@ const cloudSettings: CloudSettings = {
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    CloudModule.forRoot(cloudSettings),
+    //CloudModule.forRoot(cloudSettings),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
