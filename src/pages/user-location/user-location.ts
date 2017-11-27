@@ -29,8 +29,8 @@ export class UserLocation {
     private _userService: UserService,
     private vc: ViewController
   ) {
-    
-    if(this.navParams.get("launchType")){
+
+    if (this.navParams.get("launchType")) {
       this.LaunchType = this.navParams.get("launchType");
     }
   }
@@ -44,17 +44,15 @@ export class UserLocation {
   locateMe() {
     this._geolocation.getCurrentPosition().then((resp) => {
 
-      this._userService.getLoggedinInUser().subscribe(s => {
-        let userID = s.ID;
 
-        this._userService.SaveUserLocation(userID, resp.coords.latitude, resp.coords.longitude).subscribe(sub => {
-          if (sub > 0) {
-            this.defaultCommunityID = sub;//returns the defaultcommunityid
-            this.completed = true;
-          }
-        })
+      let userID = this._userService.GetLoggedInUserID();
+
+      this._userService.SaveUserLocation(userID, resp.coords.latitude, resp.coords.longitude).subscribe(sub => {
+        if (sub > 0) {
+          this.defaultCommunityID = sub;//returns the defaultcommunityid
+          this.completed = true;
+        }
       });
-
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -66,7 +64,7 @@ export class UserLocation {
       this.navCtrl.push(TabsPage, { communityID: this.defaultCommunityID });
       //communityID
     }
-    else if(this.LaunchType == "Settings"){
+    else if (this.LaunchType == "Settings") {
       this.vc.dismiss();
     }
   }

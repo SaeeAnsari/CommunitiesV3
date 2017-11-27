@@ -33,8 +33,9 @@ export class CommunitiesSlidesComponent implements OnInit {
 
     var  activeCommunityID = sessionStorage.getItem("activeCommunity");
 
-    this._userService.getLoggedinInUser().subscribe(s => {
-      let userID = s.ID;
+    //this._userService.getLoggedinInUser().subscribe(s => {
+      
+    let userID = this._userService.GetLoggedInUserID();
 
       this._searchService.GetUserRegisteredCommunities(userID)
         .subscribe(sub => {
@@ -57,7 +58,7 @@ export class CommunitiesSlidesComponent implements OnInit {
           }
           });
         });
-    });
+    //});
 
   }
 
@@ -65,11 +66,10 @@ export class CommunitiesSlidesComponent implements OnInit {
     if (communityID > 0) {
 
 
-      this._userService.getLoggedinInUser().subscribe(sub => {
 
-        let userID: number = sub.ID;
+        let userID: number = this._userService.GetLoggedInUserID();
         this._searchService.UpdateCommunityRank(communityID, userID).subscribe();
-      });
+      
 
       //sessionStorage.setItem('activeCommunity', communityID);
       this.navCtrl.push(LiveFeed, { communityID: communityID });

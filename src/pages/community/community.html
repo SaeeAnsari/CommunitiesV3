@@ -25,7 +25,7 @@
         </div>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="Name of you Community?" formControlName="name" [class.invalid]="!communityForm.controls.name.valid && (communityForm.controls.name.dirty || submitted)"></ion-input>
+        <ion-input type="text" maxlength="20" placeholder="Name of you Community?" formControlName="name" [class.invalid]="!communityForm.controls.name.valid && (communityForm.controls.name.dirty || submitted)"></ion-input>
       </ion-item>
       <ion-item *ngIf="!communityForm.controls.name.valid  && (communityForm.controls.name.valid || submitted)">
         <small class="error-class">Please enter a name for your new Community</small>

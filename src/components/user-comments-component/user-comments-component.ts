@@ -5,7 +5,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { CommentService } from '../../providers/comment-service';
 import { UserService } from '../../providers/user-service';
 import { StoryService } from '../../providers/story-service';
-import {FirebaseMessagingProvider} from '../../providers/firebase-messaging/firebase-messaging';
+import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
 import { ViewController, NavParams, NavController } from 'ionic-angular';
 
 
@@ -22,52 +22,52 @@ import { ViewController, NavParams, NavController } from 'ionic-angular';
 })
 export class UserCommentsComponent implements OnInit {
 
-  
+
   public MediaType: string = "Image";
 
   ngOnInit(): void {
-     if (this.navParams.get('storyID')) {
+    if (this.navParams.get('storyID')) {
       this.storyID = this.navParams.get('storyID');
       this.loadComments();
     }
 
-    if(this.navParams.get("postMediaURL")){
+    if (this.navParams.get("postMediaURL")) {
       this.postMediaURL = this.navParams.get("postMediaURL");
     }
 
-    if(this.navParams.get("postMessage")){
+    if (this.navParams.get("postMessage")) {
       this.postMessage = this.navParams.get("postMessage");
     }
 
-     if(this.navParams.get("storyExternalURL")){
+    if (this.navParams.get("storyExternalURL")) {
       this.storyExternalURL = this.navParams.get("storyExternalURL");
-    }    
+    }
 
-    if(this.navParams.get("type")){
+    if (this.navParams.get("type")) {
       this.MediaType = this.navParams.get("type");
-      
+
     }
   }
 
   private commentPost: string;
   private comments = [];
   private postMediaURL;//Collection of images for a post
-  private postMessage:string;
-  private storyExternalURL:string = "";
+  private postMessage: string;
+  private storyExternalURL: string = "";
 
   @Input() storyID: number;
 
   constructor(
-    private _commentService: CommentService, 
-    private _userService: UserService, 
+    private _commentService: CommentService,
+    private _userService: UserService,
     private _storyService: StoryService,
     public nav: NavController,
     public vc: ViewController,
     public navParams: NavParams,
     private iab: InAppBrowser
-    ) {
+  ) {
 
-   
+
   }
 
   loadComments() {
@@ -105,9 +105,9 @@ export class UserCommentsComponent implements OnInit {
 
   setLike(storyID: number, commentID: number) {
 
-    this._userService.getLoggedinInUser().subscribe(s => {
+    
 
-      let userID = s.ID;
+      let userID = this._userService.GetLoggedInUserID();
       let elemIndex = -1;
       this._storyService.SetLike(storyID, userID, commentID).subscribe(sub => {
         if (sub != undefined && sub == true) {
@@ -121,12 +121,12 @@ export class UserCommentsComponent implements OnInit {
           this.comments[elemIndex].actions.supportCount++;
         }
       });
-    });
+    
   }
 
-  launch(){
+  launch() {
 
-    if(this.storyExternalURL != ""){
+    if (this.storyExternalURL != "") {
       this.iab.create(this.storyExternalURL);
     }
   }
@@ -135,15 +135,15 @@ export class UserCommentsComponent implements OnInit {
   postComment() {
     if (this.storyID != null && this.storyID > 0) {
 
-      this._userService.getLoggedinInUser().subscribe(s => {
 
-        let userID = s.ID;
-        this._commentService.PostComment(this.storyID, userID, this.commentPost).subscribe(ret => {
 
-          this.loadComments();
-          this.commentPost ="";
-        });
+      let userID = this._userService.GetLoggedInUserID();
+      this._commentService.PostComment(this.storyID, userID, this.commentPost).subscribe(ret => {
+
+        this.loadComments();
+        this.commentPost = "";
       });
+
     }
   }
 }
