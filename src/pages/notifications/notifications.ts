@@ -31,6 +31,9 @@ export class NotificationsPage {
   ionViewDidEnter(){
     console.log("Inside Notifiation On Enter");
     let notificationString = sessionStorage.getItem("userNotification");
+
+    
+
     if(notificationString != null && notificationString.length > 3){
       this.notifications = JSON.parse(notificationString);
       console.log("All Notifications");

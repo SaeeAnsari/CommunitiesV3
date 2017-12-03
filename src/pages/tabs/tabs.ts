@@ -51,20 +51,21 @@ export class TabsPage {
         console.log(sub);
         this.notifications.push(sub);
 
+        this.notifications = this.notifications.reverse();
+        this.notifications = this.notifications.slice(0,50);        
         sessionStorage.setItem("userNotification", JSON.stringify(this.notifications));
 
-        console.log("Tabs -- Saving Notifications");
-        console.log("Length: "  + this.notifications.length);
-        console.log("Notification - " + JSON.stringify(this.notifications));
-
-        this.commentCount = this.notifications.length;
-        
+        this.commentCount = this.commentCount+1;
       });
     }
     catch (e) {
       console.log('erroring');
       console.log(e)
     }
+  }
+
+  notificationsClick(){
+    this.commentCount = 0;
   }
 
 }
