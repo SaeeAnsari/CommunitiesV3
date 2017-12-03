@@ -48,7 +48,7 @@ export class Login {
     private platform: Platform,
     private firebaseIonic: Firebase
   ) {
-    this.onNotification();
+    //this.onNotification();
 
 
 
@@ -112,11 +112,12 @@ export class Login {
       }
     });
   }
-
+/*
   async onNotification() {
     try {
 
-      await this.platform.ready();
+     
+      await this.platform.ready();   
 
       this.firebaseIonic.onNotificationOpen().subscribe(sub => {
         console.log("Notification Opened");
@@ -128,6 +129,7 @@ export class Login {
       console.log(e)
     }
   }
+  */
 
   facebookLogin() {
 

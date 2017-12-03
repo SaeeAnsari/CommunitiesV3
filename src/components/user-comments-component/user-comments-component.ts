@@ -33,10 +33,15 @@ export class UserCommentsComponent implements OnInit {
 
     if (this.navParams.get("postMediaURL")) {
       this.postMediaURL = this.navParams.get("postMediaURL");
+
+
+      console.log("Post Media URL");
+      console.log(this.postMediaURL);
     }
 
     if (this.navParams.get("postMessage")) {
       this.postMessage = this.navParams.get("postMessage");
+      
     }
 
     if (this.navParams.get("storyExternalURL")) {
@@ -104,9 +109,6 @@ export class UserCommentsComponent implements OnInit {
   }
 
   setLike(storyID: number, commentID: number) {
-
-    
-
       let userID = this._userService.GetLoggedInUserID();
       let elemIndex = -1;
       this._storyService.SetLike(storyID, userID, commentID).subscribe(sub => {

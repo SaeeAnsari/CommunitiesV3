@@ -24,6 +24,7 @@ import 'rxjs/add/observable/fromEvent';
 
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import {FirebaseMessagingProvider} from '../../providers/firebase-messaging/firebase-messaging';
 
 
 
@@ -31,7 +32,7 @@ import { File } from '@ionic-native/file';
 @Component({
   selector: 'new-comment-component',
   templateUrl: 'new-comment-component.html',
-  providers: [UserService, StoryService, MediaPostService, CommunityService, OpenGraphServiceProvider, CameraPluginProvider]
+  providers: [UserService, FirebaseMessagingProvider ,StoryService, MediaPostService, CommunityService, OpenGraphServiceProvider, CameraPluginProvider]
 })
 export class NewCommentComponent implements OnInit {
 
@@ -85,7 +86,8 @@ export class NewCommentComponent implements OnInit {
     private transfer: FileTransfer,
     private file: File,
     private cameraPluginServices: CameraPluginProvider,
-    private keyboard: Keyboard
+    private keyboard: Keyboard,
+    private fcm: FirebaseMessagingProvider
   ) {
 
     
@@ -229,6 +231,8 @@ export class NewCommentComponent implements OnInit {
           this.mediaType = "";
           this.videoSelected = false;
           this.imageSelected = false;
+
+          this.fcm.SubscibeToTopic(id.toString());
 
           this.vc.dismiss({ storyID: id });
 
