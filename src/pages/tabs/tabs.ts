@@ -54,8 +54,10 @@ export class TabsPage {
         this.notifications = this.notifications.reverse();
         this.notifications = this.notifications.slice(0,50);        
         sessionStorage.setItem("userNotification", JSON.stringify(this.notifications));
-
+        console.log("Checking coment count:")
+        console.log(this.commentCount);
         this.commentCount = this.commentCount+1;
+        console.log(this.commentCount);
       });
     }
     catch (e) {
