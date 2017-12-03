@@ -88,7 +88,7 @@ export class Login {
           }
           else {
 
-            var user: User = {
+            var user = {
               id: -1,
               firstName: firstname,
               lastName: lastName,
@@ -171,7 +171,7 @@ export class Login {
           this.ionViewDidLoad();
         }
         else {
-          var user: User = {
+          var user = {
             id: -1,
             firstName: data.first_name,
             lastName: data.last_name,
@@ -197,7 +197,7 @@ export class Login {
   }
 
   doDummyLogin() {
-    var user: User = {
+    var user = {
       id: -1,
       firstName: "Saeed",
       lastName: "Ansari",
@@ -219,7 +219,7 @@ export class Login {
         this.ionViewDidLoad();
       }
       else {
-        var user2: User = {
+        var user2 = {
           id: -1,
           firstName: user.firstName,
           lastName: user.lastName,
