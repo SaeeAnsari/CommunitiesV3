@@ -14,6 +14,9 @@ import { storage } from 'firebase';
 export class NotificationsPage {
 
   public notifications = [];
+
+  
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -34,7 +37,7 @@ export class NotificationsPage {
       console.log(notificationString);
     }
 
-    this.notifications = [{"storyID":"1430","google.sent_time":1512245779130,"tap":true,"from":"/topics/1430","text":"sdsds","timestamp":"12/2/2017 12:16:19 PM","title":"Saddie West","google.message_id":"0:1512245779448176%36e44fec36e44fec","collapse_key":"com.ionicframework.communities54283"},{"storyID":"1430","google.sent_time":1512245776812,"tap":true,"from":"/topics/1430","text":"sdsdd","timestamp":"12/2/2017 12:16:16 PM","title":"Saddie West","google.message_id":"0:1512245777141663%36e44fec36e44fec","collapse_key":"com.ionicframework.communities54283"}];
+    //this.notifications = [{"storyID":"1430","google.sent_time":1512245779130,"tap":true,"from":"/topics/1430","text":"sdsds","timestamp":"12/2/2017 12:16:19 PM","title":"Saddie West","google.message_id":"0:1512245779448176%36e44fec36e44fec","collapse_key":"com.ionicframework.communities54283"},{"storyID":"1430","google.sent_time":1512245776812,"tap":true,"from":"/topics/1430","text":"sdsdd","timestamp":"12/2/2017 12:16:16 PM","title":"Saddie West","google.message_id":"0:1512245777141663%36e44fec36e44fec","collapse_key":"com.ionicframework.communities54283"}];
   }
 
   notificationClicked(storyID){    
@@ -46,7 +49,7 @@ export class NotificationsPage {
         let postMediaURL;  
 
         if(type == "Image" && story.Images.length > 0){
-          postMediaURL = story.Images[0];
+          postMediaURL = story.Images;
         }
         else if(type== "Video" && story.Video != null){
           postMediaURL = story.Video.VideoIdentifier;

@@ -18,28 +18,31 @@
 <ion-content padding>
 
   <div class="container-messages">
-    <ul class="media-list">
-      <div *ngFor="let item of notifications.reverse()">
+    <div *ngIf="notifications.length >0">
+      <ul class="media-list">
+        <div *ngFor="let item of notifications.reverse()">
 
-        <ion-card>
-          <ion-card-content>
-            <div class="message-container" (click)="notificationClicked(item.storyID)">
-             
-              <div class="message-header">
-                <div class="message-name">{{item.title}} :</div>
-                <div class="message-time"> {{item.timestamp}}</div>
-              </div>
+          <ion-card>
+            <ion-card-content>
+              <div class="message-container" (click)="notificationClicked(item.storyID)">
+
+                <div class="message-header">
+                  <div class="message-name">{{item.title}} :</div>
+                  <div class="message-time"> {{item.timestamp}}</div>
+                </div>
 
                 <span class="message-text">
                   {{item.text}}
                 </span>
-             
-            </div>
-          </ion-card-content>
-        </ion-card>
 
-      </div>
-    </ul>
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+        </div>
+      </ul>
+    </div>
+    <div *ngIf="notifications.length == 0"><i>No Messages! - Try to be more interesting!</i></div>
   </div>
 
 

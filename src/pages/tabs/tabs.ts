@@ -20,7 +20,7 @@ import { Platform } from 'ionic-angular';
 export class TabsPage {
 
   public notifications = [];
-  public commentCount:number = 0;
+  public commentCount:number= 0;
 
   tab0Root = LiveFeed;
   tab1Root = MyCommunitiesPage;
