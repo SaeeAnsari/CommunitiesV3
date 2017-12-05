@@ -17,9 +17,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 
-import firebase, { messaging } from 'firebase';
-
-
 /*
   Generated class for the FirebaseMessagingProvider provider.
 
@@ -36,31 +33,10 @@ export class FirebaseMessagingProvider {
       
     }
 
-    public initializeMessaging(){
-      var config = {
-        apiKey: "AIzaSyCezp8wNVyV1qdygpnGuYLpys85-WcHVKo",
-        authDomain: "communities-386e8.firebaseapp.com",
-        databaseURL: "https://communities-386e8.firebaseio.com",
-        projectId: "communities-386e8",
-        storageBucket: "communities-386e8.appspot.com",
-        messagingSenderId: "634674165562"
-      };
-      firebase.initializeApp(config);   
-    }
 
-    public requestPermission(){
-      var messaging = firebase.messaging();
-      messaging.requestPermission().then(ret=>{
-        console.log("Messaging Permission: Permission Granted");
-      }).catch(err=>{
-        console.log("Messaging Error happened while requesting")
-      });      
-    }
 
 
     public SubscibeToTopic(topic:string){
-      let mess = firebase.messaging;
-
       
       this.firebaseIonic.subscribe(topic).then(ret=>{
         console.log(ret);
