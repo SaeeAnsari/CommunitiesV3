@@ -12,7 +12,7 @@ import { Firebase } from '@ionic-native/firebase';
 
 import { ErrorLogServiceProvider } from '../../providers/error-log-service/error-log-service';
 
-import { User } from '../../interfaces/User';
+//import { User } from '../../interfaces/User';
 
 
 import { ForgetPasswordComponent } from '../../components/forget-password/forget-password';
@@ -275,7 +275,7 @@ export class Login {
         }
         else {
 
-          var user: User = {
+          var user = {
             id: -1,
             firstName: firstname,
             lastName: lastName,
