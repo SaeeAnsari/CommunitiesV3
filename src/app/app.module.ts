@@ -15,6 +15,8 @@ import {Keyboard} from '@ionic-native/keyboard';
 
 import {Firebase} from '@ionic-native/firebase';
 
+import {GooglePlus} from '@ionic-native/google-plus';
+
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -180,7 +182,8 @@ const cloudSettings: CloudSettings = {
     File,
     CameraPluginProvider,
     HelperProvider,
-    Firebase
+    Firebase,
+    GooglePlus
   ]
 })
 export class AppModule { }

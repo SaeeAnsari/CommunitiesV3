@@ -14,11 +14,10 @@ import { ErrorLogServiceProvider } from '../../providers/error-log-service/error
 
 import { User } from '../../interfaces/User';
 
-import firebase from 'firebase';
-
 
 import { ForgetPasswordComponent } from '../../components/forget-password/forget-password';
 
+import {GooglePlus} from '@ionic-native/google-plus';
 
 
 /**
@@ -46,71 +45,11 @@ export class Login {
     private fb: Facebook,
     private err: ErrorLogServiceProvider,
     private platform: Platform,
-    private firebaseIonic: Firebase
+    private firebaseIonic: Firebase,
+    private googlePlus: GooglePlus
   ) {
     this.onNotification();
 
-
-
-    if (firebase.apps.length == 0) {
-      var config = {
-        apiKey: "AIzaSyCezp8wNVyV1qdygpnGuYLpys85-WcHVKo",
-        authDomain: "communities-386e8.firebaseapp.com",
-        databaseURL: "https://communities-386e8.firebaseio.com",
-        projectId: "communities-386e8",
-        storageBucket: "communities-386e8.appspot.com",
-        messagingSenderId: "634674165562"
-      };
-      firebase.initializeApp(config);
-    }
-
-
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-
-        console.log("Google Logged in User");
-
-        let _googleID = user.uid;
-        let name = user.displayName;
-        let email = user.email;
-        let photo = user.photoURL;
-
-        let firstname = name.split(' ')[0].trim();
-        let lastName = name.replace(firstname, "").trim();
-
-        this._userService.AuthenticateThirdPartyUser(_googleID).subscribe(sub => {
-          console.log("RAW got : " + sub);
-
-          if (sub != null && +sub > 0) {
-            console.log("Found the User : " + sub);
-            this.storage.set('userID', sub);
-            this.ionViewDidLoad();
-          }
-          else {
-
-            var user: User = {
-              id: -1,
-              firstName: firstname,
-              lastName: lastName,
-              gender: null,
-              email: email,
-              imageURL: photo,
-              thirdPartyAuthID: _googleID,
-              authenticationPortalID: 3,
-              active: true
-            }
-
-            console.log(user);
-
-            this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
-              console.log("loaded :" + sub);
-              this.storage.set('userID', sub);
-              this.ionViewDidLoad();
-            });
-          }
-        });
-      }
-    });
   }
 
   async onNotification() {
@@ -311,12 +250,51 @@ export class Login {
 
   googleLogin() {
     console.log("Google Auth");
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider).then((result) => {
 
-      console.log("Google logged in")
-      console.log(result);
-      //The on Change Method in the constructor will get the user to us
-    });
+    this.googlePlus.login({})
+    .then(res =>{
+      console.log("Google Authentication");
+
+      let _googleID = res.userId;
+      let name = res.displayName;
+      let email = res.email;
+      let photo = res.imageUrl;
+
+      let firstname = res.givenName;
+      let lastName = res.familyName;
+
+      this._userService.AuthenticateThirdPartyUser(_googleID).subscribe(sub => {
+        console.log("RAW got : " + sub);
+
+        if (sub != null && +sub > 0) {
+          console.log("Found the User : " + sub);
+          this.storage.set('userID', sub);
+          this.ionViewDidLoad();
+        }
+        else {
+
+          var user: User = {
+            id: -1,
+            firstName: firstname,
+            lastName: lastName,
+            gender: null,
+            email: email,
+            imageURL: photo,
+            thirdPartyAuthID: _googleID,
+            authenticationPortalID: 3,
+            active: true
+          }
+
+          console.log(user);
+
+          this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
+            console.log("loaded :" + sub);
+            this.storage.set('userID', sub);
+            this.ionViewDidLoad();
+          });
+        }
+      });
+    })
+    .catch(err => console.error(err));
   }
 }
