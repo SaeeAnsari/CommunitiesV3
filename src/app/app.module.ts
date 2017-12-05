@@ -74,9 +74,10 @@ import { CommunitiesSlidesComponent } from '../components/communities-slides/com
 import { CommunityTopicMarkerComponent } from '../components/community-topic-marker/community-topic-marker';
 import { CreateTopicComponent } from '../components/create-topic/create-topic';
 import { ViewTopicsComponent } from '../components/view-topics/view-topics';
+import { NotificationsPage } from '../pages/notifications/notifications';
 
 
-
+/*
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': 'bb16c680'
@@ -86,7 +87,7 @@ const cloudSettings: CloudSettings = {
       'scope': ['permission1', 'permission2']
     }
   }
-}
+}*/
 
 
 @NgModule({
@@ -126,13 +127,14 @@ const cloudSettings: CloudSettings = {
     CommunitiesSlidesComponent,
     CommunityTopicMarkerComponent,
     CreateTopicComponent,
-    ViewTopicsComponent
+    ViewTopicsComponent,
+    NotificationsPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    CloudModule.forRoot(cloudSettings),
+    //CloudModule.forRoot(cloudSettings),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -158,6 +160,7 @@ const cloudSettings: CloudSettings = {
     MyCommunitiesPage,
     CommunityItemComponent,
     SettingsPage,
+    NotificationsPage,
     EventFeedPage,
     ForgetPasswordComponent
   ],

@@ -74,11 +74,11 @@ export class EventFeedPage implements OnInit {
   
   ionViewDidEnter(){
 
-    this._userService.getLoggedinInUser().subscribe(sub => {
+    
 
-      this.userID = sub.ID;
+      this.userID = this._userService.GetLoggedInUserID();
       this.BootstrapFeed();
-    });
+    
   }
 
   BootstrapFeed() {

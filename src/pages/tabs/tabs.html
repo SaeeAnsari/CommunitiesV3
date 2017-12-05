@@ -1,9 +1,12 @@
 <div class="tab-container">
   <ion-tabs>
-    <ion-tab [root]="tab0Root" tabTitle="Live Feed" tabIcon="md-beer"></ion-tab>
-    <ion-tab [root]="tab2Root" tabTitle="Events" tabIcon="md-bonfire"></ion-tab>
+    <ion-tab [root]="tab0Root" tabTitle="Live Feed" tabIcon="md-beer" 
+    >
+    </ion-tab>
+    <ion-tab [root]="tab2Root" tabTitle="Events" tabIcon="md-bonfire" badge="2"></ion-tab>
+    <ion-tab [root]="tab3Root" tabTitle="Messages" tabIcon="md-chatboxes" tabBadge="{{commentCount}}" 
+    tabBadgeStyle="secondary" (ionSelect)="notificationsClick()"></ion-tab>
     <ion-tab [root]="tab1Root" tabTitle="Communities" tabIcon="md-contacts"></ion-tab>
 
-    <!--<ion-tab [root]="tab3Root" tabTitle="Settings" tabIcon="md-cog"></ion-tab>-->
   </ion-tabs>
 </div>
