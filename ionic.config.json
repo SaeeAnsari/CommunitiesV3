@@ -1,8 +1,8 @@
 {
   "name": "CommunitiesIONICV2",
-  "app_id": "caa89fcc",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "app_id": "caa89fcc"
 }
