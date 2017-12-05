@@ -1,7 +1,4 @@
-
-<!--
-<div class="comunities-slider-container">
--->
+<div class="slides-container" *ngIf="searchItems.length > 0">
   
   <ion-slides class="community-slider-master">
     <ion-slide *ngFor="let item of searchItems">
@@ -21,7 +18,5 @@
       </div>
     </ion-slide>
   </ion-slides>
-  
-<!--
 </div>
--->
+  
