@@ -48,19 +48,17 @@ export class UserPostActionComponent implements OnInit {
   }
 
   setLike(storyID: number) {
+    
+    let userID = this._userService.GetLoggedInUserID();
 
-    this._userService.getLoggedinInUser().subscribe(s => {
-
-      let userID = s.ID;
-
-      this.firebase.subscribe(storyID.toString()).then(data => {
-        this._storyService.SetLike(storyID, userID).subscribe(sub => {
-          if (sub != undefined && sub == true) {
-            this.LikeCount++;
-          }
-        });
-      });      
+    this.firebase.subscribe(storyID.toString()).then(data => {
+      this._storyService.SetLike(storyID, userID).subscribe(sub => {
+        if (sub != undefined && sub == true) {
+          this.LikeCount++;
+        }
+      });
     });
+
   }
 
   viewComments(storyID: number) {
