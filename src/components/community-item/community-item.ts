@@ -53,37 +53,37 @@ export class CommunityItemComponent implements OnInit {
   }
 
   joinCommunity() {
-    
+    this._userService.getLoggedinInUser().subscribe(sub => {
 
-      let userID: number = this._userService.GetLoggedInUserID();
+      let userID: number = sub.ID;
 
       this._userService.AddUsertoCommunity(userID, this.ID).subscribe(sub => {
         this.existingUser = true;
         this.CommunityChanged.emit({ communityID: this.ID, isMember: this.Member });
       });
-    
+    });
   }
 
 
   leaveCommunity() {
-    
+    this._userService.getLoggedinInUser().subscribe(sub => {
 
-      let userID: number = this._userService.GetLoggedInUserID();
+      let userID: number = sub.ID;
 
       this._userService.RemoveUserFromCommunity(userID, this.ID).subscribe(sub => {
         this.existingUser = true;
         this.CommunityChanged.emit({ communityID: this.ID, isMember: this.Member });
       });
-   
+    });
   }
 
   navigate() {
 
-    
+    this._userService.getLoggedinInUser().subscribe(sub => {
 
-      let userID: number = this._userService.GetLoggedInUserID();
+      let userID: number = sub.ID;
       this._communityService.UpdateCommunityRank(this.ID, userID).subscribe();     
-   
+    });
 
     if (this.Member == "true") {
       //sessionStorage.setItem('activeCommunity', this.ID);

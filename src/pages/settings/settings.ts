@@ -5,7 +5,6 @@ import { Storage } from '@ionic/storage';
 
 import { UserLocation } from '../user-location/user-location';
 
-import {FirebaseMessagingProvider} from '../../providers/firebase-messaging/firebase-messaging'
 
 /**
  * Generated class for the SettingsPage page.
@@ -17,7 +16,6 @@ import {FirebaseMessagingProvider} from '../../providers/firebase-messaging/fire
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
-  providers: [FirebaseMessagingProvider]
 })
 export class SettingsPage {
 
@@ -26,8 +24,7 @@ export class SettingsPage {
     //public navParams: NavParams,
     private app: App,
     private storage: Storage,
-    public modalCtrl: ModalController,
-    public fcm: FirebaseMessagingProvider
+    public modalCtrl: ModalController
   ) {
   }
 
@@ -47,10 +44,6 @@ export class SettingsPage {
   launchUpdateLocation() {
     let userLocationModal = this.modalCtrl.create(UserLocation, {launchType:"Settings"} , { showBackdrop: true, enableBackdropDismiss: true });
     userLocationModal.present();
-  }
-
-  SubscribeTest(){
-    this.fcm.SubscibeToTopic("1338");
   }
 
 }

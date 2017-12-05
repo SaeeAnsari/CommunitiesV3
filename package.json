@@ -41,7 +41,6 @@
         "com.synconset.imagepicker": "^2.1.10",
         "cordova-android": "^6.2.3",
         "cordova-browser": "^4.1.0",
-        "cordova-plugin-add-swift-support": "^1.6.1",
         "cordova-plugin-browsertab": "^0.2.0",
         "cordova-plugin-buildinfo": "^2.0.1",
         "cordova-plugin-camera": "^2.4.1",
@@ -56,7 +55,6 @@
         "cordova-plugin-geolocation": "^2.4.3",
         "cordova-plugin-googleplus": "^5.1.1",
         "cordova-plugin-inappbrowser": "^1.7.1",
-        "cordova-plugin-ionic": "^2.0.3",
         "cordova-plugin-media-capture": "^1.4.3",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.2",
@@ -117,18 +115,9 @@
                 "ANDROID_HOST": " ",
                 "ANDROID_PATHPREFIX": "/"
             },
-<<<<<<< HEAD
             "cordova-plugin-compat": {},
             "cordova-plugin-googleplus": {
                 "REVERSED_CLIENT_ID": "com.googleusercontent.apps.634674165562-uoec4hmm3d3mh6imb5qm7egvv6tcn0l2"
-=======
-            "cordova-plugin-ionic": {
-                "APP_ID": "caa89fcc",
-                "CHANNEL_NAME": "Master",
-                "UPDATE_METHOD": "background",
-                "UPDATE_API": "https://api.ionicjs.com",
-                "MAX_STORE": "2"
->>>>>>> b921c60523fff9275ffa73cbeb21aea33e37f38a
             }
         },
         "platforms": [

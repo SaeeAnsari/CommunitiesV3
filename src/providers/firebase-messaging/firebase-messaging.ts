@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Firebase } from '@ionic-native/firebase';
-
-
 // Observable class extensions
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
@@ -17,9 +14,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 
-import firebase, { messaging } from 'firebase';
-
-
 /*
   Generated class for the FirebaseMessagingProvider provider.
 
@@ -29,72 +23,24 @@ import firebase, { messaging } from 'firebase';
 @Injectable()
 export class FirebaseMessagingProvider {
 
-  private _url: string = 'https://fcm.googleapis.com/v1/projects/communities-386e8/messages:send';
-  private messagingToken: string;
+  private _url: string = 'https://fcm.googleapis.com/fcm/send';
   
-    constructor(public http: Http,public firebaseIonic:Firebase) {
+    constructor(public http: Http) {
       
-    }
-
-    public initializeMessaging(){
-      var config = {
-        apiKey: "AIzaSyCezp8wNVyV1qdygpnGuYLpys85-WcHVKo",
-        authDomain: "communities-386e8.firebaseapp.com",
-        databaseURL: "https://communities-386e8.firebaseio.com",
-        projectId: "communities-386e8",
-        storageBucket: "communities-386e8.appspot.com",
-        messagingSenderId: "634674165562"
-      };
-      firebase.initializeApp(config);   
-    }
-
-    public requestPermission(){
-      var messaging = firebase.messaging();
-      messaging.requestPermission().then(ret=>{
-        console.log("Messaging Permission: Permission Granted");
-      }).catch(err=>{
-        console.log("Messaging Error happened while requesting")
-      });      
-    }
-
-
-    public SubscibeToTopic(topic:string){
-      let mess = firebase.messaging;
-
-      
-      this.firebaseIonic.subscribe(topic).then(ret=>{
-        console.log(ret);
-      })
-      .catch(this.handleError);
     }
   
   
     public SendNotificationToTopic(storyID: number, message: string): Observable<any> {
-      this.messagingToken = sessionStorage.getItem("messagingToken");
-      
-
-      console.log("Firebase Token: " + this.messagingToken);
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', 'Bearer ' + this.messagingToken);
+      headers.append('Authorization', 'key=AAAAk8WHNzo:APA91bHvEpltk-q5R_veZBiOsjMvoe5NPIXajUHb-h85taUhWoh-RFF2WBTygtILOVzKAg0zFXH-mgrq7CwWUbW-HiaxevXAmADeEhbQCrj7Lcak3HIK9oJIZ8XhqHmCohdJpaz_e9FO');
   
       let data = {
-        
-        "message":{
-          "topic" : storyID.toString(),
-          "notification" : {
-            "body" : message,
-            "title" : "Communities",
-            }
-         }
-        
-        /*"condition": storyID.toString(),
+        "condition": "'" + storyID.toString() + "' in topics",
         "data": {
           "message": message,
-        }*/
+        }
       };
-
-      console.log("FCM Data: " + JSON.stringify(data));
   
       return this.http.post(
         this._url,

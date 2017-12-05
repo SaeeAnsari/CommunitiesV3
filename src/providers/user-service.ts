@@ -36,11 +36,6 @@ export class UserService {
     return this.GetUser(_id);
 
   }
-
-  public GetLoggedInUserID(){
-    return +sessionStorage.getItem('userID');
-  }
-
   public GetUser(id: number) {
     return this._http.get(this._url + '/' + id)
       .map(ret => ret.json());

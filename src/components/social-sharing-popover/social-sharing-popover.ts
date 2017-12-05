@@ -4,7 +4,7 @@ import { ViewController, NavParams } from 'ionic-angular';
 import { StoryService } from '../../providers/story-service';
 import { CommunityService } from '../../providers/community-service';
 import { UserService } from '../../providers/user-service';
-import { ID_Name_Pair } from '../../interfaces/id-name-list';
+import {ID_Name_Pair} from '../../interfaces/id-name-list';
 
 
 /**
@@ -27,9 +27,9 @@ export class SocialSharingPopoverComponent implements OnInit {
   mediaType: string;
 
   ngOnInit(): void {
-
-    this.loadUserCommunities();
-
+    
+      this.loadUserCommunities();
+    
   }
 
   constructor(
@@ -44,7 +44,7 @@ export class SocialSharingPopoverComponent implements OnInit {
       this.storyID = this.navParams.get("storyID");
     }
 
-    if (this.navParams.get("mediaType")) {
+    if(this.navParams.get("mediaType")){
       this.mediaType = this.navParams.get("mediaType");
     }
   }
@@ -73,32 +73,32 @@ export class SocialSharingPopoverComponent implements OnInit {
 
   loadUserCommunities() {
 
+    this.userService.getLoggedinInUser().subscribe(s => {
+      let userID = s.ID;
 
-    let userID = this.userService.GetLoggedInUserID();
+      this.communityService.GetUserCommunities(userID).subscribe(c => {
+        
+        c.forEach(element => {
 
-    this.communityService.GetUserCommunities(userID).subscribe(c => {
-
-      c.forEach(element => {
-
-        var pair: ID_Name_Pair = { id: element.ID, name: element.Name };
-        this.userCommunity.push(pair);
-      });
+          var pair: ID_Name_Pair = {id: element.ID, name: element.Name};
+          this.userCommunity.push(pair);
+        });
+      });      
     });
-
   }
 
-  onShareClick(id) {
+  onShareClick(id){
 
+    this.userService.getLoggedinInUser().subscribe(s => {
+      let userID = s.ID;
 
-    let userID = this.userService.GetLoggedInUserID();
-
-    this.storyService.ShareStory(this.storyID, userID, id).subscribe(sub => {
-      if (sub == true) {
-        console.log("Share Successful!");
-      }
+        this.storyService.ShareStory(this.storyID, userID, id).subscribe(sub=>{
+          if(sub == true){
+            console.log("Share Successful!");            
+          }
+        });
     });
-
-
+    
     this.viewController.dismiss();
   }
 }

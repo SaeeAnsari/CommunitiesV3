@@ -69,8 +69,8 @@ export class MyCommunitiesPage implements OnInit {
     if (this.searchVal == undefined)
       this.searchVal = '';
 
-    
-      let userID = this._userService.GetLoggedInUserID();
+    this._userService.getLoggedinInUser().subscribe(s => {
+      let userID = s.ID;
 
       this._searchService.GetAllCommunities(this.searchVal, userID, this.pageIndex)
         .subscribe(sub => {
@@ -97,7 +97,7 @@ export class MyCommunitiesPage implements OnInit {
             this.searchItems.push(community);
           });
         });
-
+    });
   }
 
 
@@ -114,8 +114,8 @@ export class MyCommunitiesPage implements OnInit {
         if (this.searchVal == undefined)
           this.searchVal = '';
 
-        
-          let userID = this._userService.GetLoggedInUserID();
+        this._userService.getLoggedinInUser().subscribe(s => {
+          let userID = s.ID;
 
           this._searchService.GetAllCommunities(this.searchVal, userID, this.pageIndex)
             .subscribe(sub => {
@@ -148,7 +148,7 @@ export class MyCommunitiesPage implements OnInit {
                 });
               }
             });
-        
+        });
 
         resolve();
       }, 500);

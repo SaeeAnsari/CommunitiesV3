@@ -80,10 +80,28 @@
         </ion-card>
 
 
-   
+        <!--
+       
+        <div class="media-left">
+          <a href="#"><img class="media-object" src="{{comment.user.imageURL}}" alt="..."></a>
+        </div>
+        <div class="media-body">
+          <div class="text-font">
+            <strong>{{comment.user.displayName}}</strong> {{comment.comment}}
+          </div>
+          <ul class="comments_reply">
+            <li><button type="button" class="btn btn-link" (click)="setLike(comment.storyID, comment.id)"> {{comment.actions.supportCount}} Like</button>
+
+
+              <li><a href="#">{{comment.timestamp | date:'medium'}}</a></li>
+          </ul>
+         
+        </div>
+
+        -->
 
       </div>
     </ul>
-  
+
   </div>
 </ion-content>

@@ -4,7 +4,6 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseMessagingProvider} from '../providers/firebase-messaging/firebase-messaging';
 import { UserService } from '../providers/user-service';
-import { Firebase } from '@ionic-native/firebase';
 
 
 // Observable class extensions
@@ -56,7 +55,14 @@ export class CommentService {
 
   public PostComment(storyID: number, userID: number, comment: string): Observable<any> {
 
-    this.messaging.SubscibeToTopic(storyID.toString());
+    let userName: string = "";
+    this.userService.getLoggedinInUser().subscribe(s => {
+      if(s!= null){
+        userName = s.firstName + " " + s.lastName;
+
+        this.messaging.SendNotificationToTopic(storyID, "<b>" + userName + "</b>" + "posted, " + comment)
+      }
+    });
 
     return this._http.post(this._url,
       JSON.stringify({

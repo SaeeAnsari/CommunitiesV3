@@ -32,7 +32,7 @@ export class CommunityPage implements OnInit {
 
   public communityForm: FormGroup;
   public events: any[] = []; // use later to display form changes
-
+  
   public submitted: boolean = false;
 
   private id: number;
@@ -57,7 +57,7 @@ export class CommunityPage implements OnInit {
 
   ngOnInit() {
     this.communityForm = this._fb.group({
-      name: ['', [<any>Validators.required, <any>Validators.minLength(5), <any>Validators.maxLength(20)]],
+      name: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
       description: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
       zip_postal: ['']
     });
@@ -87,37 +87,37 @@ export class CommunityPage implements OnInit {
 
       if (this.gotLocationEntry) {
 
+        this._userService.getLoggedinInUser().subscribe(s => {
+          let userID = s.ID;
 
-        let userID = this._userService.GetLoggedInUserID();
-
-        model.location = null;
-
-
-        if (this.location != null) {
-          model.location = this.location;
-          this.SaveCommunityFinal(model, userID)
-        }
-
-        else if (model.zip_postal.length > 2) {
-          this._geoService.GetLatLongDetails(model.zip_postal).subscribe(sub => {
+          model.location = null;
 
 
-            if (sub.results.length > 0) {
-              this.location = { lat: sub.results[0].geometry.location.lat, lng: sub.results[0].geometry.location.lng };
-              model.location = this.location;
-            }
-            else if (this.location != null) {
-              model.location = this.location;
-            }
-
+          if (this.location != null) {
+            model.location = this.location;
             this.SaveCommunityFinal(model, userID)
+          }
 
-          });
-        }
-        else {
-          this.SaveCommunityFinal(model, userID)
-        }
+          else if (model.zip_postal.length > 2) {
+            this._geoService.GetLatLongDetails(model.zip_postal).subscribe(sub => {
 
+
+              if (sub.results.length > 0) {
+                this.location = { lat: sub.results[0].geometry.location.lat, lng: sub.results[0].geometry.location.lng };
+                model.location = this.location;
+              }
+              else if (this.location != null) {
+                model.location = this.location;
+              }
+
+              this.SaveCommunityFinal(model, userID)
+
+            });
+          }
+          else {
+            this.SaveCommunityFinal(model, userID)
+          }
+        });
       }
     }
   }
