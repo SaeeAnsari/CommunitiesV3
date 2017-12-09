@@ -1,9 +1,14 @@
 <div class="community-view-topics">
     <div>
-      <h4>Topics</h4>
+      <div *ngIf="topics.length>0"><h4>Topics</h4></div>
+      <div *ngIf="topics.length==0">
+        No topics
+      </div>
       <ion-item *ngFor="let item of topics">
         <div (click)="launchTopic(item.ID)"><span>{{item.Name}}</span></div>
       </ion-item>
+
+
       </div>  
 
   </div>
