@@ -24,14 +24,21 @@ ion-content{
   
  
 }
+
+/* ======= Bottom Tab =======*/
 .tabs-md .tab-button {
-    color: #141823 !important;
+    color: #ffffff !important;
        
+}
+
+.tabs-md .tabbar{ //Bottom Tab Background Image
+    //background-color: rgba(255,255,255,0);
+    background-color: #3366CC;
 }
   
 //selected color
 .tabs-md .tab-button[aria-selected=true] {
-    color: #141823 !important;
+    color: #99FF33 !important;
     
 }
 
@@ -48,16 +55,6 @@ ion-content{
     color:#99FFCC;
 }
 
-
-
-div {
-    color: #141823; 
-}
-
-.item-md {
-    background: rgba(255,255,255,0.45);
-  }
-
 .tabs-container{
     width:50%;
 }
@@ -67,14 +64,26 @@ div {
     display: inline-flex;
 }
 
+/* ======= Bottom Tab END =======*/
+
+div {
+    color: #141823; 
+}
+
+.item-md {
+    background: rgba(255,255,255,0.85);
+  }
+
+
+
 
 ion-header{
     //background: rgba(255,255,255,0);
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+48,fc3f55+68,c63631+84,c63631+92,c63631+92,fc3f55+100,fc3f55+100,fc3f55+101&0.8+0,0.07+100 */
-background: -moz-linear-gradient(right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.45) 48%, rgba(252,63,85,0.3) 68%, rgba(198,54,49,0.19) 84%, rgba(198,54,49,0.13) 92%, rgba(252,63,85,0.07) 100%, rgba(252,63,85,0.07) 101%); /* FF3.6-15 */
-background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.45) 48%,rgba(252,63,85,0.3) 68%,rgba(198,54,49,0.19) 84%,rgba(198,54,49,0.13) 92%,rgba(252,63,85,0.07) 100%,rgba(252,63,85,0.07) 101%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to right, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.45) 48%,rgba(252,63,85,0.3) 68%,rgba(198,54,49,0.19) 84%,rgba(198,54,49,0.13) 92%,rgba(252,63,85,0.07) 100%,rgba(252,63,85,0.07) 101%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#12fc3f55',GradientType=0 ); /* IE6-9 */
+    //background: -moz-linear-gradient(right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.45) 48%, rgba(252,63,85,0.3) 68%, rgba(198,54,49,0.19) 84%, rgba(198,54,49,0.13) 92%, rgba(252,63,85,0.07) 100%, rgba(252,63,85,0.07) 101%); /* FF3.6-15 */
+    //background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.45) 48%,rgba(252,63,85,0.3) 68%,rgba(198,54,49,0.19) 84%,rgba(198,54,49,0.13) 92%,rgba(252,63,85,0.07) 100%,rgba(252,63,85,0.07) 101%); /* Chrome10-25,Safari5.1-6 */
+    //background: linear-gradient(to right, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.45) 48%,rgba(252,63,85,0.3) 68%,rgba(198,54,49,0.19) 84%,rgba(198,54,49,0.13) 92%,rgba(252,63,85,0.07) 100%,rgba(252,63,85,0.07) 101%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#12fc3f55',GradientType=0 ); /* IE6-9 */
  }
 
  .tabs-ios .tabbar{
