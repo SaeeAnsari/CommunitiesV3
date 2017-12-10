@@ -75,7 +75,8 @@
     "web-animations-js": "^2.3.1",
     "xml2js": "^0.4.17",
     "zone.js": "0.8.12",
-    "cordova-android": "~6.3.0"
+    "cordova-android": "~6.3.0",
+    "cordova-plugin-ionic-webview": "^1.1.11"
   },
   "devDependencies": {
     "@ionic/app-scripts": "2.0.0",
@@ -128,7 +129,8 @@
         "UPDATE_API": "https://api.ionicjs.com",
         "MAX_STORE": "2"
       },
-      "cordova-plugin-compat": {}
+      "cordova-plugin-compat": {},
+      "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
       "browser",
