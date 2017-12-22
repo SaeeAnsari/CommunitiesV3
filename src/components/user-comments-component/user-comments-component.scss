@@ -10,11 +10,11 @@
 
 
 .message-text{
-    color: #7e7e7e;
-    font-size: 20px;
+    
+    
     font-weight: 300;
     float: left;
-    border-left: 20px;
+    
 }
 
 .text-botom{
@@ -76,8 +76,10 @@ ion-input{
 .comments {
     //background-color: #202020;
     background-color: rgba(255, 255, 255, 0.75);
-    color: #7e7e7e;
+    
     text-align:center;
+    padding-top: 20px;
+    margin: 0px 10px 0px 10px;
 }
 
 
@@ -88,7 +90,7 @@ ion-input{
 
 
 .comments_reply{
-    color: #333333;    
+    
     font-size: 15px;
     float: left;
 }
@@ -106,7 +108,7 @@ ion-input{
 .comments_reply li a {
     
     display: block;    
-    padding-right: 10px;
+    
 }
 .comments_reply li:last-child a {
     color: #b9b9b9;

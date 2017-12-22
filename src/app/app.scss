@@ -27,18 +27,19 @@ ion-content{
 
 /* ======= Bottom Tab =======*/
 .tabs-md .tab-button {
-    color: #ffffff !important;
+    color: #464c5d !important;
        
 }
 
 .tabs-md .tabbar{ //Bottom Tab Background Image
     //background-color: rgba(255,255,255,0);
-    background-color: #3366CC;
+    background-color: #ffffff;
 }
   
 //selected color
 .tabs-md .tab-button[aria-selected=true] {
-    color: #99FF33 !important;
+    color: #eb4c50 !important;
+    font-weight: 400;
     
 }
 
@@ -48,12 +49,14 @@ ion-content{
     font-weight: 300px;
     font-size: 11pt;
     background-color: rgba(255,255,255,0);// #9999FF; //#00C5CD; //#1a1a1a #8466f0
-    border-top: 1px inset #99FF33;
+    /*border-top: 1px inset #99FF33;*/
 }
 
 .tabs-md .tab-button-icon{
-    color:#99FFCC;
+    color:#5d6376;
 }
+
+
 
 .tabs-container{
     width:50%;
@@ -67,7 +70,8 @@ ion-content{
 /* ======= Bottom Tab END =======*/
 
 div {
-    color: #141823; 
+    /*color: #141823;*/
+    color: #6b728d; 
 }
 
 .item-md {
@@ -78,6 +82,7 @@ div {
 
 
 ion-header{
+    
     //background: rgba(255,255,255,0);
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+48,fc3f55+68,c63631+84,c63631+92,c63631+92,fc3f55+100,fc3f55+100,fc3f55+101&0.8+0,0.07+100 */
     //background: -moz-linear-gradient(right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.45) 48%, rgba(252,63,85,0.3) 68%, rgba(198,54,49,0.19) 84%, rgba(198,54,49,0.13) 92%, rgba(252,63,85,0.07) 100%, rgba(252,63,85,0.07) 101%); /* FF3.6-15 */
@@ -85,6 +90,20 @@ ion-header{
     //background: linear-gradient(to right, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.45) 48%,rgba(252,63,85,0.3) 68%,rgba(198,54,49,0.19) 84%,rgba(198,54,49,0.13) 92%,rgba(252,63,85,0.07) 100%,rgba(252,63,85,0.07) 101%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#12fc3f55',GradientType=0 ); /* IE6-9 */
  }
+
+ .toolbar-title-md{
+    color: #eb4c50;
+ }
+
+ .back-button-icon-md {
+    color: #eb4c50;
+  }
+
+  ion-navbar .btn-link{
+    color: #eb4c50;
+  }
+
+  ion-navbar
 
  .tabs-ios .tabbar{
     background: rgba(255,255,255,0);
@@ -99,3 +118,42 @@ ion-header{
 //background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.39) 56%,rgba(204,51,51,0.07) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#12cc3333',GradientType=0 ); /* IE6-9 */
 }
+
+
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+      url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+      url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+  }
+
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }

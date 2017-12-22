@@ -1,6 +1,6 @@
-<div class="fileUpload btn btn-outline-info" (click)="imagePickerClick()">
+<div class="fileUpload btn btn-outline-info md-new-comment" (click)="imagePickerClick()">
   <span *ngIf="!replaceIconWithImage">
-    <i class="fa fa-picture-o fa-3x user-right" aria-hidden="true"></i>
+      <i class="material-icons">photo_library</i>
   </span>
   <span *ngIf="replaceIconWithImage">
     <img src="{{cloudFileURL}}" alt="">

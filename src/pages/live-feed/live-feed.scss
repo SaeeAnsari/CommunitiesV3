@@ -14,15 +14,18 @@ h1, h2, h3, h4, h5, p, ul{
 }
 body{
     font-family: 'Lato', sans-serif;
-    font-size: 14px;
-    
-    
+    font-size: 14px;  
 }
 
 .container{
 	max-width: 768px;
     margin: auto;
     
+}
+
+.menu-div img{
+   width: 35px;
+   height: 35px;
 }
 
 /*================================
@@ -71,9 +74,14 @@ header .container {
 position: absolute;
     right: 20px;
     top:30%;
-
+   
     cursor: pointer; cursor: hand;
 
+}
+
+.live-feed-AddIconRight img{
+    height:20px;
+    width: auto;
 }
 
 .live-feed-AddIconRight > button{

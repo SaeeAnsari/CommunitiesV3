@@ -2,7 +2,7 @@
   <ion-navbar transparent>
 
     <ion-buttons left>
-      <button ion-button color="primary" block (click)="closeModal()" icon-left>
+      <button ion-button block class="btn btn-link" (click)="closeModal()" icon-left>
         <ion-icon name="return-left"></ion-icon>Back
       </button>
     </ion-buttons>
@@ -27,10 +27,7 @@
     <section id="feed_post">
       <div class="containerNewComment">
         <div class="feed_post_area">
-          <div *ngIf="user" class="feed_post_header">
-            <app-user-tag ID="{{user.id}}" ImageURL="{{user.imageURL}}" Name="{{user.displayName}}"></app-user-tag>
-          </div>
-
+        
           <div>
             <div class="form-group">
 

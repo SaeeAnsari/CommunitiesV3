@@ -17,15 +17,23 @@
     padding: 0 20px 0 20px;
     
 }
+
 .post_like button {
     /*color: #b3ffb3;*/
-    color: #6699ff;
+    color: #5e657b;
     display: block;
-    font-size: 22px;
+    font-size: 20px;
    
     -webkit-transition: .5s;
     transition: .5s;
 }
+
+
+#actionLikeButton{
+  color:red;
+  
+}
+
 .post_like button i.fa {
 	color: #07e5d8;
 	font-size: 25px;
