@@ -46,6 +46,7 @@
     "cordova-plugin-buildinfo": "^2.0.1",
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-customurlscheme": "^4.3.0",
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-facebook4": "^1.9.1",
@@ -128,7 +129,8 @@
         "MAX_STORE": "2"
       },
       "cordova-plugin-compat": {},
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-console": {}
     },
     "platforms": [
       "browser",

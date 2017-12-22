@@ -20,15 +20,15 @@ import { LoadingController } from 'ionic-angular';
   providers: [File]
 })
 export class LocalGalleryUploadComponent implements OnInit {
-  
+
   ngOnInit(): void {
-    if(this.Type == ""){
+    if (this.Type == "") {
       this.Type = "Story";
     }
 
-    if(this.UploadedImage != ""){
-      this.cloudFileURL=this.UploadedImage;
-      
+    if (this.UploadedImage != "") {
+      this.cloudFileURL = this.UploadedImage;
+
     }
 
     console.log("local upload image: " + this.cloudFileURL);
@@ -36,11 +36,11 @@ export class LocalGalleryUploadComponent implements OnInit {
     this.SetImageReplaceParam();
   }
 
-  
-  
+
+
 
   private SetImageReplaceParam() {
-      this.replaceIconWithImage = this.UpdateIconImageOnUpload == "true" && this.cloudFileURL.length > 0;
+    this.replaceIconWithImage = this.UpdateIconImageOnUpload == "true" && this.cloudFileURL.length > 0;
   }
 
 
@@ -48,8 +48,8 @@ export class LocalGalleryUploadComponent implements OnInit {
 
 
   @Input() Type: string = "";
-  @Input() UpdateIconImageOnUpload: string="";
-  @Input() UploadedImage:string="";
+  @Input() UpdateIconImageOnUpload: string = "";
+  @Input() UploadedImage: string = "";
 
   @Output() OnFileSaved = new EventEmitter();
 
@@ -74,21 +74,21 @@ export class LocalGalleryUploadComponent implements OnInit {
   }
 
   public DummyShowImage() {
-    
-        var fileName = 'http://res.cloudinary.com/http-communities-me/image/upload/v1504497765/l3ofqjfmzzr8xl5lumiq.jpg';
 
-    
-    
-        this.OnFileSaved.emit({
-          mediaType: "Image",
-          imageList: [{
-            id:-1,
-            fileName: fileName,
-            publicID: "222",
-            versionID :"222"
-          }]         
-        });
-      }
+    var fileName = 'http://res.cloudinary.com/http-communities-me/image/upload/v1504497765/l3ofqjfmzzr8xl5lumiq.jpg';
+
+
+
+    this.OnFileSaved.emit({
+      mediaType: "Image",
+      imageList: [{
+        id: -1,
+        fileName: fileName,
+        publicID: "222",
+        versionID: "222"
+      }]
+    });
+  }
 
   private getImages(options) {
     console.log("Inside the Image Picker");
@@ -99,8 +99,12 @@ export class LocalGalleryUploadComponent implements OnInit {
         spinner: 'dots'
       });
 
-      
+      console.log("Showing Results");
 
+      if (results.length > 0 && results[0] == "O") {
+        return;
+      }
+      
       for (var i = 0; i < results.length; i++) {
 
         let uri = results[i];
@@ -134,17 +138,17 @@ export class LocalGalleryUploadComponent implements OnInit {
 
           this.cloudFileURL = fileName;
           this.SetImageReplaceParam();
-          
+
           loading.dismiss();
-         
+
           this.OnFileSaved.emit({
             mediaType: "Image",
             imageList: [{
-              id:-1,
+              id: -1,
               fileName: fileName,
               publicID: publicID,
-              versionID :versionID
-            }]         
+              versionID: versionID
+            }]
           });
         })
           .catch(error => {
