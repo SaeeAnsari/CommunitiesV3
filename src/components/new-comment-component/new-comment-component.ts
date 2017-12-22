@@ -218,7 +218,7 @@ export class NewCommentComponent implements OnInit {
 
   post() {
 
-    if (this.user && (this.postText != '' || this.imageListObj != null || this.videoObj != null)) {     
+    if (this.user && (this.postText != '' || (this.imageListObj != null && this.imageListObj.length >0)  || this.videoObj != null)) {     
       
       let storyText = this.postText == "" ? this.postTextUploaded : this.postText;
 

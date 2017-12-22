@@ -17,7 +17,7 @@ import { ModalController } from 'ionic-angular';
 })
 export class UserPostsComponent implements OnInit {
 
-  @Input() PostMessage: string;
+  @Input() PostMessage: string = " ";
   @Input() PostMediaURL: string;
   @Input() StoryID: number;
   @Input() CommentCount: number;
