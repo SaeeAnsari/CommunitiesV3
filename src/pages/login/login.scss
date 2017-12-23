@@ -6,16 +6,62 @@
 
 #login_page .container{
   background-color: #ccc;
-  background-image: url('http://res.cloudinary.com/http-communities-me/image/upload/v1512863055/Resources/Background/BG_BusyPeople.png');
+  background-image: url('/assets/images/login/LoginBackground.png');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;  
   padding-top:100px;
+  height: 45vh;
+  width: 100vw;
 }
-#login_page img {
-    padding: 20px 0 100px;
-    width: 110px;    
+
+#login_page .login-button-container{
+  position: absolute;
+  top:0;
+  background-color: #fff;  
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 30%;
+  padding-bottom: 40px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  
+  width: 80%;
 }
+
+#login_page .login_form{
+  padding-bottom: 20px;
+}
+
+#logoLogin {
+    padding: 20px 0 40px;
+    width: 100px;    
+    height: auto;
+}
+
+
+.soical_login a {
+
+  display: inline-flex;
+
+  padding: 5px 25px 5px 25px;
+  transition: all 0.5s ease 0s;  
+}
+
+#login_page  .login-button-container h2  {
+  width: 100%; 
+  text-align: center; 
+  border-bottom: 1px solid #d5cccc; 
+  line-height: 0.1em;
+  margin: 10px 0 20px; 
+}
+
+#login_page  .login-button-container h2 span { 
+   background:#fff; 
+   padding:0 10px; 
+}
+
+/*
 .soical_login {
   font-weight: 700;
   font-size: 15px;
@@ -78,9 +124,9 @@
 .soical_login a.google_plus:hover{
   background: #FF931E;
 }
-.login_form {
-  padding-bottom: 100px;
-}
+
+*/
+
 .input_feild, .search_feild {
     position: relative;
 }
@@ -103,18 +149,36 @@
     min-height: 20px;
     padding-left: 60px;
 }
+
 .login_form .btn.btn-info {
-    background: #ff7162 none repeat scroll 0 0;
-    border: medium none;
-    border-radius: 10px;
-    font-size: 20px;
-    min-height: 50px;
-    width: 100%;
-    transition: .5s;
-}
+  border:1px solid #e71d24; -webkit-border-radius: 20px; -moz-border-radius: 20px;border-radius: 20px;font-size:12px;font-family:arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);font-weight:bold; color: #FFFFFF;
+   background-color: #EC5055; background-image: -webkit-gradient(linear, left top, left bottom, from(#EC5055), to(#DB3D42));
+   background-image: -webkit-linear-gradient(top, #EC5055, #DB3D42);
+   background-image: -moz-linear-gradient(top, #EC5055, #DB3D42);
+   background-image: -ms-linear-gradient(top, #EC5055, #DB3D42);
+   background-image: -o-linear-gradient(top, #EC5055, #DB3D42);
+   background-image: linear-gradient(to bottom, #EC5055, #DB3D42);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#EC5055, endColorstr=#DB3D42);
+   font-size: 20px;
+   min-height: 50px;
+   width: 80%;
+   transition: .5s;
+  }
 .login_form .btn.btn-info:hover{
-  background: #FF931E;
+  border:1px solid #c1151a;
+  background-color: #e72228; background-image: -webkit-gradient(linear, left top, left bottom, from(#e72228), to(#DB3D42));
+  background-image: -webkit-linear-gradient(top, #e72228, #DB3D42);
+  background-image: -moz-linear-gradient(top, #e72228, #DB3D42);
+  background-image: -ms-linear-gradient(top, #e72228, #DB3D42);
+  background-image: -o-linear-gradient(top, #e72228, #DB3D42);
+  background-image: linear-gradient(to bottom, #e72228, #DB3D42);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#e72228, endColorstr=#DB3D42);
+ }
+
+
+
+#login_page .login_form{
+ margin-top:40px;
 }
+
 .login_form a {
     color: #333333;
     display: inline-block;

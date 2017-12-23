@@ -1,16 +1,14 @@
 <ion-header>
 
   <ion-navbar transparent>
-    <ul id="header">
-      <li>
-        <button ion-button (click)="closeModal()" icon-left>
+
+    <ion-buttons left>
+        <button ion-button block class="btn btn-link" (click)="closeModal()" icon-left>
           <ion-icon name="return-left"></ion-icon>Back
         </button>
-      </li>
-      <li>
-        <ion-title>New Registeration</ion-title>
-      </li>
-    </ul>
+      </ion-buttons>
+      <ion-title>New Registeration</ion-title>
+  
 
 
   </ion-navbar>
@@ -49,8 +47,10 @@
       </ion-item>
 
 
+      <div class="login_form">
+          <button class="btn btn-info btn-login" type="submit" value="Go" [disabled]="!registerationForm.valid">Go</button>
+        </div>
 
-      <button ion-button block class="btn-login" [disabled]="!registerationForm.valid">Go!</button>
 
     </div>
   </form>

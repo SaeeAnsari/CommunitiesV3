@@ -1,17 +1,13 @@
 <ion-header>
 
   <ion-navbar transparent>
-    <ul id="header">
-      <li>
-        <button ion-button (click)="closeModal()" icon-left>
-          <ion-icon name="return-left"></ion-icon>Back
-        </button>
-      </li>
-      <li>
-        <ion-title>Login</ion-title>
-      </li>
-    </ul>
 
+    <ion-buttons left>
+      <button ion-button block class="btn btn-link" (click)="closeModal()" icon-left>
+        <ion-icon name="return-left"></ion-icon>Back
+      </button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
 
   </ion-navbar>
 
@@ -21,7 +17,9 @@
   <form [formGroup]="loginForm" novalidate (ngSubmit)="loginUser(loginForm.value, loginForm.valid)">
 
     <div class="containerLogin text-center">
-      <a href="#"><img src="assets/images/login/logo.png" alt="logo"></a>
+      <a href="#">
+        <img src="assets/images/login/logo.png" alt="logo">
+      </a>
 
       <ion-item>
         <ion-label color="primary" stacked>Email</ion-label>
@@ -39,9 +37,9 @@
       </div>
 
 
-
-      <button ion-button block class="btn-login" [disabled]="!loginForm.valid">Login</button>
-
+      <div class="login_form">
+        <button class="btn btn-info" type="submit" value="Login" [disabled]="!loginForm.valid">Login</button>
+      </div>
     </div>
   </form>
 

@@ -1,18 +1,31 @@
 <ion-content>
   <div id="login_page" class="">
     <div class="container text-center">
-      <a href="#"><img src="assets/images/login/logo.png" alt="logo"></a>
-      <div class="soical_login">
-        <a href="#" (click)="facebookLogin()"><i class="fa fa-facebook"></i>Login Facebook</a>
-        <a class="google_plus" href="#" (click)="googleLogin()"><i class="fa fa-google-plus"></i>Login Google</a>
-        <span>OR</span>
-      </div>
-      <div class="login_form">
-      
-        
-        <input class="btn btn-info" type="submit" value="Login/Register" (click)="loginClicked()" >        
+      <div class="login-red-background">
+        <div class="login-button-container">
+          <a href="#">
+            <img id="logoLogin" src="assets/images/login/logo.png" alt="logo">
+          </a>
+          <div class="soical_login">
 
+            <a href="#" (click)="facebookLogin()">
+              <img id="facebookIcon" src="assets/images/login/FacebookIcon.png" alt="FB">
+            </a>
+
+            <a class="google_plus" href="#" (click)="googleLogin()">
+              <img src="assets/images/login/GoogleIcon.png" alt="Google">
+            </a>
+          </div>
+          <h2>
+            <span>OR</span>
+          </h2>
+
+          <div class="login_form">
+            <input class="btn btn-info" type="submit" value="Login/Register" (click)="loginClicked()">
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </ion-content>
