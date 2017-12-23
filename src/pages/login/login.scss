@@ -6,7 +6,7 @@
 
 #login_page .container{
   background-color: #ccc;
-  background-image: url('/assets/images/login/LoginBackground.png');
+  background-image: url('http://res.cloudinary.com/http-communities-me/image/upload/v1514015936/Resources/Background/LoginBackground.png');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;  
@@ -34,7 +34,7 @@
 }
 
 #logoLogin {
-    padding: 20px 0 40px;
+    padding: 40px 0 40px;
     width: 100px;    
     height: auto;
 }
