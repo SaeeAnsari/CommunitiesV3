@@ -58,6 +58,8 @@ export class TabsPage {
         console.log(this.commentCount);
         this.commentCount = this.commentCount+1;
         console.log(this.commentCount);
+
+        sessionStorage.setItem("commentCount", this.commentCount.toString());
       });
     }
     catch (e) {
@@ -67,7 +69,7 @@ export class TabsPage {
   }
 
   notificationsClick(){
-    this.commentCount = 0;
+    //Dont know what to do here
   }
 
 }
