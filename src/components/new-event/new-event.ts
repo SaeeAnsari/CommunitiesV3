@@ -153,7 +153,11 @@ export class NewEventComponent implements OnInit {
     var endDateVal = this.newEventForm.controls["endDate"].value;
     var today = new Date();
 
-    if (startDateVal > endDateVal || startDateVal < (today.getFullYear().toString() + '-' + (today.getMonth() + 1).toString() + '-' + today.getDate().toString())) {
+    var startDate = new Date(startDateVal.replace(new RegExp('-', 'gi'),'/'));
+    var endDate = new Date(endDateVal.replace(new RegExp('-', 'gi'),'/'));
+
+
+    if (startDate > endDate || startDate < (today)) {
       this.datesValidated = false;
       ret = false;
     }
@@ -190,6 +194,10 @@ export class NewEventComponent implements OnInit {
           if (this.user) {
 
             loading.present();
+
+            var startDate = new Date(model.startDate.replace(new RegExp('-', 'gi'),'/'));
+            var endDate = new Date(model.endDate.replace(new RegExp('-', 'gi'),'/'));
+        
 
             this._eventService.PostEvent(-1,
               model.name,
