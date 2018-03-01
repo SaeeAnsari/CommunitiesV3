@@ -81,7 +81,8 @@ export class LiveFeed implements OnInit {
             userFullName: element.StoryUser.DisplayName,
             storyExternalURL: element.StoryExternalURL,
             mediaType: element.MediaType,
-            images: element.Images
+            images: element.Images,
+            eventID: element.EventID == undefined? 0: element.EventID
           });
         });
 

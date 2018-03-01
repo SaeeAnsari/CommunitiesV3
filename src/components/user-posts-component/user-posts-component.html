@@ -1,5 +1,32 @@
 <div class="feed_post_content md-no-style">
-  <div class="feed_post_message" [innerHTML]="PostMessage" (click)="launchMaps()">&nbsp;</div>
+  <div class="feed_post_message" [innerHTML]="PostMessage" (click)="openComments(MediaType)">&nbsp;</div>
+
+  <div *ngIf="EventID > 0">
+    <h4>
+      <div class='addressSection customWell' (click)="launchMaps()">
+        <address>
+          <div class='address float-left' >
+            <h2>
+              <i class='fa fa-map-marker' aria-hidden='true'></i>&nbsp;
+              <b>Location:</b>
+            </h2>
+            <div class='location' >{{EventAddress}}</div>
+          </div>
+          <div class='event-date-section float-left'>
+            <h2>
+              <i class='fa fa-calendar-o'>&nbsp;
+                <b>On: </b>
+              </i>
+            </h2>
+            <div class='start-end-dates float-left'>
+              <span>{{EventDate}}</span>
+            </div>
+          </div>
+        </address>
+      </div>
+    </h4>
+  </div>
+
   <div *ngIf="MediaType=='Image'">
     <div *ngFor="let img of fixedImagesforStory">      
       <img src="{{img.ImageURL}}" (click)="openComments('Image')">
@@ -15,6 +42,7 @@
       </div>
     </div>
   </div>
+
 </div>
 <div class="content-centered">
   <app-user-post-action MediaType="{{MediaType}}" LikeCount="{{LikeCount}}" CommentCount="{{CommentCount}}" UserID="UserID"

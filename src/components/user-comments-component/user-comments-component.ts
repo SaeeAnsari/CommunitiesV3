@@ -6,8 +6,8 @@ import { CommentService } from '../../providers/comment-service';
 import { UserService } from '../../providers/user-service';
 import { StoryService } from '../../providers/story-service';
 import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
-import { ViewController, NavParams, NavController } from 'ionic-angular';
-
+import { Platform, ViewController, NavParams, NavController } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the UserCommentsComponent component.
@@ -50,8 +50,19 @@ export class UserCommentsComponent implements OnInit {
 
     if (this.navParams.get("type")) {
       this.MediaType = this.navParams.get("type");
-
     }
+
+    if (this.navParams.get("eventID")) {
+      this.eventID = this.navParams.get("eventID");
+    }   
+
+    if (this.navParams.get("eventAddress")) {
+      this.eventAddress = this.navParams.get("eventAddress");
+    }
+    
+    if (this.navParams.get("eventDate")) {
+      this.eventDate = this.navParams.get("eventDate");
+    }    
   }
 
   private commentPost: string;
@@ -59,6 +70,9 @@ export class UserCommentsComponent implements OnInit {
   private postMediaURL;//Collection of images for a post
   private postMessage: string;
   private storyExternalURL: string = "";
+  private eventAddress: string = "";
+  private eventDate: string = "";
+  private eventID: number;
 
   @Input() storyID: number;
 
@@ -69,7 +83,9 @@ export class UserCommentsComponent implements OnInit {
     public nav: NavController,
     public vc: ViewController,
     public navParams: NavParams,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private geolocation: Geolocation,
+    private platform: Platform
   ) {
 
 
@@ -147,5 +163,25 @@ export class UserCommentsComponent implements OnInit {
       });
 
     }
+  }
+
+  launchMaps() {
+
+    this.platform.ready().then(() => {
+      this.geolocation.getCurrentPosition().then((position) => {
+        // ios
+        if (this.platform.is('ios')) {
+          window.open('maps://?saddr=' + position.coords.latitude + ',' + position.coords.longitude + '&daddr=' + this.eventAddress, '_system');
+        };
+        // android
+        if (this.platform.is('android')) {
+          window.open('geo://' + position.coords.latitude + ',' + position.coords.longitude + '?&daddr=' + this.eventAddress, '_system');
+        };
+      });
+    });
+      
+      window.open("geo:?q=" + this.eventAddress);
+    
+
   }
 }

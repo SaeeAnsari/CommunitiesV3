@@ -34,6 +34,31 @@
 
       <p [innerHTML]="postMessage"></p>
 
+      <div class="comment-address" *ngIf="eventID > 0">
+       
+          <div class='addressSection customWell' (click)="launchMaps()">
+            <address>
+              <div class='address float-left' >
+                <h2>
+                  <i class='fa fa-map-marker' aria-hidden='true'></i>&nbsp;
+                  <b>Location:</b>
+                </h2>
+                <div class='location' >{{eventAddress}}</div>
+              </div>
+              <div class='event-date-section float-left'>
+                <h2>
+                  <i class='fa fa-calendar-o'>&nbsp;
+                    <b>On: </b>
+                  </i>
+                </h2>
+                <div class='start-end-dates float-left'>
+                  <span>{{eventDate}}</span>
+                </div>
+              </div>
+            </address>
+          </div>
+        
+      </div>
 
       <div *ngIf="MediaType=='Image'">
         <div *ngFor="let img of postMediaURL">

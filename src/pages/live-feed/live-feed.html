@@ -64,7 +64,7 @@
               <app-user-tag ID="{{post.userID}}" ImageURL="{{post.userProfileImage}}" Name="{{post.userFullName}}" PostDate="{{post.postDate}}"></app-user-tag>
               <app-user-post PostMessage="{{post.text}}" PostMediaURL="{{post.imageURL}}" StoryID="{{post.storyID}}" LikeCount="{{post.likeCount}}"
                 CommentCount="{{post.commentsCount}}" UserID="userID" StoryExternalURL={{post.storyExternalURL}} MediaType={{post.mediaType}}
-                [StoryImages]="[post.images]"></app-user-post>
+                [StoryImages]="[post.images]" EventID="{{post.eventID}}"></app-user-post>
 
 
 

@@ -95,6 +95,12 @@ export class EventProvider {
       .catch(this.handleError);
   }
 
+  GetEvent(eventID: number): Observable<any>{
+    return this._http.get(this._url + '/' + eventID)
+    .map(post => post.json())
+    .catch(this.handleError);
+  }
+
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
