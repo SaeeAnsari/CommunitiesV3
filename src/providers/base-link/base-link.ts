@@ -18,7 +18,7 @@ export class BaseLinkProvider {
   static GetBaseUrl() {
    //return 'http://localhost/change.api/api';
     
-    return 'http://saeedansari-001-site2.itempurl.com/api';
+    return 'http://saeedansari-001-site6.itempurl.com/api';
     //return 'http://localhost:49520/api';
   }
 
