@@ -7,7 +7,7 @@ import { UserService } from '../../providers/user-service';
 import { StoryService } from '../../providers/story-service';
 import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
 import { Platform, ViewController, NavParams, NavController } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 
 /**
  * Generated class for the UserCommentsComponent component.
@@ -84,8 +84,9 @@ export class UserCommentsComponent implements OnInit {
     public vc: ViewController,
     public navParams: NavParams,
     private iab: InAppBrowser,
-    private geolocation: Geolocation,
-    private platform: Platform
+    private platform: Platform,
+    private launchNavigator: LaunchNavigator
+    
   ) {
 
 
@@ -167,21 +168,11 @@ export class UserCommentsComponent implements OnInit {
 
   launchMaps() {
 
-    this.platform.ready().then(() => {
-      this.geolocation.getCurrentPosition().then((position) => {
-        // ios
-        if (this.platform.is('ios')) {
-          window.open('maps://?saddr=' + position.coords.latitude + ',' + position.coords.longitude + '&daddr=' + this.eventAddress, '_system');
-        };
-        // android
-        if (this.platform.is('android')) {
-          window.open('geo://' + position.coords.latitude + ',' + position.coords.longitude + '?&daddr=' + this.eventAddress, '_system');
-        };
-      });
-    });
-      
-      window.open("geo:?q=" + this.eventAddress);
-    
+    console.log("Event Address: " + this.eventAddress);
 
+    this.launchNavigator.navigate(this.eventAddress).then(
+      success => console.log('Launched navigator'),
+      error => console.log('Error launching navigator', error)
+    );
   }
 }

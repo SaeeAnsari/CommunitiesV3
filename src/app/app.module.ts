@@ -12,6 +12,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import {Facebook} from '@ionic-native/facebook';
 import {ImagePicker} from '@ionic-native/image-picker';
 import {Keyboard} from '@ionic-native/keyboard';
+import {LaunchNavigator} from '@ionic-native/launch-navigator';
 
 import {Firebase} from '@ionic-native/firebase';
 
@@ -186,7 +187,8 @@ const cloudSettings: CloudSettings = {
     CameraPluginProvider,
     HelperProvider,
     Firebase,
-    GooglePlus
+    GooglePlus,
+    LaunchNavigator
   ]
 })
 export class AppModule { }

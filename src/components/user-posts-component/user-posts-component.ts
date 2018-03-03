@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
-
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { UserCommentsComponent } from '../user-comments-component/user-comments-component';
 import { StoryService } from '../../providers/story-service';
 import { EventProvider } from '../../providers/event/event';
@@ -43,7 +43,8 @@ export class UserPostsComponent implements OnInit {
     public modalCtrl: ModalController,
     public storyService: StoryService,
     public elemRef: ElementRef,
-    public eventService: EventProvider
+    public eventService: EventProvider,
+    private launchNavigator: LaunchNavigator
   ) { }
 
   ngOnInit() {
@@ -103,11 +104,16 @@ export class UserPostsComponent implements OnInit {
 
   launchMaps() {
 
-    
-      //window.open("http://maps.google.com?daddr=" + this.EventAddress);
-  
-      window.open("geo:?q=" + this.EventAddress);
-      
+
+    //window.open("http://maps.google.com?daddr=" + this.EventAddress);
+
+    this.launchNavigator.navigate(this.EventAddress).then(
+      success => console.log('Launched navigator'),
+      error => console.log('Error launching navigator', error)
+    );
+
+    //window.open("geo:?q=" + this.EventAddress);
+
 
   }
 
