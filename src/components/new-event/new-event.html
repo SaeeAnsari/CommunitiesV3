@@ -21,8 +21,8 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>Event Start Date</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" formControlName="startDate" [class.invalid]="!newEventForm.controls.startDate.valid && (newEventForm.controls.startDate.dirty || submitted)"></ion-datetime>
+        <ion-label class="event-label">Event Start Date</ion-label>
+        <ion-datetime  displayFormat="MM/DD/YYYY" formControlName="startDate" [class.invalid]="!newEventForm.controls.startDate.valid && (newEventForm.controls.startDate.dirty || submitted)"></ion-datetime>
       </ion-item>
       <ion-item *ngIf="!newEventForm.controls.startDate.valid  && (newEventForm.controls.startDate.dirty || submitted)">
         <small class="error-class">Please select an Event Start Date.</small>
@@ -41,9 +41,7 @@
 
           <local-gallery-upload (OnFileSaved)="mediaSelectedForPosting($event)"></local-gallery-upload>
           <img src="{{uploadedMediaURL}}" alt="">
-          <div class="event-image-selection-marker">
-            <i class="fa fa-check-circle fa-4x" aria-hidden="true"></i>
-          </div>
+  
 
         </div>
       </ion-item>

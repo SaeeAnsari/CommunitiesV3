@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+
 
 /**
  * Generated class for the EventPostComponent component.
@@ -50,7 +52,9 @@ export class EventPostComponent implements OnInit {
 
 
   constructor(
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private launchNavigator: LaunchNavigator
+    
   ) { }
 
 
@@ -66,6 +70,14 @@ export class EventPostComponent implements OnInit {
   }
 
   launchMaps(){
-    window.open("http://maps.google.com?daddr=" + this.Address + "+" + this.City);
+
+    console.log("Event Address: " + this.Address);
+
+    this.launchNavigator.navigate(this.Address).then(
+      success => console.log('Launched navigator'),
+      error => console.log('Error launching navigator', error)
+    );
+    
+    //window.open("http://maps.google.com?daddr=" + this.Address + "+" + this.City);
   }
 }

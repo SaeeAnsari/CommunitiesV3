@@ -10,8 +10,21 @@
     padding-bottom: 15px;
 }
 
+.eventForm input::-webkit-input-placeholder{
+    font-size: 10pt;
+}
+
+.eventForm textarea::-webkit-input-placeholder{
+    font-size: 10pt;
+}
+
+.event-label {
+    font-size: 10pt;
+}
+
 .event-country-lable{
     padding-left: 10px;
+    font-size: 10pt;
 }
 
 .Go-Button-New-Event
