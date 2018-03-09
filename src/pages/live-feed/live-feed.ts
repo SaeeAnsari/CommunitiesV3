@@ -77,7 +77,7 @@ export class LiveFeed implements OnInit {
             totalViews: element.ActionSummary.ViewCount,
             userID: element.StoryUser.ID,
             postDate: element.Timestamp,
-            userProfileImage: element.StoryUser.ImageURL,
+            userProfileImage: element.StoryUser.ImageURL.replace('/upload/','/upload/w_40,h_40,c_thumb,r_max/'),
             userFullName: element.StoryUser.DisplayName,
             storyExternalURL: element.StoryExternalURL,
             mediaType: element.MediaType,
