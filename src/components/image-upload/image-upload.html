@@ -1,11 +1,9 @@
 <div class="fileUpload btn btn-outline-info md-new-comment" (click)="launchCamera()">
-
   <span *ngIf="!replaceIconWithImage">
       <i class="material-icons">add_a_photo</i>
   </span>
-
-
-  <span *ngIf="replaceIconWithImage">
-    <img src="{{cloudFileURL}}" alt="">
-  </span>
 </div>
+
+<span *ngIf="replaceIconWithImage">
+  <img src="{{cloudFileURL}}" alt="">
+</span>

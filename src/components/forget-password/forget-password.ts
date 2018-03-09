@@ -64,4 +64,9 @@ export class ForgetPasswordComponent {
     }
     console.log(this.email);
   }
+
+  closeModal() {
+
+    this.vc.dismiss();
+  }
 }

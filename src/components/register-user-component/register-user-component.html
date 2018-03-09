@@ -43,6 +43,8 @@
       <ion-item>
 
         <image-upload ImageCategory="User" UpdateIconImageOnUpload="true" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
+ 
+        <local-gallery-upload ImageCategory="User" UpdateIconImageOnUpload="true" (OnFileSaved) = "mediaSelectedForPosting($event)" ></local-gallery-upload>
         
       </ion-item>
 
