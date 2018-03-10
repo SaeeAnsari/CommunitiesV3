@@ -31,7 +31,7 @@ export class CameraPluginProvider {
       // Encoding type is JPEG
       encodingType: this.camera.EncodingType ? this.camera.EncodingType.JPEG : 0,
       // Give us the full quality of the image, lower it for better performance
-      quality: 100,
+      quality: 50,
       // Allow editing of the image after its taken
       allowEdit: false,
       // When a image is taken via the camera also save it to the native photo album

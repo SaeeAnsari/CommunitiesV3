@@ -104,7 +104,7 @@ export class LocalGalleryUploadComponent implements OnInit {
       if (results.length > 0 && results[0] == "O") {
         return;
       }
-      
+
       for (var i = 0; i < results.length; i++) {
 
         let uri = results[i];
@@ -137,6 +137,9 @@ export class LocalGalleryUploadComponent implements OnInit {
           console.log("FileName: " + fileName + ", publicID: " + publicID + ", versionID: " + versionID);
 
           this.cloudFileURL = fileName;
+          if (this.cloudFileURL != null) {
+            this.cloudFileURL = this.cloudFileURL.replace('/upload/', '/upload/h_60,c_scale/');
+          }
           this.SetImageReplaceParam();
 
           loading.dismiss();

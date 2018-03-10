@@ -143,6 +143,11 @@ export class ImageUploadComponent implements OnInit {
 
         
         this.cloudFileURL = fileName;
+
+        if(this.cloudFileURL != null){
+          this.cloudFileURL = this.cloudFileURL.replace('/upload/','/upload/h_60,c_scale/');
+        }
+
         this.SetImageReplaceParam();
 
         loading.dismiss();

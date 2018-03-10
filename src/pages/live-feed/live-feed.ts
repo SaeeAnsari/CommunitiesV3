@@ -70,7 +70,7 @@ export class LiveFeed implements OnInit {
             storyID: element.ID,
             title: element.Title,
             text: element.LongDescription,
-            imageURL: element.MediaType == 'Video' ? element.Video.VideoIdentifier : element.ImageURL,
+            imageURL: element.MediaType == 'Video' ? element.Video.VideoIdentifier : this.getImageURLTransformed(element.ImageURL),
             likeCount: element.ActionSummary.SupportCount,
             dislikeCount: element.ActionSummary.DisagreeCount,
             commentsCount: element.ActionSummary.CommentCount,
@@ -87,6 +87,15 @@ export class LiveFeed implements OnInit {
         });
 
       });
+  }
+
+  getImageURLTransformed(img:string ): string{
+    if(img != null){
+      return img.replace('/upload/','/upload/h_800,c_scale/');    
+    }
+    else{
+      return '';
+    }
   }
 
   ngOnInit() {
