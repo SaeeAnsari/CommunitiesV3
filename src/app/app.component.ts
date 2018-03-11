@@ -30,7 +30,7 @@ export class MyApp {
       
       setTimeout(function () {
         splashScreen.hide();
-      }, 4000);
+      }, 2000);
     });
 
 

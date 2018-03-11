@@ -21,7 +21,7 @@
       <ion-list>
       
 
-          <button ion-item (click)="SignOut()">
+          <button ion-item menuClose (click)="SignOut()">
             <ion-icon md="md-power" class="settingsIcon"></ion-icon>Signout
           </button>
         
@@ -30,9 +30,9 @@
           My Profile
         </button>
 
-        <button ion-item (click)="launchUpdateLocation()"> Update my Location</button>
+        <button ion-item menuClose (click)="launchUpdateLocation()"> Update my Location</button>
 
-        <button ion-item (click)="SubscribeTest()"> Subscribe to 1338</button>
+        <button ion-item menuClose (click)="SubscribeTest()"> Subscribe to 1338</button>
         
       </ion-list>
     </div>

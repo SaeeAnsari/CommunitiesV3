@@ -39,7 +39,8 @@ export class SettingsPage {
     this.storage.clear();
     sessionStorage.setItem('userID', null);    
     this.storage.set("userID", null);
-    this.app.getActiveNav().setRoot(Login);
+    this.app.getRootNav().setRoot(Login);
+    //this.app.getActiveNav().setRoot(Login);
     
 
     //this.navCtrl.push(Login);
