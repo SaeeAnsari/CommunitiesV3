@@ -43,7 +43,8 @@ export class UserService {
 
   public GetUser(id: number) {
     return this._http.get(this._url + '/' + id)
-      .map(ret => ret.json());
+      .map(ret => ret.json())
+      .catch(this.handleError);
   }
 
   private _url = BaseLinkProvider.GetBaseUrl() + '/User';

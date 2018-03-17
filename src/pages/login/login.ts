@@ -231,7 +231,10 @@ export class Login {
         this._userService.getLoggedinInUser().subscribe(s => {
           if (s != null && s.ID > 0) {
 
+            this.err.logError("Login: Clearing the server: got something from server");
+
             if (s.DefaultCommunityID <= 0) {
+              this.err.logError("Login: No default Location found, we neeed the user to sett the location");
               this.navCtrl.push(UserLocation);
             }
             else {
@@ -243,8 +246,6 @@ export class Login {
           }
         });
       }))
-
-        this.err.logError('Login Loaded').subscribe();
 
       console.log('ionViewDidLoad Login');
     }
