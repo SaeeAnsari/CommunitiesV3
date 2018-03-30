@@ -9,6 +9,7 @@ import { UserLocation } from '../user-location/user-location';
 import { UserService } from '../../providers/user-service';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { Firebase } from '@ionic-native/firebase';
+import { LoadingController } from 'ionic-angular';
 
 import { ErrorLogServiceProvider } from '../../providers/error-log-service/error-log-service';
 
@@ -17,7 +18,7 @@ import { ErrorLogServiceProvider } from '../../providers/error-log-service/error
 
 import { ForgetPasswordComponent } from '../../components/forget-password/forget-password';
 
-import {GooglePlus} from '@ionic-native/google-plus';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 
 /**
@@ -35,7 +36,7 @@ import {GooglePlus} from '@ionic-native/google-plus';
 export class Login {
 
   private userLoaded: boolean = false; //Hack to make sure we only load the user once
-  
+
   constructor(
     private storage: Storage,
     public navCtrl: NavController,
@@ -46,50 +47,61 @@ export class Login {
     private err: ErrorLogServiceProvider,
     private platform: Platform,
     private firebaseIonic: Firebase,
-    private googlePlus: GooglePlus
+    private googlePlus: GooglePlus,
+    public loadingCtrl: LoadingController
   ) {
     //this.onNotification();
 
   }
-/*
-  async onNotification() {
-    try {
-
-     
-      await this.platform.ready();   
-
-      this.firebaseIonic.onNotificationOpen().subscribe(sub => {
-        console.log("Notification Opened");
-        console.log(sub);
-      });
+  /*
+    async onNotification() {
+      try {
+  
+       
+        await this.platform.ready();   
+  
+        this.firebaseIonic.onNotificationOpen().subscribe(sub => {
+          console.log("Notification Opened");
+          console.log(sub);
+        });
+      }
+      catch (e) {
+        console.log('erroring');
+        console.log(e)
+      }
     }
-    catch (e) {
-      console.log('erroring');
-      console.log(e)
-    }
-  }
-  */
+    */
 
   facebookLogin() {
 
+    let loading = this.loadingCtrl.create({
+      content: 'Connecting to Facebook...',
+      spinner: 'dots'
+    });
+
+    loading.present();
     this.err.logError('Login FB Clicked').subscribe();
 
     this.fb.login(['public_profile', 'user_friends', 'email'])
       .then((res: FacebookLoginResponse) => {
-
         let userID = "0";
 
         if (res != null) {
-          console.log('Logged into Facebook!', JSON.stringify(res));
-
           userID = res.authResponse.userID;
-
           console.log('userID found ', JSON.stringify(res));
 
+          loading.dismiss();
           this.getFacebookUserDetails(userID, res);
         }
       })
-      .catch(e => {
+      .catch(e => {        
+        loading.setContent("Facebook Authentication Failed");
+        loading.present();
+
+        setTimeout(() => {
+          loading.dismiss();
+        }, 5000);
+
         console.log('Login FB Failed + ' + JSON.stringify(e));
         this.err.logError('Login FB Failed + ' + JSON.stringify(e)).subscribe()
       });
@@ -99,6 +111,13 @@ export class Login {
 
   getFacebookUserDetails(userID: string, res: any) {
 
+     
+    let loading = this.loadingCtrl.create({
+      content: 'Signing on ...',
+      spinner: 'dots'
+    });
+    loading.present();
+    
     this.fb.api('/' + userID + '?fields=id,name,email,first_name,last_name,picture,gender', []).then(data => {
       console.log(data);
 
@@ -130,6 +149,7 @@ export class Login {
             this.ionViewDidLoad();
           });
         }
+        loading.dismiss();
       })
 
     });
@@ -188,7 +208,6 @@ export class Login {
     forgetPasswordModal.present();
   }
 
-
   loginClicked() {
 
     let loginRegisterModal = this.modalCtrl.create(LoginComponent, null, { showBackdrop: true, enableBackdropDismiss: true });
@@ -222,8 +241,6 @@ export class Login {
     registerModal.present();
   }
 
- 
-
   ionViewDidLoad() {
     if (!this.userLoaded) {
       if (this.storage.get('userID').then(id => {
@@ -247,57 +264,78 @@ export class Login {
         });
       }))
 
-      console.log('ionViewDidLoad Login');
+        console.log('ionViewDidLoad Login');
     }
   }
 
   googleLogin() {
     console.log("Google Auth");
 
+    let loading = this.loadingCtrl.create({
+      content: 'Connecting to Google...',
+      spinner: 'dots'
+    });
+
+    loading.present();
+
     this.googlePlus.login({})
-    .then(res =>{
-      console.log("Google Authentication");
+      .then(res => {
+        console.log("Google Authentication");
 
-      let _googleID = res.userId;
-      let name = res.displayName;
-      let email = res.email;
-      let photo = res.imageUrl;
+        let _googleID = res.userId;
+        let name = res.displayName;
+        let email = res.email;
+        let photo = res.imageUrl;
 
-      let firstname = res.givenName;
-      let lastName = res.familyName;
+        let firstname = res.givenName;
+        let lastName = res.familyName;
 
-      this._userService.AuthenticateThirdPartyUser(_googleID).subscribe(sub => {
-        console.log("RAW got : " + sub);
+        loading.setContent("Signing on ...");
 
-        if (sub != null && +sub > 0) {
-          console.log("Found the User : " + sub);
-          this.storage.set('userID', sub);
-          this.ionViewDidLoad();
-        }
-        else {
+        this._userService.AuthenticateThirdPartyUser(_googleID).subscribe(sub => {
+          console.log("RAW got : " + sub);
 
-          var user = {
-            id: -1,
-            firstName: firstname,
-            lastName: lastName,
-            gender: null,
-            email: email,
-            imageURL: photo,
-            thirdPartyAuthID: _googleID,
-            authenticationPortalID: 3,
-            active: true
-          }
-
-          console.log(user);
-
-          this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
-            console.log("loaded :" + sub);
+          if (sub != null && +sub > 0) {
+            console.log("Found the User : " + sub);
             this.storage.set('userID', sub);
             this.ionViewDidLoad();
-          });
-        }
+          }
+          else {
+
+            var user = {
+              id: -1,
+              firstName: firstname,
+              lastName: lastName,
+              gender: null,
+              email: email,
+              imageURL: photo,
+              thirdPartyAuthID: _googleID,
+              authenticationPortalID: 3,
+              active: true
+            }
+
+            console.log(user);
+
+            this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
+              console.log("loaded :" + sub);
+              this.storage.set('userID', sub);
+              loading.dismiss();
+              this.ionViewDidLoad();
+            });
+          }
+        });
+        loading.dismiss();
+      })
+      .catch(err => {
+        console.error(err);
+        
+        loading.setContent("Google login failed");
+        loading.present();
+        
+        setTimeout(() => {
+          loading.dismiss();
+        }, 5000);
+        
       });
-    })
-    .catch(err => console.error(err));
   }
 }
