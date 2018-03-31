@@ -42,8 +42,11 @@
 	transition: .5s;
 }
 .post_like button:hover,
+.post_like button:active,
+
 .post_like button:hover i.fa{
   color: #9d9d9d;
+  text-decoration:none;
 }
 
 .post_like ul{
