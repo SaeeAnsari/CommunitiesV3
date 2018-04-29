@@ -94,8 +94,9 @@ export class TabsPage {
     var versionID = parsingString.substring(parsingString.indexOf("<VersionID>"), parsingString.indexOf("</VersionID>")).replace("<VersionID>", "")
     var videoThumbURL = parsingString.substring(parsingString.indexOf("<ThumbURL>"), parsingString.indexOf("</ThumbURL>")).replace("<ThumbURL>", "")
 
-    var vidExt =  fileName.split('.').pop();
-    fileName = fileName.replace('.' + vidExt, '.webm');
+    var vidExt =  fileName.split('.').pop();//Get the last item after .
+    //Renaming the Video extension to something more compatibl on mobile and web systems
+    fileName = fileName.replace('.' + vidExt, '.webm'); 
 
     let videoObj = {
       id: -1,
