@@ -12,7 +12,7 @@ import { UserService } from "../../providers/user-service";
 import { CameraPluginProvider } from '../../providers/camera-plugin/camera-plugin';
 
 
-import { ViewController, NavParams, NavController } from 'ionic-angular';
+import { ViewController, NavParams, NavController, Events } from 'ionic-angular';
 import { OpenGraphServiceProvider } from '../../providers/open-graph-service/open-graph-service';
 
 import { Keyboard } from '@ionic-native/keyboard';
@@ -24,7 +24,7 @@ import 'rxjs/add/observable/fromEvent';
 
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-import {FirebaseMessagingProvider} from '../../providers/firebase-messaging/firebase-messaging';
+import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
 
 
 
@@ -32,7 +32,7 @@ import {FirebaseMessagingProvider} from '../../providers/firebase-messaging/fire
 @Component({
   selector: 'new-comment-component',
   templateUrl: 'new-comment-component.html',
-  providers: [UserService, FirebaseMessagingProvider ,StoryService, MediaPostService, CommunityService, OpenGraphServiceProvider, CameraPluginProvider]
+  providers: [UserService, FirebaseMessagingProvider, StoryService, MediaPostService, CommunityService, OpenGraphServiceProvider, CameraPluginProvider]
 })
 export class NewCommentComponent implements OnInit {
 
@@ -42,11 +42,11 @@ export class NewCommentComponent implements OnInit {
   private postText: string = "";
   private postTextUploaded: string = "";
   public mediaType: string = "";
-  public uploadedMediaURL :string = "";
+  public uploadedMediaURL: string = "";
 
 
   public videoObj: any;
-  public imageListObj= [];
+  public imageListObj = [];
 
   private videoSelected: boolean = false;
   private imageSelected: boolean = false;
@@ -66,7 +66,7 @@ export class NewCommentComponent implements OnInit {
   private graphTitle: string = "";
   private graphImage: string = "";
   private graphExternalURL: string = "";
-
+  private videoMimeType: string = "";
 
 
   private keyboardShowing: boolean;
@@ -87,10 +87,11 @@ export class NewCommentComponent implements OnInit {
     private file: File,
     private cameraPluginServices: CameraPluginProvider,
     private keyboard: Keyboard,
-    private fcm: FirebaseMessagingProvider
+    private fcm: FirebaseMessagingProvider,
+    private ev: Events
   ) {
 
-    
+
   }
 
   ngOnInit() {
@@ -115,7 +116,7 @@ export class NewCommentComponent implements OnInit {
 
       this.activeCommunity = this.user.defaultCommunityID;
 
-      if(this.navParams.get("CommunityID")){
+      if (this.navParams.get("CommunityID")) {
         this.activeCommunity = this.navParams.get("CommunityID");
       }
 
@@ -181,18 +182,23 @@ export class NewCommentComponent implements OnInit {
 
   mediaSelectedForPosting(data) {
 
-    console.log("inside the imageSelectedForPosting");
     if (data != null) {
       console.log("Got Data: " + JSON.stringify(data));
 
       if (data.mediaType == "Video") {
+
         this.videoObj = {
           id: -1,
           url: data.fileName,
+          name: data.name,
           publicID: data.publicID,
           versionID: data.versionID
         }
+
+       
+
         this.uploadedMediaURL = data.fileName;
+        this.videoMimeType = data.mimeType;
       }
       else if (data.mediaType == "Image") {
 
@@ -218,39 +224,79 @@ export class NewCommentComponent implements OnInit {
 
   post() {
 
-    if (this.user && (this.postText != '' || (this.imageListObj != null && this.imageListObj.length >0)  || this.videoObj != null)) {     
-      
+    if (this.user && (this.postText != '' || (this.imageListObj != null && this.imageListObj.length > 0) || this.videoObj != null)) {
+
       let storyText = this.postText == "" ? this.postTextUploaded : this.postText;
 
-      this._storyService.SavePost(this.user.id,
-        storyText, this.mediaType, this.optionsModel, this.videoObj, this.imageListObj, this.graphExternalURL).subscribe(sub => {
-          let id = sub;
-          this.uploaded = false;
-          this.postText = "";
-          this.postTextUploaded = "";
-          this.mediaType = "";
-          this.videoSelected = false;
-          this.imageSelected = false;
 
-          this.fcm.SubscibeToTopic(id.toString());
+      if (this.videoObj != null && this.mediaType == "Video") {
+        let videoPost = {
+          UserID: this.user.id,
+          StoryText: storyText,
+          MediaType: this.mediaType,
+          OptionsModel: this.optionsModel,
+          ImageListObj: this.imageListObj,
+          GraphExternalURL: this.graphExternalURL,
+          UploadedMediaURL: this.uploadedMediaURL,
+          VideoMimeType: this.videoMimeType,
 
-          this.vc.dismiss({ storyID: id });
+        };
+
+        let id = 0;
+        this.uploaded = false;
+        this.postText = "";
+        this.postTextUploaded = "";
+        this.mediaType = "";
+        this.videoSelected = false;
+        this.imageSelected = false;
 
 
-          this.optionsModel = [];
-          this.optionsModel.push(this.user.defaultCommunityID);
+        this.vc.dismiss({ storyID: id });
 
-          if (this.user.defaultCommunityID > 0) {
+        this.optionsModel = [];
+        this.optionsModel.push(this.user.defaultCommunityID);
 
-            let activeCommunity = this.user.defaultCommunityID;
+        if (this.user.defaultCommunityID > 0) {
+          let activeCommunity = this.user.defaultCommunityID;
+          if (sessionStorage.getItem("activeCommunity") != null) {
 
-            if (sessionStorage.getItem("activeCommunity") != null) {
-
-              activeCommunity = +sessionStorage.getItem("activeCommunity")
-            }
-
+            activeCommunity = +sessionStorage.getItem("activeCommunity")
           }
-        });
+        }
+
+        this.ev.publish('newVideoUpload', JSON.stringify(videoPost));
+      }
+      else {
+        this._storyService.SavePost(this.user.id,
+          storyText, this.mediaType, this.optionsModel, this.videoObj, this.imageListObj, this.graphExternalURL).subscribe(sub => {
+            let id = sub;
+            this.uploaded = false;
+            this.postText = "";
+            this.postTextUploaded = "";
+            this.mediaType = "";
+            this.videoSelected = false;
+            this.imageSelected = false;
+
+            this.fcm.SubscibeToTopic(id.toString());
+
+            this.vc.dismiss({ storyID: id });
+
+
+            this.optionsModel = [];
+            this.optionsModel.push(this.user.defaultCommunityID);
+
+            if (this.user.defaultCommunityID > 0) {
+
+              let activeCommunity = this.user.defaultCommunityID;
+
+              if (sessionStorage.getItem("activeCommunity") != null) {
+
+                activeCommunity = +sessionStorage.getItem("activeCommunity")
+              }
+
+            }
+          });
+      }
     }
   }
 

@@ -3,7 +3,7 @@ import { MediaCapture, MediaFile, CaptureError } from '@ionic-native/media-captu
 
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, Events } from 'ionic-angular';
 
 
 
@@ -27,6 +27,7 @@ export class VideoUploadComponent {
   public uploaded: boolean = false;
   public mediaName: string = "";
   public mediaType: string = "";
+  public mimeType: string ="";
 
   @Output() OnFileSaved = new EventEmitter();
 
@@ -34,10 +35,11 @@ export class VideoUploadComponent {
     private transfer: FileTransfer,
     private file: File,
     private mediaCapture: MediaCapture,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    private ev: Events) {
   }
 
-  public async loadVideoCamera() {
+  public loadVideoCamera() {
     this.uploaded = false;
 
 
@@ -49,17 +51,17 @@ export class VideoUploadComponent {
     let options = { limit: 1, duration: 10 };
     this.mediaCapture.captureVideo(options)
       .then(
-      (data: MediaFile[]) => {
+        (data: MediaFile[]) => {
 
-        console.log("getting the logs for video: " + JSON.stringify(data));
-        if (data.length == 1) {
-          console.log("got to data :" + JSON.stringify(data));
+          console.log("getting the logs for video: " + JSON.stringify(data));
+          if (data.length == 1) {
+            console.log("got to data :" + JSON.stringify(data));
 
-          this.upload(data[0].fullPath, data[0].name, data[0].type);
-        }
+            this.upload(data[0].fullPath, data[0].name, data[0].type);
+          }
 
-      },
-      (err: CaptureError) => console.error(err)
+        },
+        (err: CaptureError) => console.error(err)
       );
 
 
@@ -88,17 +90,20 @@ export class VideoUploadComponent {
   }
 
 
-  public async upload(fullPath, name, mimeType) {
+  public upload(fullPath, name, mimeType) {
 
     console.log("Uploading video: " + fullPath + ":" + name)
+    localStorage.setItem('uploadVideoFilePath', fullPath );
+    localStorage.setItem('uploadVideoFileName', name);
 
+    /*
     let loading = this.loadingCtrl.create({
       content: 'Uploading...',
       spinner: 'dots'
     });
 
     loading.present();
-
+   
     this.mediaCaptureURL = fullPath;
     console.log(this.mediaCaptureURL)
 
@@ -112,54 +117,69 @@ export class VideoUploadComponent {
       },
       params: {}
     };
-
+ */
 
     try {
+
+      /*
       console.log("About to call the Upload Method 2 : " + JSON.stringify(options));
 
       let url = BaseLinkProvider.GetBaseUrl() + "/Video";
 
       console.log("URL : " + url);
+      console.log('File location: ' + this.mediaCaptureURL);
+      
+           let result = await this.file_transfer.upload(
+             encodeURI(this.mediaCaptureURL),
+             encodeURI(url),
+             options,
+             false
+           );
 
-      let result = await this.file_transfer.upload(
-        encodeURI(this.mediaCaptureURL),
-        encodeURI(url),
-        options,
-        false
-      );
+    
+            var parsingString = result.response;
+      
+            var fileName = parsingString.substring(parsingString.indexOf("<FileName>"), parsingString.indexOf("</FileName>")).replace("<FileName>", "");
+            var publicID = parsingString.substring(parsingString.indexOf("<PublicID>"), parsingString.indexOf("</PublicID>")).replace("<PublicID>", "");
+            var versionID = parsingString.substring(parsingString.indexOf("<VersionID>"), parsingString.indexOf("</VersionID>")).replace("<VersionID>", "")
+            var videoThumbURL = parsingString.substring(parsingString.indexOf("<ThumbURL>"), parsingString.indexOf("</ThumbURL>")).replace("<ThumbURL>", "")
+            console.log("FileName: " + fileName + ", publicID: " + publicID + ", versionID: " + versionID + "ThumbURL: " + videoThumbURL);
+            this.uploaded = true;
+      
+      
+            this.mediaName = fileName;
+            this.mediaType = "Video";
+            console.log("firing Emit!" + JSON.stringify({
+              mediaType: "Video",
+              fileName: fileName,
+              publicID: publicID
+            }));
+      
+            loading.dismiss();
+      
+            this.OnFileSaved.emit({
+              mediaType: "Video",
+              fileName: fileName,
+              publicID: publicID,
+              versionID: versionID
+            });
+      */
 
-
-      var parsingString = result.response;
-
-      var fileName = parsingString.substring(parsingString.indexOf("<FileName>"), parsingString.indexOf("</FileName>")).replace("<FileName>", "");
-      var publicID = parsingString.substring(parsingString.indexOf("<PublicID>"), parsingString.indexOf("</PublicID>")).replace("<PublicID>", "");
-      var versionID = parsingString.substring(parsingString.indexOf("<VersionID>"), parsingString.indexOf("</VersionID>")).replace("<VersionID>", "")
-      var videoThumbURL = parsingString.substring(parsingString.indexOf("<ThumbURL>"), parsingString.indexOf("</ThumbURL>")).replace("<ThumbURL>", "")
-      console.log("FileName: " + fileName + ", publicID: " + publicID + ", versionID: " + versionID + "ThumbURL: " + videoThumbURL);
-      this.uploaded = true;
-
-
-      this.mediaName = fileName;
-      this.mediaType = "Video";
-      console.log("firing Emit!" + JSON.stringify({
-        mediaType: "Video",
-        fileName: fileName,
-        publicID: publicID
-      }));
-
-      loading.dismiss();
+      //this.ev.publish('newVideoUpload', this.mediaCaptureURL);
 
       this.OnFileSaved.emit({
         mediaType: "Video",
-        fileName: fileName,
-        publicID: publicID,
-        versionID: versionID
+        fileName: fullPath,
+        name: name,
+        publicID: '22222',
+        versionID: '111111',
+        mimeType: this.mimeType
       });
-
     } catch (e) {
+      /*
       loading.dismiss();
+      */
       console.log("Error : " + JSON.stringify(e));
-
     }
   }
 }
