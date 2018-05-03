@@ -30,7 +30,7 @@ export class OpenGraphServiceProvider {
 
   options: RequestOptions;
 
-  private api_key="590751b74749847224a44c62";
+  private api_key="5aea526d59a222f23d35185d";
 
 
   constructor(public _http: Http) {
