@@ -13,6 +13,7 @@ import {Facebook} from '@ionic-native/facebook';
 import {ImagePicker} from '@ionic-native/image-picker';
 import {Keyboard} from '@ionic-native/keyboard';
 import {LaunchNavigator} from '@ionic-native/launch-navigator';
+import {Deeplinks} from '@ionic-native/deeplinks';
 
 import {Firebase} from '@ionic-native/firebase';
 
@@ -167,7 +168,7 @@ const cloudSettings: CloudSettings = {
   ],
   providers: [
     StatusBar,
-    
+    Deeplinks,
     SplashScreen,
     Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
