@@ -20,9 +20,6 @@ import {Firebase} from '@ionic-native/firebase';
 import {GooglePlus} from '@ionic-native/google-plus';
 
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { CommunityPage } from '../pages/community/community';
 import { LiveFeed } from '../pages/live-feed/live-feed';
@@ -95,9 +92,6 @@ const cloudSettings: CloudSettings = {
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
     TabsPage,
     CommunityPage,
     UserSearchComponent,
@@ -142,9 +136,6 @@ const cloudSettings: CloudSettings = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
     TabsPage,
     CommunityPage,
     UserSearchComponent,
