@@ -1,4 +1,5 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { Pro } from '@ionic/pro';
+import { Injectable, Injector, NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
@@ -9,15 +10,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CloudModule, CloudSettings } from '@ionic/cloud-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import {Facebook} from '@ionic-native/facebook';
-import {ImagePicker} from '@ionic-native/image-picker';
-import {Keyboard} from '@ionic-native/keyboard';
-import {LaunchNavigator} from '@ionic-native/launch-navigator';
-import {Deeplinks} from '@ionic-native/deeplinks';
+import { Facebook } from '@ionic-native/facebook';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { Keyboard } from '@ionic-native/keyboard';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { Deeplinks } from '@ionic-native/deeplinks';
 
-import {Firebase} from '@ionic-native/firebase';
+import { Firebase } from '@ionic-native/firebase';
 
-import {GooglePlus} from '@ionic-native/google-plus';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -25,7 +26,7 @@ import { CommunityPage } from '../pages/community/community';
 import { LiveFeed } from '../pages/live-feed/live-feed';
 import { MyCommunitiesPage } from '../pages/my-communities/my-communities';
 
-import {SettingsPage} from '../pages/settings/settings';
+import { SettingsPage } from '../pages/settings/settings';
 
 
 import { MarkerNewPostComponent } from '../components/marker-new-post-component/marker-new-post-component';
@@ -53,12 +54,12 @@ import { BaseLinkProvider } from '../providers/base-link/base-link';
 import { UploadedMediaPostComponent } from '../components/uploaded-media-post/uploaded-media-post';
 import { ErrorLogServiceProvider } from '../providers/error-log-service/error-log-service';
 import { FacebookApiProvider } from '../providers/facebook-api/facebook-api';
-import {EventFeedPage} from '../pages/event-feed/event-feed';
+import { EventFeedPage } from '../pages/event-feed/event-feed';
 import { NewEventComponent } from '../components/new-event/new-event';
 import { EventProvider } from '../providers/event/event';
 import { Camera } from '@ionic-native/camera';
-import {MediaCapture} from '@ionic-native/media-capture';
-import {FileTransfer}  from '@ionic-native/file-transfer';
+import { MediaCapture } from '@ionic-native/media-capture';
+import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { CameraPluginProvider } from '../providers/camera-plugin/camera-plugin';
 import { HelperProvider } from '../providers/helper/helper';
@@ -88,6 +89,33 @@ const cloudSettings: CloudSettings = {
   }
 }*/
 
+Pro.init('caa89fcc', {
+  appVersion: '0.0.1'
+});
+
+@Injectable()
+export class CommunitiesErrorHandler implements ErrorHandler {
+  ionicErrorHandler: IonicErrorHandler;
+
+  constructor(injector: Injector) {
+    try {
+      this.ionicErrorHandler = injector.get(IonicErrorHandler);
+    } catch (e) {
+      // Unable to get the IonicErrorHandler provider, ensure
+      // IonicErrorHandler has been added to the providers list below
+    }
+  }
+
+  handleError(err: any): void {
+    Pro.monitoring.handleNewError(err);
+    // Remove this if you want to disable Ionic's auto exception handling
+    // in development mode.
+    this.ionicErrorHandler && this.ionicErrorHandler.handleError(err);
+  }
+}
+
+
+
 
 @NgModule({
   declarations: [
@@ -97,7 +125,7 @@ const cloudSettings: CloudSettings = {
     UserSearchComponent,
     UserSearchItemComponent,
     LiveFeed,
-    
+
     MarkerNewPostComponent,
     UserCommentsComponent,
     UserPostActionComponent,
@@ -180,7 +208,9 @@ const cloudSettings: CloudSettings = {
     HelperProvider,
     Firebase,
     GooglePlus,
-    LaunchNavigator
+    LaunchNavigator,
+    IonicErrorHandler,
+    [{ provide: ErrorHandler, useClass: CommunitiesErrorHandler }]
   ]
 })
 export class AppModule { }
