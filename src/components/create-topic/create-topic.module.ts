@@ -11,6 +11,9 @@ import { CreateTopicComponent } from './create-topic';
   ],
   exports: [
     CreateTopicComponent
+  ],
+  entryComponents: [
+    CreateTopicComponent
   ]
 })
 export class CreateTopicComponentModule {}

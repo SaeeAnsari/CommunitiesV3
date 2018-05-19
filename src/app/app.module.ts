@@ -5,6 +5,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
+import {ComponentsModule} from '../components/components.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -15,47 +16,22 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { Keyboard } from '@ionic-native/keyboard';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { Deeplinks } from '@ionic-native/deeplinks';
-
 import { Firebase } from '@ionic-native/firebase';
-
 import { GooglePlus } from '@ionic-native/google-plus';
-
-
 import { TabsPage } from '../pages/tabs/tabs';
-import { CommunityPage } from '../pages/community/community';
-import { LiveFeed } from '../pages/live-feed/live-feed';
-import { MyCommunitiesPage } from '../pages/my-communities/my-communities';
-
-import { SettingsPage } from '../pages/settings/settings';
-
-
-import { MarkerNewPostComponent } from '../components/marker-new-post-component/marker-new-post-component';
-import { UserCommentsComponent } from '../components/user-comments-component/user-comments-component';
-import { UserPostActionComponent } from '../components/user-post-action-component/user-post-action-component';
-import { UserPostsComponent } from '../components/user-posts-component/user-posts-component';
-import { UserTagComponent } from '../components/user-tag-component/user-tag-component';
-
-
-import { UserSearchComponent } from '../pages/user-search-component/user-search-component';
-import { UserSearchItemComponent } from '../components/user-search-item-component/user-search-item-component';
-import { NewCommentComponent } from '../components/new-comment-component/new-comment-component';
-
-import { LoginComponent } from '../components/login-component/login-component';
-import { RegisterUserComponent } from '../components/register-user-component/register-user-component';
-
-import { UserLocation } from '../pages/user-location/user-location';
-
-
-import { Login } from '../pages/login/login';
-import { CommunityItemComponent } from '../components/community-item/community-item';
+import { CommunityModule } from '../pages/community/community.module';
+import { LiveFeedModule } from '../pages/live-feed/live-feed.module';
+import { MyCommunitiesPageModule } from '../pages/my-communities/my-communities.module';
+import { SettingsPageModule } from '../pages/settings/settings.module';
+import { UserSearchComponentModule } from '../pages/user-search-component/user-search-component.module';
+import { UserLocationModule } from '../pages/user-location/user-location.module';
+import { LoginModule } from '../pages/login/login.module';
 import { OpenGraphServiceProvider } from '../providers/open-graph-service/open-graph-service';
 import { GeoProviderServiceProvider } from '../providers/geo-provider-service/geo-provider-service';
 import { BaseLinkProvider } from '../providers/base-link/base-link';
-import { UploadedMediaPostComponent } from '../components/uploaded-media-post/uploaded-media-post';
 import { ErrorLogServiceProvider } from '../providers/error-log-service/error-log-service';
 import { FacebookApiProvider } from '../providers/facebook-api/facebook-api';
-import { EventFeedPage } from '../pages/event-feed/event-feed';
-import { NewEventComponent } from '../components/new-event/new-event';
+import { EventFeedPageModule } from '../pages/event-feed/event-feed.module';
 import { EventProvider } from '../providers/event/event';
 import { Camera } from '@ionic-native/camera';
 import { MediaCapture } from '@ionic-native/media-capture';
@@ -64,17 +40,7 @@ import { File } from '@ionic-native/file';
 import { CameraPluginProvider } from '../providers/camera-plugin/camera-plugin';
 import { HelperProvider } from '../providers/helper/helper';
 import { IonicStorageModule } from '@ionic/storage';
-import { ImageUploadComponent } from '../components/image-upload/image-upload';
-import { VideoUploadComponent } from '../components/video-upload/video-upload';
-import { LocalGalleryUploadComponent } from '../components/local-gallery-upload/local-gallery-upload';
-import { SocialSharingPopoverComponent } from '../components/social-sharing-popover/social-sharing-popover';
-import { EventPostComponent } from '../components/event-post/event-post';
-import { ForgetPasswordComponent } from '../components/forget-password/forget-password';
-import { CommunitiesSlidesComponent } from '../components/communities-slides/communities-slides';
-import { CommunityTopicMarkerComponent } from '../components/community-topic-marker/community-topic-marker';
-import { CreateTopicComponent } from '../components/create-topic/create-topic';
-import { ViewTopicsComponent } from '../components/view-topics/view-topics';
-import { NotificationsPage } from '../pages/notifications/notifications';
+import { NotificationsPageModule } from '../pages/notifications/notifications.module';
 
 
 /*
@@ -120,70 +86,29 @@ export class CommunitiesErrorHandler implements ErrorHandler {
 @NgModule({
   declarations: [
     MyApp,
-    TabsPage,
-    CommunityPage,
-    UserSearchComponent,
-    UserSearchItemComponent,
-    LiveFeed,
-
-    MarkerNewPostComponent,
-    UserCommentsComponent,
-    UserPostActionComponent,
-    UserPostsComponent,
-    UserTagComponent,
-    NewCommentComponent,
-    Login,
-    LoginComponent,
-    RegisterUserComponent,
-    UserLocation,
-    MyCommunitiesPage,
-    CommunityItemComponent,
-    SettingsPage,
-    UploadedMediaPostComponent,
-    EventFeedPage,
-    NewEventComponent,
-    ImageUploadComponent,
-    VideoUploadComponent,
-    LocalGalleryUploadComponent,
-    SocialSharingPopoverComponent,
-    EventPostComponent,
-    ForgetPasswordComponent,
-    CommunitiesSlidesComponent,
-    CommunityTopicMarkerComponent,
-    CreateTopicComponent,
-    ViewTopicsComponent,
-    NotificationsPage
+    TabsPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
     //CloudModule.forRoot(cloudSettings),
-    IonicStorageModule.forRoot()
+    ComponentsModule,
+    IonicStorageModule.forRoot(),
+    CommunityModule,
+    LiveFeedModule,
+    MyCommunitiesPageModule,
+    SettingsPageModule,
+    UserSearchComponentModule,
+    UserLocationModule,
+    LoginModule,
+    NotificationsPageModule,
+    EventFeedPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TabsPage,
-    CommunityPage,
-    UserSearchComponent,
-    LiveFeed,
-    SocialSharingPopoverComponent,
-    CreateTopicComponent,
-    ViewTopicsComponent,
-    UserCommentsComponent,
-    NewCommentComponent,
-    NewEventComponent,
-    Login,
-    LoginComponent,
-    RegisterUserComponent,
-    UserLocation,
-    MyCommunitiesPage,
-    CommunityItemComponent,
-    SettingsPage,
-    NotificationsPage,
-    EventFeedPage,
-    ForgetPasswordComponent
+    TabsPage
   ],
   providers: [
     StatusBar,

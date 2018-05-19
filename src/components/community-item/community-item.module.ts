@@ -11,6 +11,9 @@ import { CommunityItemComponent } from './community-item';
   ],
   exports: [
     CommunityItemComponent
+  ],
+  entryComponents: [
+    CommunityItemComponent
   ]
 })
 export class CommunityItemComponentModule {}

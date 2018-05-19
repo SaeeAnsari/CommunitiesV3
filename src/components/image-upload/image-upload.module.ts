@@ -11,6 +11,9 @@ import { ImageUploadComponent } from './image-upload';
   ],
   exports: [
     ImageUploadComponent
+  ],
+  entryComponents: [
+    ImageUploadComponent
   ]
 })
 export class ImageUploadComponentModule {}

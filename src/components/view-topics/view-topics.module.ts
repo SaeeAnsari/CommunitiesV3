@@ -11,6 +11,9 @@ import { ViewTopicsComponent } from './view-topics';
   ],
   exports: [
     ViewTopicsComponent
+  ],
+  entryComponents: [
+    ViewTopicsComponent
   ]
 })
 export class ViewTopicsComponentModule {}

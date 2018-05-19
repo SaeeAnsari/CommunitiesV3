@@ -11,6 +11,9 @@ import { SocialSharingPopoverComponent } from './social-sharing-popover';
   ],
   exports: [
     SocialSharingPopoverComponent
+  ],
+  entryComponents: [
+    SocialSharingPopoverComponent
   ]
 })
 export class SocialSharingPopoverComponentModule {}

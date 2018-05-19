@@ -11,6 +11,9 @@ import { CommunityTopicMarkerComponent } from './community-topic-marker';
   ],
   exports: [
     CommunityTopicMarkerComponent
+  ],
+  entryComponents: [
+    CommunityTopicMarkerComponent
   ]
 })
 export class CommunityTopicMarkerComponentModule {}

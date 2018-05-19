@@ -11,6 +11,9 @@ import { ForgetPasswordComponent } from './forget-password';
   ],
   exports: [
     ForgetPasswordComponent
+  ],
+  entryComponents: [
+    ForgetPasswordComponent
   ]
 })
 export class ForgetPasswordComponentModule {}

@@ -11,6 +11,10 @@ import { UserTagComponent } from './user-tag-component';
   ],
   exports: [
     UserTagComponent
+  ], 
+  entryComponents: [
+    UserTagComponent
   ]
+
 })
 export class UserTagComponentModule {}

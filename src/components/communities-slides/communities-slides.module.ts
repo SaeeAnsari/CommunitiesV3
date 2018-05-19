@@ -11,6 +11,9 @@ import { CommunitiesSlidesComponent } from './communities-slides';
   ],
   exports: [
     CommunitiesSlidesComponent
+  ],
+  entryComponents: [
+    CommunitiesSlidesComponent
   ]
 })
 export class CommunitiesSlidesComponentModule {}

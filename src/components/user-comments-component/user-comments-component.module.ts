@@ -11,6 +11,9 @@ import { UserCommentsComponent } from './user-comments-component';
   ],
   exports: [
     UserCommentsComponent
+  ],
+  entryComponents: [
+    UserCommentsComponent
   ]
 })
 export class UserCommentsComponentModule {}

@@ -11,6 +11,9 @@ import { UploadedMediaPostComponent } from './uploaded-media-post';
   ],
   exports: [
     UploadedMediaPostComponent
+  ],
+  entryComponents: [
+    UploadedMediaPostComponent
   ]
 })
 export class UploadedMediaPostComponentModule {}

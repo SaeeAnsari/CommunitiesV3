@@ -11,6 +11,9 @@ import { LocalGalleryUploadComponent } from './local-gallery-upload';
   ],
   exports: [
     LocalGalleryUploadComponent
+  ],
+  entryComponents: [
+    LocalGalleryUploadComponent
   ]
 })
 export class LocalGalleryUploadComponentModule {}

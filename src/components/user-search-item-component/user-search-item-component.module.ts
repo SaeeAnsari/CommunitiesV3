@@ -11,6 +11,9 @@ import { UserSearchItemComponent } from './user-search-item-component';
   ],
   exports: [
     UserSearchItemComponent
+  ],
+  entryComponents: [
+    UserSearchItemComponent
   ]
 })
 export class UserSearchItemComponentModule {}

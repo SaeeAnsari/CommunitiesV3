@@ -48,7 +48,7 @@ export class CommunityTopicMarkerComponent implements OnInit {
   }
 
 
-  @Input() CommunityID;
+  @Input() CommunityID: number;
   private communityCreated: boolean = false;
   private hideButtons: boolean = true;
   private hideCreate: boolean = false;

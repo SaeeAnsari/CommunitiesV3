@@ -11,6 +11,9 @@ import { VideoUploadComponent } from './video-upload';
   ],
   exports: [
     VideoUploadComponent
+  ],
+  entryComponents: [
+    VideoUploadComponent
   ]
 })
 export class VideoUploadComponentModule {}
