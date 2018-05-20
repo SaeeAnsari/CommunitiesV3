@@ -11,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CloudModule, CloudSettings } from '@ionic/cloud-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { Facebook } from '@ionic-native/facebook';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Keyboard } from '@ionic-native/keyboard';
@@ -135,6 +136,7 @@ export class CommunitiesErrorHandler implements ErrorHandler {
     GooglePlus,
     LaunchNavigator,
     IonicErrorHandler,
+    AndroidPermissions,
     [{ provide: ErrorHandler, useClass: CommunitiesErrorHandler }]
   ]
 })

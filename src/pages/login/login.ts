@@ -10,6 +10,7 @@ import { UserService } from '../../providers/user-service';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { Firebase } from '@ionic-native/firebase';
 import { LoadingController } from 'ionic-angular';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import { ErrorLogServiceProvider } from '../../providers/error-log-service/error-log-service';
 
@@ -48,7 +49,8 @@ export class Login {
     private platform: Platform,
     private firebaseIonic: Firebase,
     private googlePlus: GooglePlus,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private androidPermissions: AndroidPermissions
   ) {
     //this.onNotification();
 
@@ -266,6 +268,13 @@ export class Login {
 
         console.log('ionViewDidLoad Login');
     }
+
+    /*this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+      result => console.log('Has permission?',result.hasPermission),
+      err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
+    );*/
+    this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE]);
+    
   }
 
   googleLogin() {
