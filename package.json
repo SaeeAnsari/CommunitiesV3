@@ -55,7 +55,6 @@
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-code-push": "^1.11.10",
     "cordova-plugin-compat": "^1.2.0",
-    "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-customurlscheme": "^4.3.0",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-dialogs": "^2.0.1",
@@ -143,7 +142,6 @@
       },
       "cordova-plugin-compat": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-console": {},
       "cordova-plugin-code-push": {},
       "uk.co.workingedge.phonegap.plugin.launchnavigator": {},
       "ionic-plugin-deeplinks": {
