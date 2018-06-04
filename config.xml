@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.communities54283" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.communities54284" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Communities</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -124,7 +124,7 @@
     <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
     <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
     <plugin name="cordova-plugin-customurlscheme" spec="^4.3.0">
-        <variable name="URL_SCHEME" value="com.ionicframework.communities54283" />
+        <variable name="URL_SCHEME" value="com.ionicframework.communities54284" />
         <variable name="ANDROID_SCHEME" value=" " />
         <variable name="ANDROID_HOST" value=" " />
         <variable name="ANDROID_PATHPREFIX" value="/" />

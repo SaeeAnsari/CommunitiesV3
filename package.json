@@ -125,7 +125,7 @@
       "cordova-universal-links-plugin": {},
       "cordova-plugin-browsertab": {},
       "cordova-plugin-customurlscheme": {
-        "URL_SCHEME": "com.ionicframework.communities54283",
+        "URL_SCHEME": "com.ionicframework.communities54284",
         "ANDROID_SCHEME": " ",
         "ANDROID_HOST": " ",
         "ANDROID_PATHPREFIX": "/"
