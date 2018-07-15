@@ -273,7 +273,7 @@ export class Login {
       result => console.log('Has permission?',result.hasPermission),
       err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
     );*/
-    this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE]);
+    this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE, this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE]);
     
   }
 
