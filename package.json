@@ -45,7 +45,7 @@
     "angular2-swiper": "^0.8.1",
     "code-push": "^2.0.4",
     "com.synconset.imagepicker": "^2.1.10",
-    "cordova-android": "6.3.0",
+    "cordova-android": "^6.4.0",
     "cordova-browser": "^4.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.2",
