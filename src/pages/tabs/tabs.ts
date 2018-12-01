@@ -96,7 +96,7 @@ export class TabsPage {
 
     var vidExt =  fileName.split('.').pop();//Get the last item after .
     //Renaming the Video extension to something more compatibl on mobile and web systems
-    fileName = fileName.replace('.' + vidExt, '.webm'); 
+    fileName = fileName.replace('.' + vidExt, '.3gp'); 
 
     let videoObj = {
       id: -1,
