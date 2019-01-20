@@ -8,12 +8,36 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:634674165562:android:3f8cf97a17943d7f",
+        "mobilesdk_app_id": "1:634674165562:android:21c4c27a0ba82c48",
         "android_client_info": {
           "package_name": "com.ionicframework.communities54284"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "634674165562-js2fbi4ht3pbmc64daqvp3ghh4prolha.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ionicframework.communities54284",
+            "certificate_hash": "15a8c810d58ac8ae75d2b83b535b59a6e1aea2dd"
+          }
+        },
+        {
+          "client_id": "634674165562-9lv26sujufl612qglpqgccj25dspkt5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ionicframework.communities54284",
+            "certificate_hash": "ea8836a4e09ea873ed875bde7dcb1f77c45c307e"
+          }
+        },
+        {
+          "client_id": "634674165562-5qqc54okbil54221k8k5dj5uoj9rp6d9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ionicframework.communities54284",
+            "certificate_hash": "0c41a236f7ceba4842133a0d54eb310ad35d0e70"
+          }
+        },
         {
           "client_id": "634674165562-uoec4hmm3d3mh6imb5qm7egvv6tcn0l2.apps.googleusercontent.com",
           "client_type": 3
@@ -29,8 +53,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634674165562-uoec4hmm3d3mh6imb5qm7egvv6tcn0l2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

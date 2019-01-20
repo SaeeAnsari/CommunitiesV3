@@ -1,8 +1,8 @@
 {
   "name": "",
-  "app_id": "caa89fcc",
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "id": "caa89fcc"
 }
