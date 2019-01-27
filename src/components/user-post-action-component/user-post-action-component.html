@@ -1,8 +1,8 @@
 <div class="post_like" *ngIf="FeedType=='Story'">
   <ul>
     <li>
-      <button type="button" id="actionLikeButton" [ngClass]="likeClicked ? 'btn btn-link fa fa-gratipay fa-2x animated bounce' : 'btn btn-link fa fa-gratipay fa-2x'"
-        (click)="triggerAnimation();setLike(StoryID)"> <span class="action-button">{{LikeCount}}</span></button>
+      <button type="button" id="actionLikeButton" [ngClass]="likeClicked ? 'btn btn-link fa fa-gratipay fa-2x' : 'btn btn-link fa fa-gratipay fa-2x'"
+        (click)="setLike(StoryID)"> <span class="action-button">{{LikeCount}}</span></button>
     </li>
     <li>
       <button type="button" class="btn btn-link fa fa-comments" (click)="viewComments(StoryID)"> <span class="action-button">{{CommentCount}}</span></button>
