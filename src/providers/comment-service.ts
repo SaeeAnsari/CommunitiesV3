@@ -54,7 +54,7 @@ export class CommentService {
       .map(ret => ret.json());
   }
 
-  public PostComment(storyID: number, userID: number, comment: string): Observable<any> {
+  public PostComment(storyID: number, userID: number, comment: string, commentParentID?: number): Observable<any> {
 
     this.messaging.SubscibeToTopic(storyID.toString());
 
@@ -62,6 +62,7 @@ export class CommentService {
       JSON.stringify({
         StoryID: storyID,
         Comments: comment,
+        CommentParentID: commentParentID,
         User: {
           ID: userID
         }

@@ -16,15 +16,15 @@ export class BaseLinkProvider {
   }
 
   static GetBaseUrl() {
-   //return 'http://localhost/change.api/api';
+   return 'http://localhost/change.api/api';
     
-    return 'http://saeedansari-001-site6.itempurl.com/api';
+   // return 'http://saeedansari-001-site6.itempurl.com/api';
     //return 'http://localhost/Change.API/api';
   }
 
   static GetMediaURL(){
-    //return "http://localhost/Change.API/";
+    return "http://localhost/Change.API/";
     
-    return 'http://saeedansari-001-site2.itempurl.com/';  
+    //return 'http://saeedansari-001-site2.itempurl.com/';  
   }
 }

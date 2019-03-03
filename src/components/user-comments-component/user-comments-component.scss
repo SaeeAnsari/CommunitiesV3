@@ -14,11 +14,13 @@
     
     font-weight: 300;
     float: left;
+    width: 100%;
     
 }
 
 .text-botom{
     bottom: 0px;
+    
 }
 
 .image-object {
@@ -36,7 +38,18 @@
 
 
 .cardContainer{
-    display:inline-flex;
+    display:block;
+    //border : 1px solid black;
+    width: 100%;
+}
+
+.reply-container{
+    float:right;
+    width: 85%;
+}
+
+.reply-post{
+    display: inline-block;
 }
 
 .cardContainer > p {
@@ -96,7 +109,17 @@ ion-input{
 .comments_reply{
     
     font-size: 15px;
-    float: left;
+    
+    
+    width: 100%;
+    list-style: none;
+
+}
+
+
+.comment_day_difference{
+    float: right;
+    bottom: 0px;
 }
 
 .comments_reply > li {
@@ -120,5 +143,4 @@ ion-input{
 .comments  .media {
   margin-top: 5px;
 }
-
 

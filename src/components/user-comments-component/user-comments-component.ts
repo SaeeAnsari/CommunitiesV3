@@ -73,6 +73,7 @@ export class UserCommentsComponent implements OnInit {
   private eventAddress: string = "";
   private eventDate: string = "";
   private eventID: number;
+  private replyParentID: number;
 
   @Input() storyID: number;
 
@@ -94,6 +95,8 @@ export class UserCommentsComponent implements OnInit {
 
   loadComments() {
     this.comments = [];
+    
+
     if (this.storyID != null && this.storyID > 0) {
       this._commentService.GetStoryComments(this.storyID).subscribe(comm => {
         comm.forEach(element => {
@@ -107,10 +110,33 @@ export class UserCommentsComponent implements OnInit {
             storyID: element.StoryID,
             comment: element.Comments,
             timestamp: element.Timestamp,
+            commentParentID: element.CommentParentID,
+            displayTimeDiff: "",
             actions: {
               supportCount: element.CommentSummary.SupportCount > 0 && element.CommentSummary.SupportCount || ''
             }
+          }          
+
+          var tmpDate = new Date(comment.timestamp);
+          var nowDate = new Date();
+          
+          //if same day
+          if(tmpDate.toDateString() == nowDate.toDateString()){
+            var hours: number = nowDate.getHours() - tmpDate.getHours();
+            if(hours > 0){
+              comment.displayTimeDiff = hours + " hr";
+            }
+            else{
+              var minutes: number = nowDate.getMinutes() - tmpDate.getMinutes();
+              comment.displayTimeDiff = minutes + " min";  
+            }
           }
+          else {
+            var days = ((nowDate.valueOf() - tmpDate.valueOf())/86400000).toFixed();
+            comment.displayTimeDiff = days + " days";
+          }  
+          
+          //comment.toDisplayText
           this.comments.push(comment);
         });
       });
@@ -143,6 +169,12 @@ export class UserCommentsComponent implements OnInit {
     
   }
 
+  setReply(storyID: number, commentID: number){
+   this.replyParentID = commentID; 
+  }
+
+  
+
   launch() {
 
     if (this.storyExternalURL != "") {
@@ -154,12 +186,11 @@ export class UserCommentsComponent implements OnInit {
   postComment() {
     if (this.storyID != null && this.storyID > 0) {
 
-
-
       let userID = this._userService.GetLoggedInUserID();
-      this._commentService.PostComment(this.storyID, userID, this.commentPost).subscribe(ret => {
+      this._commentService.PostComment(this.storyID, userID, this.commentPost, this.replyParentID).subscribe(ret => {
 
         this.loadComments();
+        this.replyParentID = null;
         this.commentPost = "";
       });
 

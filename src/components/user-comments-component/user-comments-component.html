@@ -78,37 +78,61 @@
 
     <ul class="media-list">
       <div *ngFor="let comment of comments">
-
         <ion-card>
-
           <ion-card-content>
-            <div class="cardContainer">
+            
+            <div class="cardContainer" *ngIf="!comment.commentParentID" >
               <img class="image-object" src="{{comment.user.imageURL}}" alt="...">
               <div class="message-text text-botom">
-                <strong>{{comment.user.displayName}}</strong> {{comment.comment}}
-                <div class="">
+                <strong>{{comment.user.displayName}}</strong> {{comment.commentParentID}} -- {{comment.comment}}
+                <!--<div class="">-->
                   <ul class="comments_reply ">
                     <li>
                       <button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)"> {{comment.actions.supportCount}} Like</button>
-
-
-                      <li>
-                        <div class="text-botom">
-                          <a href="#">{{comment.timestamp | date:'medium'}}</a>
-                        </div>
-                      </li>
+                    </li>
+                    <li>
+                      <button type="button" ion-button clear (click)="setReply(comment.storyID, comment.id)">Reply</button>
+                    </li>
+                      <div class="text-botom comment_day_difference">  
+                        <li>
+                           <a href="#">{{comment.displayTimeDiff}}</a>
+                        </li>
+                    </div>
+                  </ul>
+                 
+                <!--</div>-->
+              </div>
+            
+              <div class="reply-container" *ngIf="comment.id == replyParentID">
+                <div class="col-lg-6">
+                  <div class="input-group post-comment">
+                    <ion-input type="text" value="" placeholder="Get in the Conversation..." [(ngModel)]="commentPost"></ion-input>
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" type="button" (click)="postComment()">Post</button>
+                    </span>
+                  </div>
+                </div>            
+              </div>
+            </div>
+            <div class="cardContainer reply-container" *ngIf="comment.commentParentID >0" >
+                <img class="image-object" src="{{comment.user.imageURL}}" alt="...">
+                <div class="message-text text-botom">
+                  <strong>{{comment.user.displayName}}</strong> reply-- {{comment.comment}}
+                  <ul class="comments_reply ">
+                    <li>
+                      <button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)"> {{comment.actions.supportCount}} Like</button>
+                    </li>
+                      <div class="text-botom comment_day_difference">  
+                        <li>
+                           <a href="#">{{comment.displayTimeDiff}}</a>
+                        </li>
+                    </div>
                   </ul>
                 </div>
               </div>
-            </div>
           </ion-card-content>
         </ion-card>
-
-
-   
-
       </div>
     </ul>
-  
   </div>
 </ion-content>
